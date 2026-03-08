@@ -7,7 +7,8 @@ export const siteConfig = {
   social: {
     email: "shidharr@andrew.cmu.edu",
     linkedin: "https://www.linkedin.com/in/shidhartho/",
-    twitter: "",
+    researchgate: "https://www.researchgate.net/profile/Shidhartho-Roy?ev=hdr_xprf",
+    scholar: "https://scholar.google.com/citations?user=ExMye5IAAAAJ&hl=en",
     github: "https://github.com/royShidhartho",
   },
   aboutMe:
@@ -73,6 +74,85 @@ export const siteConfig = {
         "Contributed to the development of an optode holder and sensor approach to improve near-infrared spectroscopy measurements in participants with dark, coarse, and curly hair.",
       link: "",
       skills: ["Biomedical device design", "NIRS", "3D printing", "Prototyping"],
+    },
+  ],
+  publications: [
+    {
+      title:
+        "Exploring the impact and influence of melanin on frequency-domain near-infrared spectroscopy measurements",
+      authors:
+        "S. Roy, J. Wu, J. Cao, J. Disu, S. Bharadwaj, E. Meinert-Spyker, P. Grover, J. M. Kainerstorfer, and S. Wood",
+      venue: "Journal of Biomedical Optics",
+      year: "2024",
+      abstract:
+        "This study quantifies how melanin affects frequency-domain near-infrared spectroscopy measurements. It shows that melanin can reduce signal quality and influence oxygenation-related estimates, with strong wavelength-dependent effects relevant to equitable optical sensing.",
+      link: "https://doi.org/10.1117/1.JBO.29.S3.S33310",
+    },
+    {
+      title:
+        "EEG based stress analysis using rhythm specific spectral feature for video game play",
+      authors:
+        "S. Roy, M. Islam, M. S. U. Yusuf, and N. Jahan",
+      venue: "Computers in Biology and Medicine",
+      year: "2022",
+      abstract:
+        "This paper presents an end-to-end electroencephalography-based stress analysis framework for video gameplay. It uses the beta-to-alpha ratio as a stress marker and examines how gameplay type, user characteristics, and post-game relaxation relate to stress responses.",
+      link: "https://doi.org/10.1016/j.compbiomed.2022.105849",
+    },
+    {
+      title:
+        "Metrics and enhancement strategies for grid resilience and reliability during natural disasters",
+      authors:
+        "E. Hossain, S. Roy, N. Mohammad, N. Nawar, and D. R. Dipta",
+      venue: "Applied Energy",
+      year: "2021",
+      abstract:
+        "This review examines how grid resilience and reliability are currently measured and argues that commonly used reliability indices are insufficient for natural-disaster resilience. It synthesizes resilience metrics and strategies for improving electric power systems under extreme events.",
+      link: "https://doi.org/10.1016/j.apenergy.2021.116709",
+    },
+    {
+      title:
+        "Dermo-DOCTOR: A framework for concurrent skin lesion detection and recognition using a deep convolutional neural network with end-to-end dual encoders",
+      authors:
+        "M. K. Hasan, S. Roy, C. Mondal, M. A. Alam, M. T. E. Elahi, A. Dutta, S. M. T. U. Raju, M. T. Jawad, and M. Ahmad",
+      venue: "Biomedical Signal Processing and Control",
+      year: "2021",
+      abstract:
+        "This work proposes an end-to-end dual-encoder convolutional neural network for simultaneous skin lesion detection and recognition. Feature fusion and joint decoding improve segmentation and classification performance on the ISIC benchmark datasets.",
+      link: "https://doi.org/10.1016/j.bspc.2021.102661",
+    },
+    {
+      title:
+        "Multi-class probabilistic atlas-based whole heart segmentation method in cardiac CT and MRI",
+      authors:
+        "T. K. Ghosh, M. K. Hasan, S. Roy, M. A. Alam, E. Hossain, and M. Ahmad",
+      venue: "IEEE Access",
+      year: "2021",
+      abstract:
+        "This paper develops a robust whole-heart segmentation pipeline for computed tomography and magnetic resonance imaging using a probabilistic atlas framework. The approach is aimed at accurate segmentation of cardiac substructures for downstream clinical analysis.",
+      link: "https://doi.org/10.1109/ACCESS.2021.3066767",
+    },
+    {
+      title:
+        "DRNet: Segmentation and localization of optic disc and Fovea from diabetic retinopathy image",
+      authors:
+        "M. K. Hasan, M. A. Alam, M. T. E. Elahi, S. Roy, and R. Martí",
+      venue: "Artificial Intelligence in Medicine",
+      year: "2021",
+      abstract:
+        "This study introduces DRNet, an encoder-decoder network for optic disc segmentation and optic disc and fovea localization in retinal images. A residual skip connection is used to recover spatial information lost during pooling and improve detection accuracy.",
+      link: "https://doi.org/10.1016/j.artmed.2020.102001",
+    },
+    {
+      title:
+        "Challenges of deep learning methods for COVID-19 detection using public datasets",
+      authors:
+        "M. K. Hasan, M. A. Alam, L. Dahal, S. Roy, S. R. Wahid, M. T. E. Elahi, R. Martí, and B. Khanal",
+      venue: "Informatics in Medicine Unlocked",
+      year: "2022",
+      abstract:
+        "This paper evaluates reported deep learning performance for COVID-19 detection from public imaging datasets and argues that many strong results are inflated by dataset bias and weak external validation. It emphasizes the need for independent test sets and stronger evaluation design.",
+      link: "https://doi.org/10.1016/j.imu.2022.100945",
     },
   ],
   experience: [
