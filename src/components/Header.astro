@@ -13,72 +13,88 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
   class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300"
 >
   <nav class="max-w-7xl mx-auto px-8 py-4">
-    <ul class="flex items-center gap-8 justify-center">
-      <li>
-        <a
-          href="#about"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          About
-        </a>
-      </li>
-      {
-        hasProjects && (
-          <li>
-            <a
-              href="#projects"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Projects
-            </a>
-          </li>
-        )
-      }
-      {
-        hasPublications && (
-          <li>
-            <a
-              href="#publications"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Publications
-            </a>
-          </li>
-        )
-      }
-      {
-        hasExperience && (
-          <li>
-            <a
-              href="#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Experience
-            </a>
-          </li>
-        )
-      }
-      {
-        hasEducation && (
-          <li>
-            <a
-              href="#education"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Education
-            </a>
-          </li>
-        )
-      }
-      <li>
-        <a
-          href="#contact"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          Contact
-        </a>
-      </li>
-    </ul>
+    <div class="flex items-center justify-between">
+      <ul class="flex items-center gap-8 justify-center mx-auto">
+        <li>
+          <a
+            href="/#about"
+            class="text-gray-700 hover:text-black transition-colors font-medium"
+          >
+            About
+          </a>
+        </li>
+
+        {
+          hasProjects && (
+            <li>
+              <a
+                href="/#projects"
+                class="text-gray-700 hover:text-black transition-colors font-medium"
+              >
+                Projects
+              </a>
+            </li>
+          )
+        }
+
+        {
+          hasPublications && (
+            <li>
+              <a
+                href="/#publications"
+                class="text-gray-700 hover:text-black transition-colors font-medium"
+              >
+                Publications
+              </a>
+            </li>
+          )
+        }
+
+        {
+          hasExperience && (
+            <li>
+              <a
+                href="/#experience"
+                class="text-gray-700 hover:text-black transition-colors font-medium"
+              >
+                Experience
+              </a>
+            </li>
+          )
+        }
+
+        {
+          hasEducation && (
+            <li>
+              <a
+                href="/#education"
+                class="text-gray-700 hover:text-black transition-colors font-medium"
+              >
+                Education
+              </a>
+            </li>
+          )
+        }
+
+        <li>
+          <a
+            href="/#contact"
+            class="text-gray-700 hover:text-black transition-colors font-medium"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <a
+        href="/blog"
+        class="ml-8 inline-flex items-center gap-1 rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-800 transition-colors duration-200 hover:bg-black hover:text-white whitespace-nowrap"
+        aria-label="Blog"
+      >
+        <span>Blog</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
   </nav>
 </header>
 

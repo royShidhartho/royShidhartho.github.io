@@ -1,0 +1,98 @@
+---
+import type { MarkdownInstance } from "astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import "../../styles/global.css";
+
+type Frontmatter = {
+  title: string;
+  description?: string;
+  pubDate: string;
+  author?: string;
+  image?: string;
+  tags?: string[];
+};
+
+export async function getStaticPaths() {
+  const posts = import.meta.glob<MarkdownInstance<Frontmatter>>("./*.md");
+
+  return Object.keys(posts).map((path) => {
+    const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "";
+
+    return {
+      params: { slug },
+      props: {
+        post: posts[path],
+      },
+    };
+  });
+}
+
+const { post } = Astro.props;
+const postModule = await post();
+const { Content, frontmatter } = postModule;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content={frontmatter.description ?? frontmatter.title}
+    />
+    <title>{frontmatter.title} - Shidhartho Roy</title>
+  </head>
+  <body>
+    <Header />
+
+    <main class="pt-24">
+      <article class="px-8 sm:px-12 md:px-16 lg:px-24 py-12 sm:py-16">
+        <div class="max-w-4xl mx-auto">
+          <a
+            href="/blog"
+            class="inline-flex items-center text-sm sm:text-base text-gray-600 transition-colors duration-200 hover:text-black"
+          >
+            ← Back to blog
+          </a>
+
+          <header class="mt-6">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+              {frontmatter.title}
+            </h1>
+
+            <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:text-base text-gray-600">
+              {frontmatter.author && <span>{frontmatter.author}</span>}
+              {frontmatter.pubDate && (
+                <span>
+                  {new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              )}
+            </div>
+
+            {
+              frontmatter.image && (
+                <img
+                  src={frontmatter.image}
+                  alt={frontmatter.title}
+                  class="mt-8 w-full rounded-2xl object-cover"
+                />
+              )
+            }
+          </header>
+
+          <div class="prose prose-lg max-w-none mt-10 prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-black prose-strong:text-gray-900">
+            <Content />
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <Footer />
+  </body>
+</html>
