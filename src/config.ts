@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Shidhartho Roy",
-  title: "PhD Student in Biomedical Engineering",
+  title: "PhD Student in Biomedical Engineering, Carnegie Mellon University",
   description:
     "Portfolio website of Shidhartho Roy, PhD student at Carnegie Mellon University working on EEG, near-infrared spectroscopy, pain biomarkers, and extended reality.",
   accentColor: "#1d4ed8",
