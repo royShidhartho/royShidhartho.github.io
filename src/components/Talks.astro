@@ -1,0 +1,157 @@
+---
+import { siteConfig } from "../config";
+
+type TalkItem = {
+    dateLabel: string;
+    sortDate: string;
+    title: string;
+    descriptor?: string;
+    type?: "Talk" | "Poster" | "Guest lecture" | "Workshop";
+    link?: string;
+};
+
+const talks: TalkItem[] = [
+    {
+        dateLabel: "April 2026",
+        sortDate: "2026-04-15",
+        title: "Pain day 2026",
+        descriptor: "Conference presentation",
+        type: "Poster",
+        link: "https://painday.pitt.edu/",
+    },
+    {
+        dateLabel: "Mar 2026",
+        sortDate: "2026-03-15",
+        title: "United States Association for the Study of Pain",
+        descriptor: "Conference presentation",
+        type: "Poster",
+        link: "https://www.usasp.org/2026annualmeeting",
+    },
+    {
+        dateLabel: "Mar 2026",
+        sortDate: "2026-03-15",
+        title: "Scholar to Scholar at Carnegie Mellon University",
+        descriptor:
+            "Invited presentation at Scholar to Scholar: Graduate Project Showcase (Carnegie Mellon University)",
+        type: "Talk",
+        link: "https://www.cmu.edu/graduate/news-and-events/scholar-to-scholar/index.html",
+    },
+    {
+        dateLabel: "Jan 2026",
+        sortDate: "2026-01-15",
+        title: "Conference Presentation at SPIE Photonics West",
+        descriptor: "Conference presentation",
+        type: "Talk",
+        link: "https://spie.org/conferences-and-exhibitions/photonics-west",
+    },
+    {
+        dateLabel: "Nov 2025",
+        sortDate: "2025-11-05",
+        title: "Conference Presentation at Neuroscience 2025",
+        descriptor: "Conference presentation",
+        type: "Poster",
+        link: "https://www.sfn.org/meetings/neuroscience-2025",
+    },
+    {
+        dateLabel: "Oct 2025",
+        sortDate: "2025-10-15",
+        title: "Conference Presentation at BMES 2025",
+        descriptor: "Conference presentation",
+        type: "Poster",
+        link: "https://www.bmes.org/2025/annualmeeting",
+    },
+];
+
+const sortedTalks = [...talks].sort(
+    (a, b) => new Date(b.sortDate).getTime() - new Date(a.sortDate).getTime()
+);
+---
+
+<section id="talks" class="p-8 sm:p-12 md:p-16 lg:p-24">
+    <div>
+        <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start"
+        >
+            <div class="lg:col-span-4">
+                <h2
+                    class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900"
+                >
+                    Talks & Presentations
+                </h2>
+                <div
+                    class="w-[75px] h-[5px] mt-2 rounded-full"
+                    style={`background-color: ${siteConfig.accentColor}`}
+                >
+                </div>
+
+                <p
+                    class="mt-6 max-w-md text-sm sm:text-base leading-relaxed text-gray-600"
+                >
+                    Selected talks, posters, guest lectures, and invited visits
+                    in reverse chronological order.
+                </p>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div
+                    class="talks-scroll max-h-[540px] overflow-y-auto rounded-2xl border border-gray-200 bg-white pr-1"
+                >
+                    <div>
+                        {
+                            sortedTalks.map((talk, index) => (
+                                <a
+                                    href={talk.link || "#"}
+                                    target={
+                                        talk.link && talk.link !== "#"
+                                            ? "_blank"
+                                            : undefined
+                                    }
+                                    rel={
+                                        talk.link && talk.link !== "#"
+                                            ? "noopener noreferrer"
+                                            : undefined
+                                    }
+                                    class={`group grid grid-cols-1 gap-3 px-5 py-5 sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-5 sm:px-6 ${
+                                        index !== sortedTalks.length - 1
+                                            ? "border-b border-gray-200"
+                                            : ""
+                                    } ${
+                                        talk.link && talk.link !== "#"
+                                            ? "transition-colors duration-200 hover:bg-gray-50"
+                                            : ""
+                                    }`}
+                                >
+                                    <div class="flex flex-col gap-2">
+                                        <p class="text-sm sm:text-base font-semibold text-gray-900">
+                                            {talk.dateLabel}
+                                        </p>
+                                    </div>
+
+                                    <div class="min-w-0 space-y-2">
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <h3 class="text-lg sm:text-xl font-semibold leading-snug text-gray-900">
+                                                {talk.title}
+                                            </h3>
+
+                                            {talk.type && (
+                                                <span class="rounded-full bg-gray-100 px-2.5 py-1 text-xs sm:text-sm text-gray-700">
+                                                    {talk.type}
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {talk.descriptor && (
+                                            <p class="text-sm sm:text-base leading-relaxed text-gray-600">
+                                                {talk.descriptor}
+                                            </p>
+                                        )}
+                                    </div>
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

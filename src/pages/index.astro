@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
+import Talks from "../components/Talks.astro";
 import About from "../components/About.astro";
 import Projects from "../components/Projects.astro";
 import Publications from "../components/Publications.astro";
@@ -20,16 +21,28 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={siteConfig.description} />
     <meta name="author" content="Shidhartho Roy" />
-    <meta name="keywords" content="Shidhartho Roy, Biomedical Engineering, EEG, NIRS, neuroimaging, Carnegie Mellon University, computational neuroscience" />
+    <meta
+      name="keywords"
+      content="Shidhartho Roy, Biomedical Engineering, EEG, NIRS, neuroimaging, Carnegie Mellon University, computational neuroscience"
+    />
 
-    <meta property="og:title" content="Shidhartho Roy - PhD Student in Biomedical Engineering" />
-    <meta property="og:description" content="Research on EEG, near-infrared spectroscopy, and physiological biomarkers of pain dysregulation." />
+    <meta
+      property="og:title"
+      content="Shidhartho Roy - PhD Student in Biomedical Engineering"
+    />
+    <meta
+      property="og:description"
+      content="Research on EEG, near-infrared spectroscopy, and physiological biomarkers of pain dysregulation."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://royShidhartho.github.io" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Shidhartho Roy - Research Portfolio" />
-    <meta name="twitter:description" content="PhD student working on neuroimaging and physiological biomarkers of pain dysregulation." />
+    <meta
+      name="twitter:description"
+      content="PhD student working on neuroimaging and physiological biomarkers of pain dysregulation."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,6 +55,7 @@ import "../styles/global.css";
     <Header />
     <section>
       <Hero />
+      <Talks />
       <About />
       <Projects />
       <Publications />

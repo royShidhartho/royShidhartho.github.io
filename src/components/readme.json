@@ -1,0 +1,196 @@
+{
+    "project": {
+        "name": "Shidhartho Roy Portfolio Website",
+        "type": "Personal academic portfolio",
+        "framework": "Astro",
+        "deployment": "GitHub Pages (royShidhartho.github.io)",
+        "status": "Active development"
+    },
+    "goals": {
+        "primary": [
+            "Showcase research, publications, and projects",
+            "Maintain a clean, minimalist academic aesthetic",
+            "Provide easy access to CV, publications, and contact",
+            "Support ongoing research updates via blog"
+        ],
+        "secondary": [
+            "Highlight collaborations and affiliations",
+            "Enable casual research updates and recommended readings",
+            "Ensure good discoverability via search engines"
+        ]
+    },
+    "design_principles": {
+        "style": "Minimalist, scientific, low-clutter",
+        "typography": "IBM Plex Mono",
+        "layout": "Grid-based, whitespace-heavy",
+        "interaction": "Subtle hover transitions, no flashy animations",
+        "color": {
+            "accent": "Defined in siteConfig.accentColor",
+            "usage": "Highlights, borders, emphasis elements"
+        },
+        "components": {
+            "buttons": "Bordered, minimal, hover to black background",
+            "icons": "Stroke-based except ResearchGate (fill-based)",
+            "sections": "Clearly separated vertical blocks"
+        }
+    },
+    "architecture": {
+        "pages": {
+            "homepage": "src/pages/index.astro",
+            "blog_index": "src/pages/blog/index.astro",
+            "blog_post": "src/pages/blog/[slug].astro"
+        },
+        "components": [
+            "Header.astro",
+            "Footer.astro",
+            "Hero.astro",
+            "About.astro",
+            "Projects.astro",
+            "Publications.astro",
+            "Experience.astro",
+            "Education.astro",
+            "Contact.astro",
+            "BlogCard.astro",
+            "FeaturedPost.astro"
+        ],
+        "content": {
+            "config": "src/config.ts",
+            "blog_posts": "src/pages/blog/*.md"
+        },
+        "assets": {
+            "images": "public/images/",
+            "cv": "public/files/",
+            "blog_images": "public/images/blog/"
+        }
+    },
+    "hero_section": {
+        "layout": "Two-column grid (text left, portrait right)",
+        "features": [
+            "Name and title",
+            "Affiliation buttons",
+            "Social icons",
+            "Portrait image"
+        ],
+        "portrait": {
+            "shape": "Circular",
+            "border": "Outer accent-colored ring",
+            "structure": "Image inside padded wrapper with border",
+            "adjustable_parameters": [
+                "max-width (image size)",
+                "padding (gap to outer ring)",
+                "border thickness",
+                "right padding for positioning"
+            ]
+        },
+        "known_adjustments": [
+            "Grid alignment fixed using items-start",
+            "Whitespace reduced by lowering min-height and padding",
+            "Portrait positioned via justify-end + padding"
+        ]
+    },
+    "navigation": {
+        "header": {
+            "type": "Fixed top navbar",
+            "internal_links": "Use /#section for cross-page navigation",
+            "blog_link": {
+                "position": "Top-right",
+                "style": "Button with border",
+                "indicator": "↗ (external-style indicator)"
+            }
+        },
+        "footer": {
+            "structure": "Left (identity + icons), Right (navigation)",
+            "blog_link": "Separated and styled as button with ↗"
+        },
+        "important_note": "All anchor links must use /#section to work across pages"
+    },
+    "blog_system": {
+        "type": "File-based Markdown blog",
+        "posts_location": "src/pages/blog/",
+        "structure": {
+            "featured_post": "Selected via slug (cca-consensus-maps)",
+            "listing": "Grid of BlogCard components",
+            "post_page": "Dynamic [slug].astro"
+        },
+        "frontmatter_schema": {
+            "title": "string",
+            "description": "string",
+            "pubDate": "ISO date string",
+            "author": "string",
+            "image": "string (path)",
+            "tags": "string[]"
+        },
+        "design": {
+            "featured": "Large two-column layout",
+            "cards": "Minimal bordered cards",
+            "interaction": "Hover emphasis, no heavy animation"
+        }
+    },
+    "publications": {
+        "type": "Curated subset",
+        "source": "Manual + Google Scholar link",
+        "interaction": "Hover expands abstract",
+        "strategy": "Highlight selected papers, link to Scholar for full list"
+    },
+    "contact": {
+        "method": "Formspree",
+        "features": [
+            "Hidden email (no mailto exposure)",
+            "Form submission endpoint",
+            "Honeypot field for spam protection"
+        ]
+    },
+    "seo": {
+        "implemented": [
+            "Meta tags",
+            "Open Graph tags",
+            "robots.txt",
+            "sitemap.xml"
+        ],
+        "strategy": [
+            "Link Google Scholar",
+            "Use consistent name across platforms",
+            "Maintain clean URL structure"
+        ]
+    },
+    "deployment": {
+        "platform": "GitHub Pages",
+        "method": "GitHub Actions",
+        "branch": "master",
+        "output": "Static (Astro build)",
+        "notes": [
+            "Repo must be public",
+            "Automatic deployment on push",
+            "No base path needed (root domain repo)"
+        ]
+    },
+    "workflow": {
+        "development_cycle": [
+            "Edit locally",
+            "Run npm run dev",
+            "Validate layout and links",
+            "Commit small changes",
+            "Push to deploy"
+        ],
+        "best_practices": [
+            "Separate content and layout changes",
+            "Use descriptive commit messages",
+            "Test responsiveness",
+            "Avoid direct edits on live branch without preview"
+        ]
+    },
+    "future_features": [
+        "Research updates section",
+        "Recommended reading section",
+        "Talks & Travel section",
+        "Improved blog categorization",
+        "Custom domain",
+        "Analytics integration"
+    ],
+    "known_issues_or_considerations": [
+        "Portrait alignment requires manual tuning",
+        "Anchor links require root prefix",
+        "Image paths must match public folder structure",
+        "TypeScript requires MarkdownInstance typing for glob imports"
+    ]
+}
