@@ -15,9 +15,12 @@ type Frontmatter = {
   tags?: string[];
 };
 
-const postModules = import.meta.glob<MarkdownInstance<Frontmatter>>("./*.md", {
-  eager: true,
-});
+const postModules = import.meta.glob<MarkdownInstance<Frontmatter>>(
+  "../../posts/*.md",
+  {
+    eager: true,
+  }
+);
 
 const posts = Object.entries(postModules)
   .map(([path, module]) => {
@@ -54,38 +57,56 @@ const remainingPosts = posts.filter((post) => post.slug !== featuredPost?.slug);
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="Research updates, ongoing projects, and recommended reading from Shidhartho Roy."
     />
-    <title>Blog - Shidhartho Roy</title>
+    <script is:inline>
+      (function () {
+        document.documentElement.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t)
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Blog — Shidhartho Roy</title>
   </head>
   <body>
     <Header />
 
-    <main class="pt-24">
-      <section class="px-8 sm:px-12 md:px-16 lg:px-24 py-12 sm:py-16">
-        <div class="max-w-7xl mx-auto">
-          <div class="mb-12 sm:mb-16">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900">
-              Blog
-            </h1>
-            <div class="w-[75px] h-[5px] mt-3 rounded-full bg-black"></div>
-            <p class="mt-6 max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed text-gray-600">
+    <main class="pt-28">
+      <section class="section pt-8">
+        <div class="shell">
+          <div class="section-head reveal">
+            <span class="overline">Writing</span>
+            <h1 class="section-title">Blog</h1>
+            <p class="lede mt-5 max-w-2xl">
               Research updates, ongoing work, and selected ideas worth sharing.
             </p>
           </div>
 
           {
             featuredPost ? (
-              <div class="mb-16 sm:mb-20">
+              <div class="reveal mb-14">
                 <FeaturedPost post={featuredPost} />
               </div>
             ) : (
-              <div class="rounded-2xl border border-gray-200 p-8">
-                <p class="text-lg text-gray-600">
-                  No blog posts yet. Add your first post in <code>src/pages/blog/</code>.
+              <div class="card p-8">
+                <p class="lede">
+                  No blog posts yet. Add your first post in{" "}
+                  <code>src/pages/blog/</code>.
                 </p>
               </div>
             )
@@ -93,11 +114,11 @@ const remainingPosts = posts.filter((post) => post.slug !== featuredPost?.slug);
 
           {
             remainingPosts.length > 0 && (
-              <section>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {remainingPosts.map((post) => <BlogCard post={post} />)}
-                </div>
-              </section>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 reveal">
+                {remainingPosts.map((post) => (
+                  <BlogCard post={post} />
+                ))}
+              </div>
             )
           }
         </div>

@@ -5,7 +5,8 @@ export const siteConfig = {
     "Portfolio website of Shidhartho Roy, PhD student at Carnegie Mellon University working on EEG, near-infrared spectroscopy, pain biomarkers, and extended reality.",
   accentColor: "#1d4ed8",
   social: {
-    email: "shidharr@andrew.cmu.edu",
+    // Email intentionally omitted — contact happens via the form (Contact.astro)
+    // to avoid exposing the address to scrapers.
     linkedin: "https://www.linkedin.com/in/shidhartho/",
     researchgate: "https://www.researchgate.net/profile/Shidhartho-Roy?ev=hdr_xprf",
     scholar: "https://scholar.google.com/citations?user=ExMye5IAAAAJ&hl=en",

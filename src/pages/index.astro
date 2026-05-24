@@ -17,7 +17,7 @@ import "../styles/global.css";
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={siteConfig.description} />
     <meta name="author" content="Shidhartho Roy" />
@@ -28,7 +28,7 @@ import "../styles/global.css";
 
     <meta
       property="og:title"
-      content="Shidhartho Roy - PhD Student in Biomedical Engineering"
+      content="Shidhartho Roy — PhD Student in Biomedical Engineering"
     />
     <meta
       property="og:description"
@@ -38,22 +38,38 @@ import "../styles/global.css";
     <meta property="og:url" content="https://royShidhartho.github.io" />
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Shidhartho Roy - Research Portfolio" />
+    <meta name="twitter:title" content="Shidhartho Roy — Research Portfolio" />
     <meta
       name="twitter:description"
       content="PhD student working on neuroimaging and physiological biomarkers of pain dysregulation."
     />
+
+    <!-- Apply theme before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        document.documentElement.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t)
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>{siteConfig.name} - {siteConfig.title}</title>
+    <title>{siteConfig.name} — {siteConfig.title}</title>
   </head>
   <body>
     <Header />
-    <section>
+    <main id="top">
       <Hero />
       <Talks />
       <About />
@@ -62,7 +78,7 @@ import "../styles/global.css";
       <Experience />
       <Education />
       <Contact />
-    </section>
+    </main>
     <Footer />
   </body>
 </html>

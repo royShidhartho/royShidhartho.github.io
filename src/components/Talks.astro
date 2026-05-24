@@ -1,6 +1,4 @@
 ---
-import { siteConfig } from "../config";
-
 type TalkItem = {
     dateLabel: string;
     sortDate: string;
@@ -65,93 +63,149 @@ const talks: TalkItem[] = [
 const sortedTalks = [...talks].sort(
     (a, b) => new Date(b.sortDate).getTime() - new Date(a.sortDate).getTime()
 );
+
+const COLLAPSE_AFTER = 5;
+const collapsible = sortedTalks.length > COLLAPSE_AFTER;
 ---
 
-<section id="talks" class="p-8 sm:p-12 md:p-16 lg:p-24">
-    <div>
-        <div
-            class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start"
-        >
-            <div class="lg:col-span-4">
-                <h2
-                    class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900"
-                >
-                    Talks & Presentations
-                </h2>
-                <div
-                    class="w-[75px] h-[5px] mt-2 rounded-full"
-                    style={`background-color: ${siteConfig.accentColor}`}
-                >
-                </div>
+<section id="talks" class="section">
+    <div class="shell">
+        <div class="section-head reveal">
+            <span class="overline">Activity</span>
+            <h2 class="section-title">Talks &amp; Presentations</h2>
+            <p class="lede mt-5 max-w-2xl">
+                Selected talks, posters, and invited presentations, in reverse
+                chronological order.
+            </p>
+        </div>
 
-                <p
-                    class="mt-6 max-w-md text-sm sm:text-base leading-relaxed text-gray-600"
-                >
-                    Selected talks, posters, guest lectures, and invited visits
-                    in reverse chronological order.
-                </p>
-            </div>
-
-            <div class="lg:col-span-8">
-                <div
-                    class="talks-scroll max-h-[540px] overflow-y-auto rounded-2xl border border-gray-200 bg-white pr-1"
-                >
-                    <div>
-                        {
-                            sortedTalks.map((talk, index) => (
-                                <a
-                                    href={talk.link || "#"}
-                                    target={
-                                        talk.link && talk.link !== "#"
-                                            ? "_blank"
-                                            : undefined
-                                    }
+        <div class="reveal" style="--d:.08s">
+            <div
+                id="talks-collapse"
+                class={`talks-collapse ${collapsible ? "is-collapsed" : ""}`}
+            >
+                <div id="talks-list">
+                    {
+                        sortedTalks.map((talk) => {
+                            const hasLink = talk.link && talk.link !== "#";
+                            const Tag = hasLink ? "a" : "div";
+                            return (
+                                <Tag
+                                    data-talk
+                                    href={hasLink ? talk.link : undefined}
+                                    target={hasLink ? "_blank" : undefined}
                                     rel={
-                                        talk.link && talk.link !== "#"
-                                            ? "noopener noreferrer"
-                                            : undefined
+                                        hasLink ? "noopener noreferrer" : undefined
                                     }
-                                    class={`group grid grid-cols-1 gap-3 px-5 py-5 sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-5 sm:px-6 ${
-                                        index !== sortedTalks.length - 1
-                                            ? "border-b border-gray-200"
-                                            : ""
-                                    } ${
-                                        talk.link && talk.link !== "#"
-                                            ? "transition-colors duration-200 hover:bg-gray-50"
-                                            : ""
-                                    }`}
+                                    class="group grid grid-cols-1 sm:grid-cols-[140px_1fr_auto] gap-x-6 gap-y-2 items-baseline py-5 border-t border-[var(--border)] transition-colors duration-200 hover:bg-[color-mix(in_srgb,var(--text)_3%,transparent)] -mx-4 px-4 rounded-lg"
                                 >
-                                    <div class="flex flex-col gap-2">
-                                        <p class="text-sm sm:text-base font-semibold text-gray-900">
-                                            {talk.dateLabel}
-                                        </p>
-                                    </div>
-
-                                    <div class="min-w-0 space-y-2">
-                                        <div class="flex flex-wrap items-center gap-2">
-                                            <h3 class="text-lg sm:text-xl font-semibold leading-snug text-gray-900">
-                                                {talk.title}
-                                            </h3>
-
-                                            {talk.type && (
-                                                <span class="rounded-full bg-gray-100 px-2.5 py-1 text-xs sm:text-sm text-gray-700">
-                                                    {talk.type}
-                                                </span>
-                                            )}
-                                        </div>
-
+                                    <span class="t-faint text-sm font-medium tabular-nums pt-0.5">
+                                        {talk.dateLabel}
+                                    </span>
+                                    <div>
+                                        <h3 class="text-lg font-semibold leading-snug transition-colors group-hover:text-[var(--accent)]">
+                                            {talk.title}
+                                        </h3>
                                         {talk.descriptor && (
-                                            <p class="text-sm sm:text-base leading-relaxed text-gray-600">
+                                            <p class="t-muted text-sm mt-1">
                                                 {talk.descriptor}
                                             </p>
                                         )}
                                     </div>
-                                </a>
-                            ))
-                        }
-                    </div>
+                                    {talk.type && (
+                                        <span class="chip justify-self-start sm:justify-self-end">
+                                            {talk.type}
+                                        </span>
+                                    )}
+                                </Tag>
+                            );
+                        })
+                    }
+                    <div class="border-t border-[var(--border)]"></div>
                 </div>
             </div>
+
+            {
+                collapsible && (
+                    <div class="list-toggle-wrap">
+                        <button
+                            id="talks-toggle"
+                            class="list-toggle"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="talks-collapse"
+                        >
+                            <span data-toggle-text>
+                                Show all {sortedTalks.length} talks
+                            </span>
+                            <svg
+                                class="chev"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                )
+            }
         </div>
     </div>
 </section>
+
+<script>
+    const collapse = document.getElementById("talks-collapse");
+    const list = document.getElementById("talks-list");
+    const toggle = document.getElementById("talks-toggle");
+
+    if (collapse && list && toggle) {
+        const VISIBLE = 5;
+        const rows = Array.from(list.querySelectorAll("[data-talk]"));
+        const label = toggle.querySelector("[data-toggle-text]");
+        const total = rows.length;
+        let collapsed = true;
+
+        const collapsedHeight = () => {
+            if (rows.length <= VISIBLE) return null;
+            const base = collapse.getBoundingClientRect().top;
+            const peek = rows[VISIBLE].getBoundingClientRect();
+            // 5 full rows + roughly half of the 6th, which the mask fades out
+            return Math.round(peek.top - base + peek.height * 0.5);
+        };
+
+        const render = () => {
+            if (collapsed) {
+                const h = collapsedHeight();
+                if (h != null) collapse.style.maxHeight = h + "px";
+                collapse.classList.add("is-collapsed");
+                toggle.setAttribute("aria-expanded", "false");
+                if (label) label.textContent = `Show all ${total} talks`;
+            } else {
+                collapse.style.maxHeight = collapse.scrollHeight + "px";
+                collapse.classList.remove("is-collapsed");
+                toggle.setAttribute("aria-expanded", "true");
+                if (label) label.textContent = "Show less";
+            }
+        };
+
+        render();
+        window.addEventListener("load", render);
+
+        toggle.addEventListener("click", () => {
+            collapsed = !collapsed;
+            render();
+        });
+
+        let rt;
+        window.addEventListener("resize", () => {
+            clearTimeout(rt);
+            rt = setTimeout(render, 150);
+        });
+    }
+</script>

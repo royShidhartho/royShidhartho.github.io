@@ -1,174 +1,505 @@
 ---
-import { siteConfig } from "../config";
+// Domain filter keys: pain | nirs | eeg | ml | cv | energy
+type Pub = {
+  title: string;
+  authors: string;
+  venue: string;
+  year: number;
+  type: "Journal" | "Conference" | "Preprint" | "Abstract";
+  domains: string[];
+  link?: string;
+  award?: string;
+  abstract: string;
+};
 
-const featuredPublications = [
-{
-  title:
-    "Exploring the impact and influence of melanin on frequency-domain near-infrared spectroscopy measurements",
-  authors:
-    "S Roy, J Wu, J Cao, J Disu, S Bharadwaj, E Meinert-Spyker, P Grover, J M Kainerstorfer, S Wood",
-  venue: "Journal of Biomedical Optics",
-  year: "2024",
-  link: "https://doi.org/10.1117/1.JBO.29.S3.S33310",
-  abstract: `
-<strong>Significance:</strong> Near-infrared spectroscopy (NIRS) is a non-invasive optical method that measures changes in hemoglobin concentration and oxygenation. The measured light intensity is susceptible to reduced signal quality due to the presence of melanin.
-
-<strong>Aim:</strong> We quantify the influence of melanin concentration on NIRS measurements taken with a frequency-domain near-infrared spectroscopy system using 690 and 830 nm.
-
-<strong>Approach:</strong> Using a forehead NIRS probe, we measured 35 healthy participants and investigated the correlation between melanin concentration indices, which were determined using a colorimeter, and several key metrics from the NIRS signal. These metrics include signal-to-noise ratio (SNR), two measurements of oxygen saturation (arterial oxygen saturation, SpO2, and tissue oxygen saturation, StO2), and optical properties represented by the absorption coefficient (μa) and the reduced scattering coefficient (μ′s).
-
-<strong>Results:</strong> We found a significant negative correlation between the melanin index and the SNR estimated in oxy-hemoglobin signals (rs = -0.489, p = 0.006) and SpO2 levels (rs = -0.413, p = 0.023). However, no significant changes were observed in the optical properties and StO2 (rs = -0.146, p = 0.44).
-
-<strong>Conclusions:</strong> We found that estimated SNR and SpO2 values show a significant decline and dependence on the melanin index, whereas StO2 and optical properties do not show any correlation with the melanin index.
-`,
-},
+// Reverse-chronological order.
+const publications: Pub[] = [
   {
     title:
-      "The potential of using a hemodynamic signal as a biomarker of cognitive load in sickle cell disease",
+      "Novel optode sensor development for functional near-infrared spectroscopy systems and its use in dark, coarse, and curly hair",
     authors:
-      "S Roy, N Mossazghi, E Bulger, J Lin, C Saber, B Shinn-Cunningham, J M Kainerstorfer, J Z Xu, S Wood",
-    venue: "SfNIRS",
-    year: "2024",
-    link: "https://fnirs.org/wp-content/uploads/2024/fNIRS2024BiennialMeeting/blitz/Su-088-768-Roy-Shidhartho.pdf",
-    abstract: "This work examines whether near-infrared spectroscopy can provide an objective hemodynamic marker of cognitive load in sickle cell disease. Using a Digit Symbol Substitution Task and prefrontal hemodynamic recordings, the study compared behavioral performance and task-evoked responses between participants with sickle cell disease and controls. Although behavioral differences were not significant, participants with sickle cell disease showed reduced hemodynamic responses during the task, suggesting altered neurovascular function that may not be captured by behavioral measures alone. These findings support the potential of hemodynamic signals as complementary biomarkers for cognitive dysfunction in sickle cell disease.",
+      "S. Roy, A. Duong, E. Meinert-Spyker, J. Cao, J. Kwasa, J. M. Kainerstorfer, P. Grover, S. Wood",
+    venue: "SPIE Photonics West — Clinical & Translational Neurophotonics",
+    year: 2026,
+    type: "Conference",
+    domains: ["nirs"],
+    link:
+      "https://spie.org/photonics-west/presentation/Novel-optode-sensor-development-for-functional-near-infrared-spectroscopy-systems/13834-19",
+    abstract:
+      "Development of a novel optode holder and sensor approach to improve functional near-infrared spectroscopy signal quality in participants with dark, coarse, and curly hair — work aimed at making optical neuroimaging more inclusive across hair types.",
+  },
+  {
+    title:
+      "Altered Detection–Pain Transition Profiles and Cortical Signatures of Sensitization in Sickle Cell Disease",
+    authors:
+      "S. Roy, J. Disu, N. Mossazghi, L. Abdelmohsen, E. Meinert-Spyker, S. Wood",
+    venue: "The Journal of Pain",
+    year: 2026,
+    type: "Abstract",
+    domains: ["pain", "eeg"],
+    abstract:
+      "An EEG study of how cortical responses shift across the transition from sensory detection to pain in sickle cell disease, identifying scalp-level signatures consistent with central sensitization in patients relative to controls.",
+  },
+  {
+    title:
+      "Exploring the impact and influence of melanin on frequency-domain near-infrared spectroscopy measurements",
+    authors:
+      "S. Roy, J. Wu, J. Cao, J. Disu, S. Bharadwaj, E. Meinert-Spyker, P. Grover, J. M. Kainerstorfer, S. Wood",
+    venue: "Journal of Biomedical Optics",
+    year: 2024,
+    type: "Journal",
+    domains: ["nirs"],
+    award: "JBO 2024 Top Paper",
+    link: "https://doi.org/10.1117/1.JBO.29.S3.S33310",
+    abstract:
+      "A human-subject study (N=35) quantifying how melanin concentration affects frequency-domain NIRS at 690 and 830 nm. Higher melanin index was associated with a significant decline in signal-to-noise ratio (~53% reduction) and arterial oxygen saturation estimates (~9% decrease), while tissue oxygen saturation and optical properties were largely unaffected — evidence with direct implications for equitable optical sensing.",
   },
   {
     title:
       "Assessing the Impact of Cognitive Load on Resting State Tissue Oxygen Saturation in Adult Patients with Sickle Cell Disease",
     authors:
-      "L Abdelmohsen, N Mossazghi, S Roy, J D K Disu, E Meinert-Spyker, et al.",
+      "L. Abdelmohsen, N. Mossazghi, S. Roy, J. D. K. Disu, E. Meinert-Spyker, et al.",
     venue: "Blood",
-    year: "2024",
-    link: "https://www.sciencedirect.com/science/article/pii/S0006497124066370",
-    abstract: "This study investigated how cognitive load affects resting cerebral tissue oxygen saturation in adults with sickle cell disease using frequency-domain near-infrared spectroscopy. Participants completed the Digit Symbol Substitution Test while prefrontal hemodynamics were measured before and after the task. Adults with sickle cell disease showed lower baseline tissue oxygen saturation than controls and a larger post-task decline, despite similar behavioral accuracy. These findings suggest that cognitive demands may further challenge cerebral oxygen delivery in sickle cell disease, revealing hemodynamic vulnerability that is not captured by task performance alone.",
+    year: 2024,
+    type: "Abstract",
+    domains: ["pain", "nirs"],
+    link:
+      "https://www.sciencedirect.com/science/article/pii/S0006497124066370",
+    abstract:
+      "Using frequency-domain NIRS during the Digit Symbol Substitution Test, adults with sickle cell disease showed lower baseline tissue oxygen saturation than controls and a larger post-task decline despite similar accuracy — suggesting cognitive demand further challenges cerebral oxygen delivery in SCD.",
   },
   {
     title:
-      "Metrics and enhancement strategies for grid resilience and reliability during natural disasters",
-    authors: "E Hossain, S Roy, N Mohammad, N Nawar, D R Dipta",
-    venue: "Applied Energy",
-    year: "2021",
-    link: "https://www.sciencedirect.com/science/article/abs/pii/S0306261921002294",
-    abstract: "The rise in power shutdowns triggered by severe weather due to deteriorating climate change has expedited the research in enhancing community resilience. Several researchers and policy-makers have contributed to the characterization and parameterization of energy resilience and reliability in particular, which requires accumulated and coordinated studies to underline the outcomes and reflect those in future works on grid resilience and reliability enhancement. The concept of both the resilience and reliability of the grid systems should be defined and distinguished so that the systems can be clearly comprehended, assessed, and operated to maintain flawless operation and ensure environmental sustainability. This paper meets the mentioned objectives to discuss grid resilience and reliability, their quantification metrics, and their enhancement techniques in detail. The paper also categorizes the United States into four tiers based on grid reliability and grid resilience using Monte Carlo Simulations and the discussed metrics. Two novel terminologies named resilience risk factor and grid infrastructure density are propounded in this work, which will serve as vital parameters to determine grid resilience.",
+      "The potential of using a hemodynamic signal as a biomarker of cognitive load in sickle cell disease",
+    authors:
+      "S. Roy, N. Mossazghi, E. Bulger, J. Lin, C. Saber, B. Shinn-Cunningham, J. M. Kainerstorfer, J. Z. Xu, S. Wood",
+    venue: "SfNIRS",
+    year: 2024,
+    type: "Abstract",
+    domains: ["pain", "nirs"],
+    link:
+      "https://fnirs.org/wp-content/uploads/2024/fNIRS2024BiennialMeeting/blitz/Su-088-768-Roy-Shidhartho.pdf",
+    abstract:
+      "Examines whether NIRS can provide an objective hemodynamic marker of cognitive load in sickle cell disease. Participants with SCD showed reduced task-evoked prefrontal hemodynamic responses during a Digit Symbol Substitution Task despite comparable behavior, supporting hemodynamic signals as complementary biomarkers of cognitive dysfunction.",
   },
   {
     title:
-      "Missing value imputation affects the performance of machine learning: A review and analysis of the literature (2010–2021)",
-    authors: "M K Hasan, M A Alam, S Roy, A Dutta, M T Jawad, S Das",
-    venue: "Informatics in Medicine Unlocked",
-    year: "2021",
-    link: "https://www.sciencedirect.com/science/article/pii/S2352914821002653",
-    abstract: "Recently, numerous studies have been conducted on Missing Value Imputation (MVI), intending the primary solution scheme for the datasets containing one or more missing attribute’s values. The incorporation of MVI reinforces the Machine Learning (ML) models’ performance and necessitates a systematic review of MVI methodologies employed for different tasks and datasets. It will aid beginners as guidance towards composing an effective ML-based decision-making system in various fields of applications. This article aims to conduct a rigorous review and analysis of the state-of-the-art MVI methods in the literature published in the last decade. Altogether, 191 articles, published from 2010 to August 2021, are selected for review using the well-known Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) technique. We summarize those articles with relevant definitions, theories, and analyses to provide essential information for building a precise decision-making framework. In addition, the evaluation metrics employed for MVI methods and ML-based classification models are also discussed and explored. Remarkably, the trends for the MVI method and its evaluation are also scrutinized from the last twelve years’ data. To come up with the conclusion, several ML-based pipelines, where the MVI schemes are incorporated for performance enhancement, are investigated and reviewed for many different datasets. In the end, informative observations and recommendations are addressed for future research directions and trends in related fields of interest.",
+      "Increased synchronization during a cognitive flexibility task in sickle cell disease",
+    authors:
+      "N. Mossazghi, S. Roy, J. Disu, L. Abdelmohsen, E. Meinert-Spyker, A. Titikhsha, S. Wood",
+    venue: "Organization for Human Brain Mapping (OHBM)",
+    year: 2024,
+    type: "Abstract",
+    domains: ["pain"],
+    abstract:
+      "A neuroimaging study reporting increased cortical synchronization during a cognitive-flexibility task in adults with sickle cell disease, contributing to the characterization of neural correlates of cognition in SCD.",
   },
   {
     title:
-      "DRNet: Segmentation and localization of optic disc and Fovea from diabetic retinopathy image",
-    authors: "M K Hasan, M A Alam, M T E Elahi, S Roy, R Martí",
-    venue: "Artificial Intelligence in Medicine",
-    year: "2021",
-    link: "https://www.sciencedirect.com/science/article/pii/S0933365720312665?casa_token=aHt7IGib2PYAAAAA:Q8QVAu2niqXwkTi8UqU2YFXn735Hl11hU4SD-Vd6Y6oHkvenOWNVmh69_KCP6JKEfSZrWYNxLHI",
-    abstract: "This work introduces DRNet, an end-to-end encoder-decoder network for optic disc segmentation and localization of the optic disc and fovea in retinal images. The model uses a residual skip connection to better preserve spatial information lost during pooling, improving performance on multiple public datasets. DRNet achieved strong segmentation and localization accuracy, outperforming prior methods on several benchmarks even with limited training data. These results support its use in more reliable computer-aided screening tools for automated retinal image analysis.",
+      "EEG based stress analysis using rhythm specific spectral feature for video game play",
+    authors: "S. Roy, M. Islam, M. S. U. Yusuf, N. Jahan",
+    venue: "Computers in Biology and Medicine",
+    year: 2022,
+    type: "Journal",
+    domains: ["eeg"],
+    link: "https://doi.org/10.1016/j.compbiomed.2022.105849",
+    abstract:
+      "An end-to-end EEG stress-analysis framework for video gameplay built on rhythm-specific spectral (beta-to-alpha ratio) features. Strategic games were the most stressful, and the study modeled gameplay stress adaptability and post-game relaxation, finding heightened stress in non-gamers and low-pitch music effective for relaxation.",
   },
   {
     title:
       "Challenges of deep learning methods for COVID-19 detection using public datasets",
     authors:
-      "M K Hasan, M A Alam, L Dahal, S Roy, S R Wahid, M T E Elahi, R Martí, B Khanal",
+      "M. K. Hasan, M. A. Alam, L. Dahal, S. Roy, S. R. Wahid, M. T. E. Elahi, R. Martí, B. Khanal",
     venue: "Informatics in Medicine Unlocked",
-    year: "2022",
-    link: "https://www.sciencedirect.com/science/article/pii/S2352914822000922",
-    abstract: "Since the COVID-19 pandemic, several research studies have proposed Deep Learning (DL)-based automated COVID-19 detection, reporting high cross-validation accuracy when classifying COVID-19 patients from normal or other common Pneumonia. Although the reported outcomes are very high in most cases, these results were obtained without an independent test set from a separate data source(s). DL models are likely to overfit training data distribution when independent test sets are not utilized or are prone to learn dataset-specific artifacts rather than the actual disease characteristics and underlying pathology. This study aims to assess the promise of such DL methods and datasets by investigating the key challenges and issues by examining the compositions of the available public image datasets and designing different experimental setups. A convolutional neural network-based network, called CVR-Net (COVID-19 Recognition Network), has been proposed for conducting comprehensive experiments to validate our hypothesis. The presented end-to-end CVR-Net is a multi-scale-multi-encoder ensemble model that aggregates the outputs from two different encoders and their different scales to convey the final prediction probability. Three different classification tasks, such as 2-, 3-, 4-classes, are designed where the train–test datasets are from the single, multiple, and independent sources. The obtained binary classification accuracy is 99.8% for a single train–test data source, where the accuracies fall to 98.4% and 88.7% when multiple and independent train–test data sources are utilized. Similar outcomes are noticed in multi-class categorization tasks for single, multiple, and independent data sources, highlighting the challenges in developing DL models with the existing public datasets without an independent test set from a separate dataset. Such a result concludes a requirement for a better-designed dataset for developing DL tools applicable in actual clinical settings. The dataset should have an independent test set; for a single machine or hospital source, have a more balanced set of images for all the prediction classes; and have a balanced dataset from several hospitals and demography. Our source codes and model are publicly available1 for the research community for further improvements.",
+    year: 2022,
+    type: "Journal",
+    domains: ["ml"],
+    link: "https://doi.org/10.1016/j.imu.2022.100945",
+    abstract:
+      "Argues that many reported deep-learning results for COVID-19 detection from public chest-imaging datasets are inflated by dataset bias and weak external validation. Using a multi-scale, multi-encoder CNN (CVR-Net), accuracy fell sharply (99.8% → 88.7%) as train/test data moved from a single source to independent sources, underscoring the need for independent test sets and better-designed datasets.",
+  },
+  {
+    title:
+      "Metrics and enhancement strategies for grid resilience and reliability during natural disasters",
+    authors: "E. Hossain, S. Roy, N. Mohammad, N. Nawar, D. R. Dipta",
+    venue: "Applied Energy",
+    year: 2021,
+    type: "Journal",
+    domains: ["energy"],
+    link: "https://doi.org/10.1016/j.apenergy.2021.116709",
+    abstract:
+      "A review and synthesis of how electric-grid resilience and reliability are quantified, arguing that common reliability indices are insufficient for natural-disaster resilience. It categorizes US regions into tiers via Monte Carlo simulation and proposes two new metrics — resilience risk factor and grid infrastructure density.",
   },
   {
     title:
       "Dermo-DOCTOR: A framework for concurrent skin lesion detection and recognition using a deep convolutional neural network with end-to-end dual encoders",
     authors:
-      "M K Hasan, S Roy, C Mondal, M A Alam, M T E Elahi, A Dutta, S M T U Raju, M T Jawad, M Ahmad",
+      "M. K. Hasan, S. Roy, C. Mondal, M. A. Alam, M. T. E. Elahi, A. Dutta, S. M. T. U. Raju, M. T. Jawad, M. Ahmad",
     venue: "Biomedical Signal Processing and Control",
-    year: "2021",
-    link: "https://www.sciencedirect.com/science/article/abs/pii/S1746809421002585",
-    abstract: `
-<strong>Background and Objective:</strong> Automated skin lesion analysis for simultaneous detection and recognition remains challenging due to inter-class homogeneity and intra-class heterogeneity, which limit the generalization capability of single convolutional neural network (CNN) models trained on small datasets.
-
-<br><br><strong>Methods:</strong> We propose Dermo-DOCTOR, an end-to-end deep CNN framework for simultaneous lesion detection and classification using a dual-encoder architecture. Feature maps from both encoders are fused channel-wise to create a fused feature representation that supports lesion segmentation through a decoding network. For recognition, features from both encoders and the fused representation are aggregated through fully connected layers to determine the final lesion class. The framework was trained and evaluated on the ISIC-2016 and ISIC-2017 benchmark datasets.
-
-<br><br><strong>Results:</strong> The model achieved mean intersection-over-union scores of 85.0% and 80.0% on the ISIC-2016 and ISIC-2017 test datasets, respectively. For lesion classification, the system obtained areas under the receiver operating characteristic curve of 0.98 and 0.91 on the two datasets. These results outperform several previously reported approaches for automated skin lesion detection and recognition.
-
-<br><br><strong>Conclusion:</strong> Dermo-DOCTOR demonstrates strong performance for both segmentation and recognition tasks, even with limited training data, suggesting its potential as a computer-aided diagnostic support tool for dermatological image analysis.
-`,
+    year: 2021,
+    type: "Journal",
+    domains: ["ml"],
+    link: "https://doi.org/10.1016/j.bspc.2021.102661",
+    abstract:
+      "An end-to-end dual-encoder CNN for simultaneous skin-lesion detection and recognition. Channel-wise fusion of the two encoders supports segmentation while aggregated features drive classification, reaching mIoU of 85%/80% and ROC-AUC of 0.98/0.91 on the ISIC-2016 and ISIC-2017 benchmarks.",
+  },
+  {
+    title:
+      "Multi-class probabilistic atlas-based whole heart segmentation method in cardiac CT and MRI",
+    authors: "T. K. Ghosh, M. K. Hasan, S. Roy, M. A. Alam, E. Hossain, M. Ahmad",
+    venue: "IEEE Access",
+    year: 2021,
+    type: "Journal",
+    domains: ["ml"],
+    link: "https://doi.org/10.1109/ACCESS.2021.3066767",
+    abstract:
+      "A robust whole-heart segmentation pipeline for cardiac CT and MRI using a multi-class probabilistic atlas with Bayesian inference and a multi-resolution registration pipeline to delineate cardiac substructures for downstream clinical analysis.",
+  },
+  {
+    title:
+      "DRNet: Segmentation and localization of optic disc and Fovea from diabetic retinopathy image",
+    authors: "M. K. Hasan, M. A. Alam, M. T. E. Elahi, S. Roy, R. Martí",
+    venue: "Artificial Intelligence in Medicine",
+    year: 2021,
+    type: "Journal",
+    domains: ["ml"],
+    link: "https://doi.org/10.1016/j.artmed.2020.102001",
+    abstract:
+      "DRNet is an encoder-decoder network for optic-disc segmentation and optic-disc/fovea localization in retinal images. A residual skip connection recovers spatial detail lost during pooling, improving accuracy over prior methods across multiple public datasets even with limited training data.",
+  },
+  {
+    title:
+      "Missing value imputation affects the performance of machine learning: A review and analysis of the literature (2010–2021)",
+    authors: "M. K. Hasan, M. A. Alam, S. Roy, A. Dutta, M. T. Jawad, S. Das",
+    venue: "Informatics in Medicine Unlocked",
+    year: 2021,
+    type: "Journal",
+    domains: ["ml"],
+    link:
+      "https://www.sciencedirect.com/science/article/pii/S2352914821002653",
+    abstract:
+      "A PRISMA-based systematic review of 191 articles (2010–2021) on missing-value imputation and its effect on machine-learning performance, summarizing methods, evaluation metrics, and trends, and offering recommendations for building reliable ML decision pipelines.",
+  },
+  {
+    title:
+      "Solar Energy in the United States: Development, Challenges and Future Prospects",
+    authors: "S. Tabassum, T. Rahman, A. U. Islam, S. Roy, S. Rahman, D. R. Dipta",
+    venue: "Energies",
+    year: 2021,
+    type: "Journal",
+    domains: ["energy"],
+    link: "https://www.mdpi.com/1996-1073/14/23/8142",
+    abstract:
+      "A review of the development, policy, and socioeconomic context of solar power in the United States, including a novel five-tier categorization of US states by solar prospects, alongside prevalent technologies and applications.",
+  },
+  {
+    title:
+      "CVR-Net: A deep convolutional neural network for coronavirus recognition from chest radiography images",
+    authors: "M. K. Hasan, M. A. Alam, M. T. E. Elahi, S. Roy, S. R. Wahid",
+    venue: "arXiv preprint",
+    year: 2020,
+    type: "Preprint",
+    domains: ["ml"],
+    link: "https://arxiv.org/abs/2007.11993",
+    abstract:
+      "CVR-Net is a multi-scale, multi-encoder ensemble CNN that aggregates outputs from two encoders across scales to recognize COVID-19 from chest radiography images, evaluated across 2-, 3-, and 4-class tasks.",
+  },
+  {
+    title:
+      "Efficient Approach to Detect Epileptic Seizure using Machine Learning Models for Modern Healthcare System",
+    authors: "T. I. Rohan, S. Roy, M. S. U. Yusuf, M. Islam",
+    venue: "IEEE Region 10 Symposium (TENSYMP)",
+    year: 2020,
+    type: "Conference",
+    domains: ["eeg", "ml"],
+    link: "https://ieeexplore.ieee.org/document/9230731/",
+    abstract:
+      "Compares machine-learning and deep-learning models for epileptic seizure detection. An artificial neural network reached ~98% test accuracy, outperforming an XGBoost baseline (~97%), demonstrating effective seizure classification for healthcare applications.",
+  },
+  {
+    title:
+      "Automatic Mass Classification in Breast Using Transfer Learning of Deep Convolutional Neural Network and Support Vector Machine",
+    authors: "M. K. Hasan, T. A. Aleef, S. Roy",
+    venue: "IEEE Region 10 Symposium (TENSYMP)",
+    year: 2020,
+    type: "Conference",
+    domains: ["ml"],
+    link: "https://ieeexplore.ieee.org/abstract/document/9230708",
+    abstract:
+      "Automatic classification of breast masses using transfer-learned deep CNN (VGG19) features with bagged-decision-tree feature selection and an SVM classifier, achieving an AUC of ~0.99 for distinguishing mass from non-mass.",
+  },
+  {
+    title:
+      "Frequency Impact Analysis with Music-Evoked Stimulated Potentials on Human Brain",
+    authors: "S. Roy, M. Islam, M. S. U. Yusuf, T. I. Rohan",
+    venue: "Innovations in Electronics and Communication Engineering (Springer)",
+    year: 2020,
+    type: "Conference",
+    domains: ["eeg"],
+    link: "https://link.springer.com/chapter/10.1007/978-981-15-3172-9_49",
+    abstract:
+      "Analyzes music-evoked EEG potentials across bass, medium, and treble genres (Bengali, English, and Tamil songs), using the beta-to-alpha power ratio to track shifts between relaxed and stressed mental states over listening duration.",
+  },
+  {
+    title:
+      "Efficient two stage approach to detect face liveness: Motion based and Deep learning based",
+    authors: "M. M. Hasan, S. Roy, M. S. U. Yusuf, T. I. Rohan",
+    venue:
+      "4th International Conference on Electrical Information and Communication Technology (ICEICT)",
+    year: 2019,
+    type: "Conference",
+    domains: ["cv"],
+    link: "https://ieeexplore.ieee.org/abstract/document/9068813",
+    abstract:
+      "A two-stage face anti-spoofing approach: motion-based eye-blink detection guards against photo attacks before a deep-learning classifier handles mask and video attacks. The method reached ~95% accuracy on the ROSE-Youtu liveness database in real-time webcam tests.",
+  },
+  {
+    title:
+      "Stress Identification during Sustained Mental Task and Brain Relaxation Modeling with β/α Band Power Ratio",
+    authors: "S. Roy, M. S. U. Yusuf, M. Islam",
+    venue:
+      "4th International Conference on Electrical Information and Communication Technology (ICEICT)",
+    year: 2019,
+    type: "Conference",
+    domains: ["eeg"],
+    link: "https://ieeexplore.ieee.org/abstract/document/9068748",
+    abstract:
+      "EEG-based stress identification during sustained mental tasks (reading, writing, arithmetic) using the beta-to-alpha (β/α) band-power ratio, where β/α ≥ 1.5 indicates stress, and a mathematical model of post-task brain relaxation.",
+  },
+  {
+    title: "Age based Mood Swing Analysis and Brain Mapping for Music Genre",
+    authors: "S. Roy, M. S. U. Yusuf, M. Islam, T. I. Rohan",
+    venue: "5th International Conference on Advances in Electrical Engineering (ICAEE)",
+    year: 2019,
+    type: "Conference",
+    domains: ["eeg"],
+    link: "https://ieeexplore.ieee.org/document/8975671/",
+    abstract:
+      "Analyzes age-based mood changes and cortical brain mapping in response to different music genres using power-spectral-density features of music-evoked EEG.",
   },
 ];
+
+const domains = [
+  { key: "pain", label: "Pain & SCD" },
+  { key: "nirs", label: "NIRS & optics" },
+  { key: "eeg", label: "EEG" },
+  { key: "ml", label: "Medical imaging & ML" },
+  { key: "cv", label: "Computer vision" },
+  { key: "energy", label: "Energy" },
+];
+
+const total = publications.length;
+const counts = Object.fromEntries(
+  domains.map((d) => [d.key, publications.filter((p) => p.domains.includes(d.key)).length])
+);
 
 const scholarProfileUrl =
   "https://scholar.google.com/citations?user=ExMye5IAAAAJ&hl=en";
 ---
 
-<section id="publications" class="p-8 sm:p-12 md:p-16 lg:p-24">
-  <div>
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-      <div class="lg:col-span-4">
-        <h2
-          class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900"
-        >
-          Publications
-        </h2>
-        <div
-          class="w-[75px] h-[5px] mt-2 rounded-full"
-          style={`background-color: ${siteConfig.accentColor}`}
-        >
-        </div>
-      </div>
+<section id="publications" class="section">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="overline">Publications</span>
+      <h2 class="section-title">Peer-reviewed &amp; conference work</h2>
+      <p class="lede mt-5 max-w-2xl">
+        {total} papers spanning neuroimaging, biomedical optics, and applied
+        machine learning. Filter by area, or expand any entry for a summary.
+      </p>
+    </div>
 
-      <div class="lg:col-span-8 space-y-5">
-        {
-          featuredPublications.map((publication) => (
-            <a
-              href={publication.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group block rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 transition-colors duration-200 hover:border-black hover:bg-gray-50"
-            >
-              <div class="space-y-3">
-                <div class="flex flex-col gap-2">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 transition-colors duration-200 group-hover:text-black">
-                    {publication.title}
-                  </h3>
+    <div class="reveal flex flex-wrap gap-2 mb-8" style="--d:.04s" role="group" aria-label="Filter publications by area">
+      <button class="filter-chip" data-filter="all" aria-pressed="true">
+        All <span class="cnt">{total}</span>
+      </button>
+      {
+        domains.map((d) => (
+          <button class="filter-chip" data-filter={d.key} aria-pressed="false">
+            {d.label} <span class="cnt">{counts[d.key]}</span>
+          </button>
+        ))
+      }
+    </div>
 
-                  <p class="text-sm sm:text-base text-gray-600">
-                    {publication.authors}
-                  </p>
-
-                  <p class="text-sm sm:text-base font-medium text-gray-700">
-                    {publication.venue} · {publication.year}
-                  </p>
-                </div>
-
-                <div
-                  class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out group-hover:max-h-[3000px] group-hover:opacity-100"
-                >
-                  <div class="pt-2">
-                    <div
-                        class="text-sm sm:text-base leading-relaxed text-gray-600 whitespace-normal"
-                        set:html={publication.abstract || "Abstract can be added here later."}
-                    ></div>
-                </div>
-                </div>
-              </div>
-            </a>
-          ))
-        }
-
-        <div class="mt-6">
-          <a
-            href={scholarProfileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center rounded-md border border-neutral-300 px-4 py-2 text-base sm:text-lg font-medium text-neutral-800 transition-colors duration-200 hover:bg-black hover:text-white"
+    <div id="pub-list" class="reveal" style="--d:.08s">
+      {
+        publications.map((pub) => (
+          <details
+            class="pub group border-t border-[var(--border)]"
+            data-domains={pub.domains.join(" ")}
           >
-            View full publication list on Google Scholar
-          </a>
-        </div>
-      </div>
+            <summary class="flex items-start gap-4 sm:gap-6 py-6 cursor-pointer list-none -mx-4 px-4 rounded-lg transition-colors hover:bg-[color-mix(in_srgb,var(--text)_3%,transparent)]">
+              <span class="serif t-faint text-base sm:text-lg leading-7 tabular-nums shrink-0 w-9 sm:w-11">
+                {pub.year}
+              </span>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <span class="chip">{pub.type}</span>
+                  {pub.award && (
+                    <span class="pub-award">★ {pub.award}</span>
+                  )}
+                </div>
+                <h3 class="text-lg sm:text-xl font-semibold leading-snug transition-colors group-open:text-[var(--accent)]">
+                  {pub.title}
+                </h3>
+                <p class="t-muted text-sm mt-1.5">{pub.authors}</p>
+                <p class="t-faint text-sm mt-1">
+                  <span class="t-accent font-medium">{pub.venue}</span>
+                </p>
+              </div>
+              <span class="shrink-0 mt-1 t-faint transition-transform duration-300 group-open:rotate-180">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </span>
+            </summary>
+            <div class="pl-0 sm:pl-[3.75rem] pb-7">
+              <div
+                class="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-5 text-[0.95rem] leading-relaxed t-muted"
+                set:html={pub.abstract}
+              />
+              {pub.link && (
+                <a
+                  href={pub.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="ul-link inline-flex items-center gap-1.5 mt-4 text-sm font-medium t-accent"
+                >
+                  Read the paper <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+
+    <div id="pub-toggle-wrap" class="list-toggle-wrap">
+      <button
+        id="pub-toggle"
+        class="list-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="pub-list"
+      >
+        <span data-toggle-text>Show all papers</span>
+        <svg
+          class="chev"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="mt-8 reveal">
+      <a
+        href={scholarProfileUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-ghost"
+      >
+        View full list on Google Scholar
+        <span aria-hidden="true">↗</span>
+      </a>
     </div>
   </div>
 </section>
+
+<script>
+  const chips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".filter-chip[data-filter]")
+  );
+  const list = document.getElementById("pub-list");
+  const toggleWrap = document.getElementById("pub-toggle-wrap");
+  const toggle = document.getElementById("pub-toggle");
+
+  if (chips.length && list && toggle && toggleWrap) {
+    const items = Array.from(
+      list.querySelectorAll<HTMLElement>(":scope > [data-domains]")
+    );
+    const label = toggle.querySelector("[data-toggle-text]");
+    const COLLAPSE_AFTER = 5;
+    let currentFilter = "all";
+    let expanded = false;
+
+    const matched = () =>
+      items.filter(
+        (it) =>
+          currentFilter === "all" ||
+          (it.getAttribute("data-domains") || "")
+            .split(" ")
+            .includes(currentFilter)
+      );
+
+    const apply = () => {
+      const m = matched();
+      // Collapse only applies to the unfiltered "All" view
+      const collapse =
+        currentFilter === "all" && !expanded && m.length > COLLAPSE_AFTER;
+
+      items.forEach((it) => {
+        it.hidden = true;
+        it.classList.remove("pub-peek");
+      });
+
+      m.forEach((it, i) => {
+        if (collapse && i > COLLAPSE_AFTER) {
+          it.hidden = true;
+        } else {
+          it.hidden = false;
+          if (collapse && i === COLLAPSE_AFTER) {
+            it.classList.add("pub-peek");
+            it.removeAttribute("open");
+          }
+        }
+      });
+
+      if (currentFilter === "all" && m.length > COLLAPSE_AFTER) {
+        toggleWrap.style.removeProperty("display");
+        toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+        if (label)
+          label.textContent = expanded
+            ? "Show less"
+            : `Show all ${m.length} papers`;
+      } else {
+        toggleWrap.style.display = "none";
+      }
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        currentFilter = chip.getAttribute("data-filter") || "all";
+        expanded = false;
+        chips.forEach((c) =>
+          c.setAttribute("aria-pressed", c === chip ? "true" : "false")
+        );
+        apply();
+      });
+    });
+
+    toggle.addEventListener("click", () => {
+      expanded = !expanded;
+      apply();
+    });
+
+    apply();
+  }
+</script>
