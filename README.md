@@ -1,187 +1,126 @@
-<img width="1943" height="1093" alt="image" src="https://github.com/user-attachments/assets/cc2ff955-17c2-48c7-81c8-479a0f061850" />
+![Portfolio preview](public/og-image.png)
 
-# DevPortfolio Template
+# Academic Portfolio — Astro + Tailwind
 
-A modern, minimalist portfolio template built with Astro and Tailwind CSS. Perfect for developers looking to showcase their skills, experience, and projects in a clean, professional way.
+A clean, modern, light/dark portfolio template for **researchers and academics**, built with Astro 5 and Tailwind CSS v4. It extends the developer-focused [DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) template with academic sections (Publications, Talks), a markdown blog, and a robust, **SEO + LLM-friendly** metadata layer out of the box.
 
-This was completely rebuilt from the ground up from V1. This template was built to be entirely ready to go with a quick config edit (see below) but also provides the ability to easily extend in whatever way you want.
+**Live example:** [royshidhartho.github.io](https://royshidhartho.github.io)
 
-This template also comes with `CLAUDE.md` and `.cursor/rules` files for easy integration with your existing AI workflows.
+> This repository doubles as one person's live site **and** a reusable template — the content you see is a working example. To make it yours, replace the content described in [Make it yours](#make-it-yours).
 
-> **📬 Connect & Share!**  
-> For questions and updates, feel free to reach out on [**X (Twitter)**](https://x.com/rfitzio).  
-> If you've built and published your personal site with this template, I'd love to see it! Send me a DM 🚀
+## Features
 
-## Preview
+- 🎓 **Academic-first sections** — Hero, Talks, About, Projects, Publications (with domain filters + expandable abstracts), Experience, Education, Contact.
+- 🌗 **Light/dark theme** — system-aware, persisted to `localStorage`, no flash of the wrong theme.
+- 🔎 **SEO + LLM ready** — a reusable `<Seo />` component, JSON-LD structured data (`Person`, `WebSite`, `BlogPosting`, `BreadcrumbList`), canonical URLs, Open Graph + Twitter cards, auto-generated sitemap, an AI-crawler-friendly `robots.txt`, and an `llms.txt` index. See [SEO](#seo--llm-discoverability).
+- ✍️ **Markdown blog** — drop a `.md` file in `src/posts/`; featured post + card grid handled for you.
+- 📭 **Privacy-conscious contact** — a [Formspree](https://formspree.io) form with a honeypot, so no email address is exposed to scrapers.
+- ♿ **No-JS friendly & accessible** — content renders without JavaScript; animations respect `prefers-reduced-motion`.
+- 🧩 **Conditional sections** — empty config arrays hide their section (and nav link) automatically.
 
-To view a live preview of the site, [click here](https://ryanfitzgerald.github.io/devportfolio/).
+## Tech stack
 
-## Built With
+- **[Astro 5](https://astro.build/)** — static site generator; every component is `.astro`.
+- **[Tailwind CSS v4](https://tailwindcss.com/)** — via the `@tailwindcss/vite` plugin (configured in `astro.config.mjs`; there is **no** `tailwind.config.js`). All tokens/classes live in `src/styles/global.css`.
+- **TypeScript** — for config and frontmatter types.
+- **Fonts** — [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk) for everything, [Fraunces](https://fonts.google.com/specimen/Fraunces) italic as a sparing editorial accent (loaded from Google Fonts).
+- **Icons** — inline SVG written directly in components (no icon library).
 
-- **[Astro](https://astro.build/)** - Static site generator for modern web apps
-- **[Tailwind CSS v4](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[Tabler Icons](https://tabler.io/icons)** - Free and open source icons
-- **TypeScript** - For type-safe configuration
+## Quick start
 
-## Updating the Template
+Use the green **“Use this template”** button on GitHub (recommended), or clone directly:
 
-### Configuration
-
-The template is designed to be easily customizable through the `src/config.ts` file. This single file controls:
-
-- **Personal Information**: Name, title, description
-- **Accent Color**: Primary color theme (changing this will change the accent color site wide)
-- **Social Links**: Email, LinkedIn, Twitter, GitHub (all optional)
-- **About Section**: Personal bio/description
-- **Skills**: List of technical skills
-- **Projects**: Project showcase with descriptions and links
-- **Experience**: Work history with bullet points
-- **Education**: Educational background and achievements
-
-If skills, projects, experience, or education are removed from the config, those sections will be hidden entirely.
-
-### Example structures
-
-Here's what the config data structure looks like for each section:
-
-#### Basic Information
-```typescript
-name: "Your Name",
-title: "Your Job Title",
-description: "Brief site description",
-accentColor: "#1d4ed8", // Hex color for theme
-```
-
-#### Social Links (all optional)
-```typescript
-social: {
-  email: "your-email@example.com",
-  linkedin: "https://linkedin.com/in/yourprofile",
-  twitter: "https://twitter.com/yourprofile", 
-  github: "https://github.com/yourusername",
-}
-```
-
-#### About Section
-```typescript
-aboutMe: "A paragraph describing yourself, your background, interests, and what you're passionate about. This appears in the About section of your portfolio."
-```
-
-#### Skills
-```typescript
-skills: ["JavaScript", "React", "Node.js", "Python", "AWS", "Docker"]
-```
-
-#### Projects
-```typescript
-projects: [
-  {
-    name: "Project Name",
-    description: "Brief description of what the project does and its impact",
-    link: "https://github.com/yourusername/project",
-    skills: ["React", "Node.js", "AWS"], // Technologies used
-  }
-]
-```
-
-#### Experience
-```typescript
-experience: [
-  {
-    company: "Company Name",
-    title: "Your Job Title",
-    dateRange: "Jan 2022 - Present",
-    bullets: [
-      "Led development of microservices architecture serving 1M+ users",
-      "Reduced API response times by 40% through optimization",
-      "Mentored team of 5 junior developers",
-    ],
-  }
-]
-```
-
-#### Education
-```typescript
-education: [
-  {
-    school: "University Name",
-    degree: "Bachelor of Science in Computer Science",
-    dateRange: "2014 - 2018",
-    achievements: [
-      "Graduated Magna Cum Laude with 3.8 GPA",
-      "Dean's List all semesters",
-      "President of Computer Science Club"
-    ]
-  }
-]
-```
-
-### Icons
-
-The template uses [Tabler Icons](https://tabler.io/icons) for all icons. If you wish to add more icons and have it look consistent with what's already there, you can browse through their extensive icon library.
-
-## Project Structure
-
-```
-devportfolio/
-├── public/
-│   └── favicon.svg          # Site favicon
-├── src/
-│   ├── components/          # Astro components
-│   │   ├── About.astro      # About section
-│   │   ├── Education.astro  # Education section
-│   │   ├── Experience.astro # Work experience section
-│   │   ├── Footer.astro     # Site footer
-│   │   ├── Header.astro     # Navigation header
-│   │   ├── Hero.astro       # Hero/intro section
-│   │   └── Projects.astro   # Projects showcase
-│   ├── pages/
-│   │   └── index.astro      # Main page layout
-│   ├── styles/
-│   │   └── global.css       # Global styles
-│   └── config.ts            # Site configuration
-├── astro.config.mjs         # Astro configuration
-├── package.json             # Project dependencies
-├── tailwind.config.js       # Tailwind configuration
-└── tsconfig.json            # TypeScript configuration
-```
-
-## Local Development
-
-If you'd like to run it locally:
-
-```
-git clone https://github.com/RyanFitzgerald/devportfolio.git
-cd devportfolio
+```bash
+git clone https://github.com/royShidhartho/royShidhartho.github.io.git
+cd royShidhartho.github.io
 npm install
+npm run dev        # dev server at http://localhost:4321
 ```
 
-After that, start up the Astro dev server with:
+Other commands:
+
+```bash
+npm run build      # production build to ./dist
+npm run preview    # preview the production build
+```
+
+There is no linter or test framework configured.
+
+## Make it yours
+
+Content lives in **three** places — this is the most important thing to know:
+
+1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `description`, `accentColor`, `social` links, `aboutMe`, `skills`, `projects`, `experience`, `education`. Removing/emptying a section array hides that section and its nav link automatically.
+2. **Hard-coded arrays inside components** — the **Talks** list lives in a `talks` array at the top of `src/components/Talks.astro`, and the **Publications** list lives in a `publications` array (plus a `domains` filter config) in `src/components/Publications.astro`. Edit those files directly.
+3. **`src/posts/*.md`** — blog posts. Frontmatter: `title`, `pubDate` (ISO date, used for sorting), and optional `description`, `author`, `image`, `tags`. The featured post on `/blog` is chosen by slug in `src/pages/blog/index.astro` (`featuredSlug`), falling back to the newest post.
+
+Also replace these example assets / settings:
+
+| What | Where |
+|------|-------|
+| Site origin (for canonical URLs + sitemap) | `site:` in `astro.config.mjs` |
+| CV PDF | `public/files/` (and the “Download CV” link) |
+| Portrait image | `public/images/blog/potrait_card.jpeg` (referenced in `Hero.astro` + `src/lib/seo.ts`) |
+| Favicon | `public/favicon.svg` |
+| Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
+| Contact form endpoint | the Formspree URL in `src/components/Contact.astro` |
+| Accent color | `accentColor` in `config.ts`, and `--accent` in `src/styles/global.css` |
+
+## SEO & LLM discoverability
+
+This template ships with a metadata layer designed for both search engines and AI answer engines:
+
+- **`src/components/Seo.astro`** — a single component that emits `<title>`, description, canonical link, full Open Graph + Twitter Card tags, and any JSON-LD passed to it. Every page feeds it props, so there's one source of truth.
+- **`src/lib/seo.ts`** — builders for [schema.org](https://schema.org) JSON-LD: `Person` + `WebSite` (home), `BlogPosting` + `BreadcrumbList` (posts).
+- **`@astrojs/sitemap`** — generates `sitemap-index.xml` automatically from your routes (requires `site` to be set in `astro.config.mjs`).
+- **`public/robots.txt`** — open to all crawlers, and explicitly welcomes AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …). Remove those lines if you'd rather *block* AI crawlers.
+- **`public/llms.txt`** — a curated markdown summary of who you are and your key links, an emerging convention for AI tools. Edit it to match your content.
+
+**Updating the social card:** `public/og-image.png` must be a static 1200×630 raster image (PNG/JPG — SVG isn't supported by most platforms). Replace it with your own; the included one was produced by rendering an HTML card to PNG.
+
+## Project structure
 
 ```
-npm run dev
+├── public/
+│   ├── files/                  # CV PDF
+│   ├── images/blog/            # portrait + post images
+│   ├── favicon.svg
+│   ├── og-image.png            # social share card (1200×630)
+│   ├── robots.txt              # AI-crawler-friendly
+│   └── llms.txt                # AI index
+├── src/
+│   ├── components/             # Astro components (Hero, Publications, Seo, …)
+│   ├── lib/
+│   │   └── seo.ts              # JSON-LD structured-data builders
+│   ├── pages/
+│   │   ├── index.astro         # home page (composes all sections)
+│   │   └── blog/
+│   │       ├── index.astro     # blog listing
+│   │       └── [slug].astro    # blog post page
+│   ├── posts/                  # markdown blog posts
+│   ├── styles/
+│   │   └── global.css          # design tokens + component classes
+│   └── config.ts               # site content
+├── astro.config.mjs            # Astro config (site URL, Tailwind, sitemap)
+└── CLAUDE.md                   # guidance for AI coding tools
 ```
 
 ## Deployment
 
-The template can be deployed to any static hosting service easily (and in most cases, completely free). Here are some options:
+The included GitHub Actions workflow (`.github/workflows/deploy.yml`) builds and deploys to **GitHub Pages** on every push to `master`.
 
-- To deploy with Netlify, [click here](https://docs.astro.build/en/guides/deploy/netlify/).
-- To deploy with Vercel, [click here](https://docs.astro.build/en/guides/deploy/vercel/).
-- To deploy with GitHub Pages, [click here](https://docs.astro.build/en/guides/deploy/github/).
-- To deploy with Cloudflare Pages, [click here](https://docs.astro.build/en/guides/deploy/cloudflare/).
-- To deploy with Render, [click here](https://docs.astro.build/en/guides/deploy/render/).
+To deploy your own copy to GitHub Pages:
 
-Want to deploy somewhere else? Find more guides [here](https://docs.astro.build/en/guides/deploy/).
+1. Name your repo `<your-username>.github.io` (for a root user site) and push.
+2. Set `site:` in `astro.config.mjs` to your Pages URL (e.g. `https://<your-username>.github.io`). For a *project* site served from a sub-path, also set `base:`.
+3. In the repo's **Settings → Pages**, set the source to **GitHub Actions**.
 
-## Changelog
+It's a static Astro build, so it also deploys cleanly to Netlify, Vercel, Cloudflare Pages, etc. — see the [Astro deployment guides](https://docs.astro.build/en/guides/deploy/).
 
-To view the changelog, see CHANGELOG.md.
+## Credits
+
+Forked from and built on top of **[DevPortfolio](https://github.com/RyanFitzgerald/devportfolio)** by [Ryan Fitzgerald](https://github.com/RyanFitzgerald), with academic sections, a light/dark redesign, and the SEO/LLM layer added.
 
 ## License
 
-This project is fully and completely MIT. See LICENSE.md.
-
-## Questions?
-
-Feel free to reach out on [X (Twitter)](https://x.com/rfitzio) if you have any questions or need help.
+[MIT](LICENSE.md). The original template's MIT copyright (Ryan Fitzgerald) is preserved per the license terms.

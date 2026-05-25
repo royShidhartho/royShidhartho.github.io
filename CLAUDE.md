@@ -2,8 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> ⚠️ **A full visual redesign is in progress (uncommitted).** Read **`HANDOFF.md`** first — it reflects the current state and supersedes details below that predate the redesign (e.g. blog posts now live in `src/posts/`, not `src/pages/blog/`).
-
 ## Project Overview
 
 Personal research portfolio for Shidhartho Roy (PhD student, Biomedical Engineering, CMU), forked from the Astro/Tailwind "DevPortfolio" template and extended with academic sections (Publications, Talks) and a markdown blog. Note that `README.md`, `.cursor/rules`, and `package.json` (`name: devportfolio`) still carry the original template's text — treat this CLAUDE.md as the authoritative description where they conflict.
@@ -33,7 +31,7 @@ This is the most important thing to know. The template's original "everything in
 1. **`src/config.ts`** (`siteConfig`) — the home page sections: `name`, `title`, `description`, `accentColor`, `social`, `aboutMe`, `skills`, `projects`, `publications`, `experience`, `education`. Edit content here, not in components.
    - `social` keys are `email`, `linkedin`, `researchgate`, `scholar`, `github` (the template's `twitter` was replaced).
 2. **Hardcoded inside `src/components/Talks.astro`** — the Talks & Presentations list is a `talks` array literal at the top of that component, *not* in config. To add/edit a talk, edit the component.
-3. **Markdown files in `src/pages/blog/*.md`** — blog posts. Each needs frontmatter: `title`, `pubDate` (used for sorting; ISO date string), and optionally `description`, `author`, `image`, `tags`.
+3. **Markdown files in `src/posts/*.md`** — blog posts (note: `src/posts/`, not `src/pages/blog/`, so Astro doesn't auto-route them as bare pages). Each needs frontmatter: `title`, `pubDate` (used for sorting; ISO date string), and optionally `description`, `author`, `image`, `tags`.
 
 ## Architecture
 
