@@ -107,6 +107,15 @@ a {
   text-decoration: none;
 }
 
+/* The base `a { color: inherit }` above is unlayered, so it would otherwise
+   beat the layered `.btn-primary` color (unlayered rules win over @layer ones)
+   and the primary button text would inherit the dark body color. Re-assert it
+   here, unlayered and at class specificity, so the primary button matches the
+   logo mark (--accent-contrast) in both light and dark themes. */
+.btn-primary {
+  color: var(--accent-contrast);
+}
+
 img {
   display: block;
   max-width: 100%;
