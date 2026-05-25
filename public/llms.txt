@@ -1,0 +1,32 @@
+# Shidhartho Roy
+
+> PhD student in Biomedical Engineering at Carnegie Mellon University. Research on EEG, near-infrared spectroscopy (NIRS / FD-NIRS), and physiological biomarkers of pain dysregulation — including pain in sickle cell disease and extended-reality paradigms for cognitive and sensory assessment.
+
+Shidhartho Roy works on neuroimaging and biomedical signal processing: electroencephalography (EEG), frequency-domain near-infrared spectroscopy (FD-NIRS), machine learning for biomedical signals, and equitable optical sensing (e.g., the effect of melanin and Afro-textured hair on NIRS). He is based at Carnegie Mellon University (CMU) and previously researched medical image computing at Khulna University of Engineering and Technology.
+
+## Profiles
+- [Google Scholar](https://scholar.google.com/citations?user=ExMye5IAAAAJ&hl=en): publications and citations
+- [ResearchGate](https://www.researchgate.net/profile/Shidhartho-Roy?ev=hdr_xprf): research profile
+- [LinkedIn](https://www.linkedin.com/in/shidhartho/): professional profile
+- [GitHub](https://github.com/royShidhartho): code and projects
+
+## Site
+- [Home / portfolio](https://royshidhartho.github.io/): bio, research, publications, talks, experience, education
+- [Blog](https://royshidhartho.github.io/blog/): research updates and technical write-ups
+- [CV (PDF)](https://royshidhartho.github.io/files/shidhartho-roy-cv.pdf): full curriculum vitae
+
+## Research areas
+- EEG-based biomarkers of pain dysregulation in sickle cell disease
+- Extended reality (XR) paradigms for neurophysiology and pain research
+- Frequency-domain near-infrared spectroscopy (FD-NIRS): cognitive load, oxygenation
+- Equitable optical sensing: melanin- and hair-related bias in NIRS, optode design
+- Medical image segmentation and machine learning
+
+## Selected publications
+- [Exploring the impact and influence of melanin on frequency-domain near-infrared spectroscopy measurements](https://doi.org/10.1117/1.JBO.29.S3.S33310): Journal of Biomedical Optics, 2024
+- [EEG based stress analysis using rhythm specific spectral feature for video game play](https://doi.org/10.1016/j.compbiomed.2022.105849): Computers in Biology and Medicine, 2022
+- [Metrics and enhancement strategies for grid resilience and reliability during natural disasters](https://doi.org/10.1016/j.apenergy.2021.116709): Applied Energy, 2021
+- [DRNet: Segmentation and localization of optic disc and Fovea from diabetic retinopathy image](https://doi.org/10.1016/j.artmed.2020.102001): Artificial Intelligence in Medicine, 2021
+
+## Contact
+- Via the contact form at https://royshidhartho.github.io/#contact (email intentionally not published)

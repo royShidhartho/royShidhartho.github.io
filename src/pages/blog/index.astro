@@ -4,6 +4,8 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import FeaturedPost from "../../components/FeaturedPost.astro";
 import BlogCard from "../../components/BlogCard.astro";
+import Seo from "../../components/Seo.astro";
+import { websiteSchema, breadcrumbSchema } from "../../lib/seo";
 import "../../styles/global.css";
 
 type Frontmatter = {
@@ -58,9 +60,16 @@ const remainingPosts = posts.filter((post) => post.slug !== featuredPost?.slug);
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Research updates, ongoing projects, and recommended reading from Shidhartho Roy."
+    <Seo
+      title="Blog — Shidhartho Roy"
+      description="Research updates, ongoing projects, and recommended reading from Shidhartho Roy."
+      jsonLd={[
+        websiteSchema(Astro.site),
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog/" },
+        ], Astro.site),
+      ]}
     />
     <script is:inline>
       (function () {
@@ -81,7 +90,6 @@ const remainingPosts = posts.filter((post) => post.slug !== featuredPost?.slug);
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Blog — Shidhartho Roy</title>
   </head>
   <body>
     <Header />

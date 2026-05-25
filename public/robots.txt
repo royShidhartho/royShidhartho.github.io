@@ -1,4 +1,32 @@
+# Shidhartho Roy — research portfolio
+# Open to all crawlers, including AI/LLM answer engines (welcomed intentionally).
+
 User-agent: *
 Allow: /
 
-Sitemap: https://royShidhartho.github.io/sitemap.xml
+# Major AI / LLM crawlers — explicitly allowed for discoverability.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://royshidhartho.github.io/sitemap-index.xml

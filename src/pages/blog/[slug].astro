@@ -2,6 +2,8 @@
 import type { MarkdownInstance } from "astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import Seo from "../../components/Seo.astro";
+import { blogPostingSchema, breadcrumbSchema } from "../../lib/seo";
 import "../../styles/global.css";
 
 type Frontmatter = {
@@ -24,15 +26,26 @@ export async function getStaticPaths() {
     return {
       params: { slug },
       props: {
+        slug,
         post: posts[path],
       },
     };
   });
 }
 
-const { post } = Astro.props;
+const { slug, post } = Astro.props;
 const postModule = await post();
 const { Content, frontmatter } = postModule;
+
+const postMeta = {
+  slug,
+  title: frontmatter.title,
+  description: frontmatter.description,
+  pubDate: frontmatter.pubDate,
+  author: frontmatter.author,
+  image: frontmatter.image,
+  tags: frontmatter.tags,
+};
 
 const formattedDate = frontmatter.pubDate
   ? new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
@@ -48,9 +61,21 @@ const formattedDate = frontmatter.pubDate
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content={frontmatter.description ?? frontmatter.title}
+    <Seo
+      title={`${frontmatter.title} — Shidhartho Roy`}
+      description={frontmatter.description ?? frontmatter.title}
+      type="article"
+      publishedTime={frontmatter.pubDate}
+      tags={frontmatter.tags}
+      image={frontmatter.image || undefined}
+      jsonLd={[
+        blogPostingSchema(postMeta, Astro.site),
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog/" },
+          { name: frontmatter.title, path: `/blog/${slug}/` },
+        ], Astro.site),
+      ]}
     />
     <script is:inline>
       (function () {
@@ -71,7 +96,6 @@ const formattedDate = frontmatter.pubDate
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>{frontmatter.title} — Shidhartho Roy</title>
   </head>
   <body>
     <Header />
