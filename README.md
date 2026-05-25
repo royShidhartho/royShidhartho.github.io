@@ -48,9 +48,22 @@ There is no linter or test framework configured.
 
 ## Make it yours
 
+This template is built to be personalized **with an AI coding assistant** (Claude Code, Cursor, Copilot, etc.). The fastest path:
+
+1. Open the project in your assistant.
+2. Paste this kickoff prompt:
+
+   > Read `SETUP.md` and `CLAUDE.md`, then help me make this portfolio my own. Ask me for my details, generate a personalized to-do checklist, and make the edits for me as we go.
+
+3. Answer its questions — it fills in your content, replaces the example assets, and ticks off the list as it goes.
+
+The full assistant protocol lives in **[`SETUP.md`](SETUP.md)** (interview → checklist → edits → verify). Claude Code also loads `CLAUDE.md` automatically for architecture context.
+
+### Prefer to do it by hand?
+
 Content lives in **three** places — this is the most important thing to know:
 
-1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `description`, `accentColor`, `social` links, `aboutMe`, `skills`, `projects`, `experience`, `education`. Removing/emptying a section array hides that section and its nav link automatically.
+1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `description`, `social` links, `aboutMe`, `skills`, `projects`, `experience`, `education`. Removing/emptying a section array hides that section and its nav link automatically. (Note: `config.ts` also contains `publications` and `accentColor`, but both are currently unused — see the rows below.)
 2. **Hard-coded arrays inside components** — the **Talks** list lives in a `talks` array at the top of `src/components/Talks.astro`, and the **Publications** list lives in a `publications` array (plus a `domains` filter config) in `src/components/Publications.astro`. Edit those files directly.
 3. **`src/posts/*.md`** — blog posts. Frontmatter: `title`, `pubDate` (ISO date, used for sorting), and optional `description`, `author`, `image`, `tags`. The featured post on `/blog` is chosen by slug in `src/pages/blog/index.astro` (`featuredSlug`), falling back to the newest post.
 
@@ -64,7 +77,8 @@ Also replace these example assets / settings:
 | Favicon | `public/favicon.svg` |
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
 | Contact form endpoint | the Formspree URL in `src/components/Contact.astro` |
-| Accent color | `accentColor` in `config.ts`, and `--accent` in `src/styles/global.css` |
+| Accent color | `--accent` (and `--accent-2`, plus the dark-theme values) in `src/styles/global.css` — **not** `config.ts`'s unused `accentColor` |
+| Publications | the `publications` array in `src/components/Publications.astro` — **not** `config.ts`'s unused `publications` |
 
 ## SEO & LLM discoverability
 

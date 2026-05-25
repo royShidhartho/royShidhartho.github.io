@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal research portfolio for Shidhartho Roy (PhD student, Biomedical Engineering, CMU), forked from the Astro/Tailwind "DevPortfolio" template and substantially redesigned into a modern, light/dark, editorial layout with academic sections (Publications, Talks) and a markdown blog. The repo also doubles as a reusable template — see `README.md`. Note that `.cursor/rules` and `package.json` (`name: devportfolio`) still carry original-template text; treat this file and `README.md` as authoritative where they conflict.
 
+> **Setting this up as a new user?** If you're an AI assistant helping someone turn this template into *their own* portfolio, follow **`SETUP.md`** — it's the step-by-step onboarding protocol (interview → checklist → edits → verify). This `CLAUDE.md` describes the current example content (the original author's); `SETUP.md` tells you what to replace.
+
 ## Tech Stack
 
 - **Astro 5** static site generator; all components in `.astro`.
