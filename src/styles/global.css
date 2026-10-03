@@ -216,6 +216,23 @@
 .home-main {
   min-width: 0;
 }
+/* 404 page: the same card, one column */
+.home-card.notfound {
+  display: block;
+}
+.notfound p {
+  margin: 0 0 14px;
+  max-width: 70ch;
+}
+.notfound-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  font-weight: 500;
+}
 .sidebar {
   min-width: 0;
   display: flex;

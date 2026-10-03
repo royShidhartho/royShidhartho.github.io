@@ -49,6 +49,7 @@ Content lives in two places (plus the archived blog):
 ## Architecture
 
 - **Home page** (`src/pages/index.astro`): `Header` (with `home` prop), then one `.home-card` containing `Sidebar` (portrait, CV, socials, affiliations, `Talks`) and a main column of `Bio`, `Research`, `Publications`, `Experience`, `Education`, `Skills`; then `Footer`. Single page, no section nav.
+- **404 page** (`src/pages/404.astro`): same header, card, and footer with links home; `<Seo noindex />` emits `robots: noindex` instead of a canonical link. GitHub Pages serves it for any unknown path, including old `/blog/…` links.
 - **Conditional rendering**: Research, Publications, Experience, Education, and Skills each render nothing when their data is empty.
 - **Pure logic lives in `src/lib/`** (`inline.ts`, `research.ts`, `publications.ts`) and is unit-tested with `npm test` (`node --test`). Components render its output with `set:html` only for strings those helpers escaped.
 - **Video**: `VideoDialog.astro` is a shared native `<dialog>`; any `a[data-video]` opens it, and its `href` is the no-JS fallback.

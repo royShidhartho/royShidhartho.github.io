@@ -20,6 +20,8 @@ interface Props {
   tags?: string[];
   /** schema.org objects to inject as <script type="application/ld+json">. */
   jsonLd?: Record<string, unknown>[];
+  /** Keep the page out of search results (e.g. the 404 page); also drops the canonical link. */
+  noindex?: boolean;
 }
 
 const {
@@ -30,6 +32,7 @@ const {
   publishedTime,
   tags = [],
   jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
 const site = Astro.site ?? new URL("https://shidhartho.com");
@@ -57,7 +60,7 @@ const serialize = (obj: unknown) => JSON.stringify(obj).replace(/</g, "\\u003c")
 <meta name="description" content={description} />
 <meta name="author" content={siteConfig.name} />
 <meta name="keywords" content={keywords} />
-<link rel="canonical" href={canonical} />
+{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
 
 {/* Open Graph */}
 <meta property="og:title" content={title} />
