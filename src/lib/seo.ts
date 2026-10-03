@@ -69,6 +69,10 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
       },
     ],
     knowsAbout: [
+      "Virtual reality",
+      "Human-computer interaction",
+      "Translational biomedical devices",
+      "Wearable physiological sensing",
       "Electroencephalography (EEG)",
       "Near-infrared spectroscopy (NIRS)",
       "Frequency-domain near-infrared spectroscopy",
@@ -76,7 +80,6 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
       "Neuroimaging",
       "Biomedical signal processing",
       "Machine learning",
-      "Extended reality",
       "Sickle cell disease",
     ],
     // LinkedIn / ResearchGate / Google Scholar / GitHub (no email).
