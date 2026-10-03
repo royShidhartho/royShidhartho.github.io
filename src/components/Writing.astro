@@ -1,0 +1,45 @@
+---
+import type { MarkdownInstance } from "astro";
+
+type Frontmatter = { title?: string; pubDate?: string };
+
+const modules = import.meta.glob<MarkdownInstance<Frontmatter>>("../posts/*.md", { eager: true });
+
+const posts = Object.entries(modules)
+  .map(([path, mod]) => ({
+    slug: path.split("/").pop()?.replace(/\.md$/, "") ?? "",
+    title: mod.frontmatter.title ?? "Untitled Post",
+    pubDate: mod.frontmatter.pubDate ?? "",
+  }))
+  .filter((post) => post.slug !== "")
+  .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+  .slice(0, 5);
+
+const formatDate = (date: string) =>
+  date
+    ? new Date(date).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" })
+    : "";
+---
+
+{
+  posts.length > 0 && (
+    <section id="writing" class="home-section">
+      <h2 class="section-h">
+        Writing <span class="section-note">from the blog</span>
+      </h2>
+      <ul class="posts">
+        {posts.map((post) => (
+          <li>
+            <div class="when">{formatDate(post.pubDate)}</div>
+            <a href={`/blog/${post.slug}/`} target="_blank" rel="noopener">
+              {post.title} <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="all-posts" href="/blog/" target="_blank" rel="noopener">
+        All posts <span aria-hidden="true">↗</span>
+      </a>
+    </section>
+  )
+}
