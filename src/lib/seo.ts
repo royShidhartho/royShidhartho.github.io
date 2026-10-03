@@ -7,7 +7,7 @@ import { siteConfig } from "../config";
  * schema.org markup more reliably than prose. Each builder returns a plain
  * object that <Seo /> serializes into a <script type="application/ld+json">.
  *
- * Privacy: email is intentionally never included (see config.ts / HANDOFF.md).
+ * Privacy: email is intentionally never included (see config.ts).
  */
 
 const FALLBACK_SITE = "https://royshidhartho.github.io";

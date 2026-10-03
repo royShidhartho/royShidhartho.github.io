@@ -75,7 +75,7 @@ GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pag
 
 ## Conventions when editing
 
-- Style with Tailwind utility classes; keep the formal academic aesthetic with no animation, the Hanken Grotesk / Fraunces type pairing, and existing spacing/responsive patterns. Use the CSS color variables so both light and dark themes work.
+- Style with the component classes defined in `src/styles/global.css` (`@layer components`); the markup uses no Tailwind utility classes. Keep the formal academic aesthetic with no animation, the Hanken Grotesk / Fraunces type pairing, and existing spacing/responsive patterns. Use the CSS color variables so both light and dark themes work.
 - Add new icons as inline SVG consistent with existing components rather than pulling in a library.
 - Keep components presentational, reading from `siteConfig` (or, for Talks, its in-component array).
 - New pages should include the no-flash theme `<script>` and use `<Seo />` for head metadata.
