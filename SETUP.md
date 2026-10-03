@@ -22,7 +22,7 @@ Ask for the following **in one batched message** (not one question at a time). O
 - **Bio** — a few short paragraphs (offer to draft them from their CV/LinkedIn)
 - **Affiliations** — labs or groups to link in the sidebar
 - **Skills / areas of expertise**, grouped under labels
-- **Social links** — any of: LinkedIn, GitHub, Google Scholar, ResearchGate, ORCID, X/Twitter, personal website. (Ask explicitly whether they want their **email shown** — default is hidden.)
+- **Social links** — the sidebar supports LinkedIn, GitHub, Google Scholar, and ResearchGate. Any other platform (ORCID, X/Twitter, a personal website) needs an icon block added to `src/components/Sidebar.astro`; say so if they ask for one. (Ask explicitly whether they want their **email shown** — default is hidden.)
 - **Academic or not?** — if not academic, they likely want to **remove the Research and Talks sections** (and may not need a blog).
 - **Research projects** (if academic) — title, summary, year, citation, and any materials (paper, PDF, poster, slides, code, data), video, or BibTeX; ask which up to three to feature — or a CV/Scholar link to pull from
 - **Talks** (if academic)
@@ -38,13 +38,13 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 ```markdown
 - [ ] Identity, subtitle, bio, affiliations → src/config.ts
 - [ ] Skills, experience, education → src/config.ts
-- [ ] Social links → src/config.ts (+ src/lib/seo.ts sameAs)
+- [ ] Social links → src/config.ts (sameAs in JSON-LD follows automatically; a new platform also needs an icon in src/components/Sidebar.astro)
 - [ ] Research projects, featured picks, materials, videos → siteConfig.research in src/config.ts
 - [ ] Talks → src/components/Talks.astro   (or remove section)
 - [ ] Blog posts → src/posts/*.md           (or remove blog)
 - [ ] Replace CV / portrait / favicon / og-image → public/
 - [ ] Set site URL → astro.config.mjs
-- [ ] Accent color → src/styles/global.css
+- [ ] Accent color → --accent, --accent-soft, --mark in src/styles/global.css (light and dark blocks)
 - [ ] SEO: titles, keywords, Person schema, llms.txt
 - [ ] Rewrite CLAUDE.md + README live-example link for the new owner
 - [ ] npm run build → verify
@@ -55,7 +55,8 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 **Content lives in three places** (the single most important thing — see `CLAUDE.md`):
 
 1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio`, `affiliations`, `skills` (labeled groups), `research`, `experience`, `education`.
-   - ⚠️ `social` has **no `email` key** by default (privacy). Add one only if the user opts in — and warn that it exposes the address to scrapers.
+   - `social` supports four keys: `linkedin`, `researchgate`, `scholar`, `github`. `Sidebar.astro` hardcodes one icon block per key, so a new key renders nothing until you add a matching block there.
+   - ⚠️ `social` has **no `email` key** by default (privacy). `src/lib/seo.ts` builds JSON-LD `sameAs` from `Object.values(siteConfig.social)`, so an `email` key would be published in the structured data as well as exposed to scrapers. Add one only if the user opts in, warn them of both, and add Sidebar markup if they want it shown.
    - `bio` is an array of paragraphs; inline marks are `[label](url)`, `==highlight==`, and `**bold**`. `authorName` (e.g. "S. Roy") is bolded in research citation author lists.
    - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the Featured strip (max 3); `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
    - Empty `research`/`experience`/`education`/`skills` arrays auto-hide those sections (there is no nav).
@@ -73,14 +74,14 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 
 **Site-wide settings:**
 - `astro.config.mjs` → set `site` to the user's final URL (lowercase). For a **project** (sub-path) site, also set `base`.
-- `src/styles/global.css` → `--accent` (light, and the dark value under `[data-theme="dark"]`) for the accent color. The default is CMU red; change both values.
+- `src/styles/global.css` → the accent color. The default is CMU red. Change `--accent`, `--accent-soft`, and `--mark` together, in both the `:root` (light) block and the `[data-theme="dark"]` block. `--accent-soft` is a translucent tint of the accent and `--mark` is the highlight background, so leaving them red will clash with a new accent.
 - `public/robots.txt` → keep it AI-crawler-friendly, or remove the explicit AI-bot lines if the user wants to **block** AI crawlers.
 - `public/llms.txt` → rewrite with the user's bio, links, and key work.
 
 **SEO / metadata:**
 - Page titles + default `description` live in `src/pages/index.astro`, `src/pages/blog/index.astro`, and `src/pages/blog/[slug].astro` (they feed `<Seo />`). Update them to the user's name.
 - `src/components/Seo.astro` → update the default `baseKeywords`.
-- `src/lib/seo.ts` → update the `Person` schema: `jobTitle`, `affiliation`, `alumniOf`, `knowsAbout`, `sameAs` (the social links), and the portrait path. **Never include email.**
+- `src/lib/seo.ts` → update the `Person` schema: `jobTitle`, `affiliation`, `alumniOf`, `knowsAbout`, the portrait path (it reads `siteConfig.portrait`), and `sameAs`, which is derived from `siteConfig.social` automatically (no separate edit). **Never include email.**
 
 **Docs (do this last):**
 - Rewrite `CLAUDE.md`'s Project Overview and content references so they describe the **new owner's** site (it currently describes the original author). Keep the architecture/theming/SEO/gotcha sections — they still apply.

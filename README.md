@@ -65,7 +65,7 @@ The full assistant protocol lives in **[`SETUP.md`](SETUP.md)** (interview → c
 
 Content lives in **three** places — this is the most important thing to know:
 
-1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social` links, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `experience`, `education`. Emptying a section's array hides that section automatically (there is no nav).
+1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social` links, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `experience`, `education`. The sidebar shows icons for four `social` keys (`linkedin`, `researchgate`, `scholar`, `github`); another platform needs an icon block added in `src/components/Sidebar.astro`, and every `social` value is also listed in the JSON-LD `sameAs`. Emptying a section's array hides that section automatically (there is no nav).
    - **`research`** holds your projects, typed by `ResearchItem` in `src/lib/research.ts`. Set `featured: true` on up to three to show them in the Featured strip. `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Put self-hosted files in `public/files/research/<slug>/`.
 2. **A hard-coded array inside a component** — the **Talks** list lives in a `talks` array at the top of `src/components/Talks.astro` and renders as a scrollable box in the sidebar. Edit that file directly.
 3. **`src/posts/*.md`** — blog posts. Frontmatter: `title`, `pubDate` (ISO date, used for sorting), and optional `description`, `author`, `image`, `tags`. The featured post on `/blog` is chosen by slug in `src/pages/blog/index.astro` (`featuredSlug`), falling back to the newest post.
@@ -79,7 +79,7 @@ Also replace these example assets / settings:
 | Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (also used by the JSON-LD in `src/lib/seo.ts`) |
 | Favicon | `public/favicon.svg` |
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
-| Accent color | `--accent` in `src/styles/global.css` (light, and under `[data-theme="dark"]`) |
+| Accent color | `--accent`, `--accent-soft`, and `--mark` in `src/styles/global.css`, in both the `:root` (light) and `[data-theme="dark"]` blocks |
 | Research projects | `siteConfig.research` in `src/config.ts` |
 
 ## SEO & LLM discoverability

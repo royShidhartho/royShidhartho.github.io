@@ -32,7 +32,7 @@ No linting is configured.
 
 - `data-theme="light|dark"` on `<html>`, persisted to `localStorage.theme`, system-aware. A no-flash inline `<script is:inline>` in the `<head>` of all three page entry points sets the theme before paint and adds a `.js` class to `<html>`.
 - All colors are **CSS variables** (`--bg`, `--text`, `--text-muted`, `--border`, `--accent`, …) defined in `global.css` and flipped under `[data-theme="dark"]`. Components must use these variables, not hard-coded colors.
-- The accent is CMU red, set by `--accent` in `global.css` (light `#a6192e`, dark `#ef7d8c`).
+- The accent is CMU red, set by `--accent` in `global.css` (light `#a6192e`, dark `#ef7d8c`). `--accent-soft` and `--mark` are derived from it in both the `:root` and `[data-theme="dark"]` blocks, so change all three together.
 - The theme toggle is the only script in `Header.astro`. There is no reveal-on-scroll, active-section tracking, or animation anywhere; keep `global.css` free of `transition`, `animation`, and hover `transform`.
 
 ## Content lives in three different places
@@ -41,7 +41,7 @@ Content lives in three distinct places:
 
 1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `experience`, `education` (`note` + `awards` badges).
    - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the one-row Featured strip (max 3); `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
-   - `social` keys are `linkedin`, `researchgate`, `scholar`, `github`. Email is intentionally not exposed anywhere.
+   - `social` keys are `linkedin`, `researchgate`, `scholar`, `github`; `Sidebar.astro` hardcodes one icon block per key, so a new key needs a matching block there. Every value also flows into JSON-LD `sameAs` via `Object.values(siteConfig.social)`. Email is intentionally not exposed anywhere (an `email` key would land in `sameAs`).
 2. **`src/components/Talks.astro`**: the `talks` array, rendered as the scrollable box in the sidebar.
 3. **`src/posts/*.md`**: blog posts (frontmatter `title`, `pubDate`, optional `description`, `author`, `image`, `tags`). They live outside `src/pages/` so Astro doesn't auto-route them as unstyled pages.
 
@@ -57,7 +57,7 @@ Content lives in three distinct places:
 ### SEO / metadata
 
 - **`src/components/Seo.astro`** is the single source of truth for `<head>` metadata: `<title>`, description, canonical link, Open Graph, Twitter cards, and any JSON-LD. Every page passes it props rather than hand-writing meta tags — add new pages this way too.
-- **`src/lib/seo.ts`** builds schema.org JSON-LD: `personSchema`/`websiteSchema` (home) and `blogPostingSchema`/`breadcrumbSchema` (blog). It never includes the email.
+- **`src/lib/seo.ts`** builds schema.org JSON-LD: `personSchema`/`websiteSchema` (home) and `blogPostingSchema`/`breadcrumbSchema` (blog). `sameAs` comes from `siteConfig.social`, which deliberately has no email.
 - `site` is set in `astro.config.mjs` (`https://royshidhartho.github.io`, lowercase) — required for canonical URLs and the sitemap. `@astrojs/sitemap` auto-generates `sitemap-index.xml` at build.
 - `public/robots.txt` (explicitly AI-crawler-friendly), `public/llms.txt` (curated AI index), and `public/og-image.png` (1200×630 social card) round out discoverability.
 
