@@ -58,7 +58,7 @@ Content lives in two places (plus the archived blog):
 ### SEO / metadata
 
 - **`src/components/Seo.astro`** is the single source of truth for `<head>` metadata: `<title>`, description, canonical link, Open Graph, Twitter cards, and any JSON-LD. Every page passes it props rather than hand-writing meta tags — add new pages this way too.
-- **`src/lib/seo.ts`** builds schema.org JSON-LD: `personSchema`/`websiteSchema` (home) and `blogPostingSchema`/`breadcrumbSchema` (used only by the archived blog pages). `sameAs` comes from `siteConfig.social`, which deliberately has no email.
+- **`src/lib/seo.ts`** builds schema.org JSON-LD. The home page emits one `@graph` from `homeGraph()`: `WebSite`, `ProfilePage`, the `Person` (stable `@id` `https://shidhartho.com/#person`, with the lab affiliations from `siteConfig.affiliations`), and one `ScholarlyArticle` per publication whose author list references that `@id` and whose identifier is the DOI. The publication builders are pure and tested in `src/lib/schema.ts`. `blogPostingSchema`/`breadcrumbSchema` are `blogPostingSchema`/`breadcrumbSchema` (used only by the archived blog pages). `sameAs` comes from `siteConfig.social`, which deliberately has no email.
 - `site` is set in `astro.config.mjs` (`https://shidhartho.com`, lowercase) — required for canonical URLs and the sitemap. `@astrojs/sitemap` auto-generates `sitemap-index.xml` at build.
 - `public/robots.txt` (explicitly AI-crawler-friendly), `public/llms.txt` (curated AI index), and `public/og-image.png` (1200×630 social card) round out discoverability.
 

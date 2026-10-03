@@ -10,7 +10,7 @@ import Skills from "../components/Skills.astro";
 import Footer from "../components/Footer.astro";
 import Seo from "../components/Seo.astro";
 import { siteConfig } from "../config";
-import { personSchema, websiteSchema } from "../lib/seo";
+import { homeGraph } from "../lib/seo";
 import "../styles/global.css";
 ---
 
@@ -24,7 +24,7 @@ import "../styles/global.css";
     <Seo
       title="Shidhartho Roy — Biomedical Engineering PhD, CMU"
       description={siteConfig.description}
-      jsonLd={[personSchema(Astro.site), websiteSchema(Astro.site)]}
+      jsonLd={[homeGraph(Astro.site)]}
     />
 
     <!-- Apply theme before paint to avoid flash -->

@@ -84,7 +84,7 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 **SEO / metadata:**
 - Page titles + default `description` live in `src/pages/index.astro` (and, if the blog is restored, `src/pages/blog/index.astro` and `src/pages/blog/[slug].astro`); they feed `<Seo />`. Update them to the user's name.
 - `src/components/Seo.astro` → update the default `baseKeywords`.
-- `src/lib/seo.ts` → update the `Person` schema: `jobTitle`, `affiliation`, `alumniOf`, `knowsAbout`, the portrait path (it reads `siteConfig.portrait`), and `sameAs`, which is derived from `siteConfig.social` automatically (no separate edit). **Never include email.**
+- `src/lib/seo.ts` → update the `Person` schema: `jobTitle`, `affiliation`, `alumniOf`, `knowsAbout`, the portrait path (it reads `siteConfig.portrait`), and `sameAs`, which is derived from `siteConfig.social` automatically (no separate edit). Publications become `ScholarlyArticle` entries automatically, matched to the user by `siteConfig.authorName`. **Never include email.**
 
 **Docs (do this last):**
 - Rewrite `CLAUDE.md`'s Project Overview and content references so they describe the **new owner's** site (it currently describes the original author). Keep the architecture/theming/SEO/gotcha sections — they still apply.
