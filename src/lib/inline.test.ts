@@ -29,3 +29,13 @@ test("renderInline escapes raw HTML before applying markup", () => {
   assert.equal(renderInline("<script>x</script> ==a<b=="),
     "&lt;script&gt;x&lt;/script&gt; <mark>a&lt;b</mark>");
 });
+
+test("renderInline does not apply markup inside link URLs", () => {
+  assert.equal(renderInline("==see [x](https://u.com/?q=z==) now=="),
+    '<mark>see <a href="https://u.com/?q=z==" target="_blank" rel="noopener noreferrer">x</a> now</mark>');
+});
+
+test("renderInline rejects unsafe URL schemes", () => {
+  assert.equal(renderInline("[x](javascript:alert(1))"), "[x](javascript:alert(1))");
+  assert.equal(renderInline("[x](data:text/html,<script>)"), "[x](data:text/html,&lt;script&gt;)");
+});
