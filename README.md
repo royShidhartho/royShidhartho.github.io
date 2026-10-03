@@ -78,7 +78,7 @@ Also replace these example assets / settings:
 | Site origin (for canonical URLs + sitemap) | `site:` in `astro.config.mjs` |
 | CV PDF | `public/files/`, then set `siteConfig.cv` |
 | Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (also used by the JSON-LD in `src/lib/seo.ts`) |
-| Favicon | `public/favicon.svg` |
+| Favicon | `public/favicon.ico`, `favicon-48.png`, `favicon-192.png`, `apple-touch-icon.png` |
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
 | Accent color | `--accent`, `--accent-soft`, and `--mark` in `src/styles/global.css`, in both the `:root` (light) and `[data-theme="dark"]` blocks |
 | Research projects | `siteConfig.research` in `src/config.ts` |
@@ -103,7 +103,7 @@ This template ships with a metadata layer designed for both search engines and A
 ├── public/
 │   ├── files/                  # CV PDF; research/<slug>/ for self-hosted materials
 │   ├── images/blog/            # portrait, research teasers, post images
-│   ├── favicon.svg
+│   ├── favicon.ico, favicon-*.png, apple-touch-icon.png   # site icons
 │   ├── og-image.png            # social share card (1200×630)
 │   ├── robots.txt              # AI-crawler-friendly
 │   └── llms.txt                # AI index
