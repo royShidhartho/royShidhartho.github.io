@@ -2,7 +2,7 @@
 import { siteConfig } from "../config";
 
 interface Props {
-  /** True on the home page: the name is the page's h1 and Blog opens in a new tab. */
+  /** True on the home page, where the name is the page's h1. */
   home?: boolean;
 }
 const { home = false } = Astro.props;
@@ -17,15 +17,6 @@ const NameTag = home ? "h1" : "p";
     </NameTag>
 
     <div class="hdr-actions">
-      {
-        home ? (
-          <a class="pill-link" href="/blog/" target="_blank" rel="noopener">
-            Blog <span aria-hidden="true">↗</span>
-          </a>
-        ) : (
-          <a class="pill-link" href="/blog/">Blog</a>
-        )
-      }
       <button id="theme-toggle" class="icon-btn theme-toggle" type="button" aria-label="Toggle color theme">
         <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"></circle>

@@ -2,7 +2,7 @@
 
 **You are an AI coding assistant helping a _new user_ turn this portfolio template into their own site.**
 
-This repository currently contains the **original author's example content** (name, bio, research, talks, blog posts, CV, portrait). Your job is to replace all of it with the user's content, end to end. Read `CLAUDE.md` first for architecture and gotchas, then follow this protocol.
+This repository currently contains the **original author's example content** (name, bio, research, publications, talks, CV, portrait; plus archived blog posts in `_archive/blog/`). Your job is to replace all of it with the user's content, end to end. Read `CLAUDE.md` first for architecture and gotchas, then follow this protocol.
 
 **Working rules:**
 - Work in small steps and keep the user in the loop. Confirm before sweeping changes.
@@ -28,7 +28,7 @@ Ask for the following **in one batched message** (not one question at a time). O
 - **Publications** (if academic) — the full paper list (title, authors, venue, year, type) with DOI links and any legal free PDFs or arXiv preprints; a Google Scholar profile is the easiest source
 - **Talks** (if academic)
 - **Experience** and **education** history
-- **Blog** — keep it (and write/import posts) or remove it?
+- **Blog** — the blog is archived in `_archive/blog/`. Restore it (and write/import posts) or leave it out?
 - **Accent color** preference
 - **Deploy target & final URL** — e.g. GitHub Pages at `username.github.io`, a custom domain, Netlify/Vercel. You need the final URL for canonical links + the sitemap.
 
@@ -43,7 +43,7 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 - [ ] Research projects, featured picks, materials, videos → siteConfig.research in src/config.ts
 - [ ] Publications (DOI, legal PDF/preprint, BibTeX) → siteConfig.publications in src/config.ts
 - [ ] Talks → src/components/Talks.astro   (or remove section)
-- [ ] Blog posts → src/posts/*.md           (or remove blog)
+- [ ] Blog: leave archived, or restore per _archive/blog/README.md and replace the posts
 - [ ] Replace CV / portrait / favicon / og-image → public/
 - [ ] Set site URL → astro.config.mjs
 - [ ] Accent color → --accent, --accent-soft, --mark in src/styles/global.css (light and dark blocks)
@@ -67,7 +67,7 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 2. **A hard-coded array inside a component:** `src/components/Talks.astro` → the `talks` array, rendered as a scrollable box in the sidebar.
    - **Non-academic users:** remove `<Research />` and `<Publications />` from `src/pages/index.astro`, and/or `<Talks />` from `src/components/Sidebar.astro`.
 
-3. **`src/posts/*.md`** → blog posts. Delete the example posts and add the user's, or remove the blog. If you keep it, update `featuredSlug` in `src/pages/blog/index.astro` (it currently points at an example post).
+3. **Blog (archived)**: `_archive/blog/` holds the blog pages, the Writing section, and the example posts. If the user wants a blog, follow `_archive/blog/README.md` to restore it, then replace the example posts and update `featuredSlug` in `src/pages/blog/index.astro`. Otherwise leave it archived (or delete `_archive/`).
 
 **Assets to replace (in `public/`):**
 - `files/` → user's CV PDF; set `siteConfig.cv` to its path.
@@ -82,7 +82,7 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 - `public/llms.txt` → rewrite with the user's bio, links, and key work.
 
 **SEO / metadata:**
-- Page titles + default `description` live in `src/pages/index.astro`, `src/pages/blog/index.astro`, and `src/pages/blog/[slug].astro` (they feed `<Seo />`). Update them to the user's name.
+- Page titles + default `description` live in `src/pages/index.astro` (and, if the blog is restored, `src/pages/blog/index.astro` and `src/pages/blog/[slug].astro`); they feed `<Seo />`. Update them to the user's name.
 - `src/components/Seo.astro` → update the default `baseKeywords`.
 - `src/lib/seo.ts` → update the `Person` schema: `jobTitle`, `affiliation`, `alumniOf`, `knowsAbout`, the portrait path (it reads `siteConfig.portrait`), and `sameAs`, which is derived from `siteConfig.social` automatically (no separate edit). **Never include email.**
 

@@ -12,7 +12,6 @@ Shidhartho Roy works on neuroimaging and biomedical signal processing: electroen
 
 ## Site
 - [Home](https://royshidhartho.github.io/): bio, research (featured projects with papers and materials), full publication list with DOI and open-access PDF links, talks, experience, education, skills
-- [Blog](https://royshidhartho.github.io/blog/): research updates and technical write-ups
 - [CV (PDF)](https://royshidhartho.github.io/files/shidhartho-roy-cv.pdf): full curriculum vitae
 
 ## Research areas

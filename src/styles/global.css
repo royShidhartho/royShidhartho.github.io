@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @source not "../../docs";
-@source not "../posts";
+@source not "../../_archive";
 @source not "../../CLAUDE.md";
 
 /* ============================================================
