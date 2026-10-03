@@ -361,6 +361,9 @@ export const siteConfig = {
   // Bolded wherever it appears in a research citation's author list.
   authorName: "S. Roy",
   portrait: "/images/blog/potrait_card.jpeg",
+  // Square 280 px and 560 px copies of the portrait for the sidebar <img srcset>;
+  // the full-size `portrait` is kept for JSON-LD.
+  portraitSizes: ["/images/portrait-280.jpg", "/images/portrait-560.jpg"],
   cv: "/files/shidhartho-roy-cv.pdf",
   social: {
     // Email intentionally omitted so the address is not exposed to scrapers.

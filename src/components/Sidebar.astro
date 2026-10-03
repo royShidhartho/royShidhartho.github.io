@@ -9,10 +9,13 @@ const { social } = siteConfig;
   <div class="sidebar-id">
     <img
       class="portrait"
-      src={siteConfig.portrait}
+      src={siteConfig.portraitSizes[1]}
+      srcset={`${siteConfig.portraitSizes[0]} 280w, ${siteConfig.portraitSizes[1]} 560w`}
+      sizes="(max-width: 960px) 140px, 260px"
       alt={`Portrait of ${siteConfig.name}`}
-      width="520"
-      height="520"
+      width="560"
+      height="560"
+      fetchpriority="high"
     />
     <a class="cv-link" href={siteConfig.cv} target="_blank" rel="noopener">Curriculum Vitae (PDF)</a>
     <div class="socials">

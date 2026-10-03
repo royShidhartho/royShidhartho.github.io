@@ -71,7 +71,7 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 
 **Assets to replace (in `public/`):**
 - `files/` → user's CV PDF; set `siteConfig.cv` to its path.
-- `images/blog/` → user's portrait; set `siteConfig.portrait` to its path (also used by the JSON-LD in `src/lib/seo.ts`).
+- `images/blog/` → user's portrait; set `siteConfig.portrait` to its path (used by the JSON-LD in `src/lib/seo.ts`). Also save square 280 px and 560 px JPEG copies in `images/` and list them in `siteConfig.portraitSizes`; the sidebar loads those, which keeps the page fast.
 - `favicon.ico`, `favicon-48.png`, `favicon-192.png`, and `apple-touch-icon.png` (180×180, no transparency) — the site icon; the default is an "SR" monogram on the accent color.
 - `og-image.png` → the 1200×630 social card. It **must be a static raster** (PNG/JPG — not SVG). Regenerate it with the user's name/title if you can render an image; otherwise tell the user to replace it with their own 1200×630 image.
 

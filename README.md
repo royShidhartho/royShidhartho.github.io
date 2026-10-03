@@ -77,7 +77,7 @@ Also replace these example assets / settings:
 |------|-------|
 | Site origin (for canonical URLs + sitemap) | `site:` in `astro.config.mjs` |
 | CV PDF | `public/files/`, then set `siteConfig.cv` |
-| Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (also used by the JSON-LD in `src/lib/seo.ts`) |
+| Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (used by the JSON-LD in `src/lib/seo.ts`); also save square 280 px and 560 px copies and list them in `siteConfig.portraitSizes` for the sidebar |
 | Favicon | `public/favicon.ico`, `favicon-48.png`, `favicon-192.png`, `apple-touch-icon.png` |
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
 | Accent color | `--accent`, `--accent-soft`, and `--mark` in `src/styles/global.css`, in both the `:root` (light) and `[data-theme="dark"]` blocks |
