@@ -48,10 +48,10 @@ export function renderInline(text: string): string {
     .replace(/==(.+?)==/g, "<mark>$1</mark>")
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
-  // Substitute links back
+  // Substitute links back using replacer function to avoid $ pattern expansion
   let result = withMarkup;
   for (const { placeholder, html } of links) {
-    result = result.replace(placeholder, html);
+    result = result.replace(placeholder, () => html);
   }
 
   return result;

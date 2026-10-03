@@ -39,3 +39,8 @@ test("renderInline rejects unsafe URL schemes", () => {
   assert.equal(renderInline("[x](javascript:alert(1))"), "[x](javascript:alert(1))");
   assert.equal(renderInline("[x](data:text/html,<script>)"), "[x](data:text/html,&lt;script&gt;)");
 });
+
+test("renderInline does not expand $ patterns in link HTML", () => {
+  assert.equal(renderInline("[a $& b](https://u.com/?p=$&)"),
+    '<a href="https://u.com/?p=$&amp;" target="_blank" rel="noopener noreferrer">a $&amp; b</a>');
+});
