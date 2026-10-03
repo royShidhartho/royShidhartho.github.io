@@ -2,14 +2,18 @@
 import { materialLinks, videoEmbed, videoHref, type ResearchItem } from "../lib/research";
 
 interface Props {
-  item: ResearchItem;
+  /** A research project or a publication: anything with a title and optional materials. */
+  item: Pick<ResearchItem, "title" | "materials" | "video" | "bibtex">;
+  /** Shown when there is nothing to link; pass null to render no row at all. */
+  emptyNote?: string | null;
 }
-const { item } = Astro.props;
+const { item, emptyNote = "Materials when published" } = Astro.props;
 const links = materialLinks(item.materials);
 const embed = item.video ? videoEmbed(item.video) : null;
 const hasNothing = links.length === 0 && !item.video && !item.bibtex;
 ---
 
+{!(hasNothing && emptyNote === null) && (
 <div class="mats">
   {
     links.map((link) => (
@@ -42,8 +46,9 @@ const hasNothing = links.length === 0 && !item.video && !item.bibtex;
       </button>
     )
   }
-  {hasNothing && <span class="mat mat-none">Materials when published</span>}
+  {hasNothing && <span class="mat mat-none">{emptyNote}</span>}
 </div>
+)}
 
 <script>
   document.querySelectorAll<HTMLButtonElement>("[data-bibtex]").forEach((btn) => {

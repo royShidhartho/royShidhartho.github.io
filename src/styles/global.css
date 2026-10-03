@@ -562,6 +562,57 @@
   color: var(--text);
 }
 
+/* Publications */
+.pub-year {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 14px;
+  padding-block: 12px;
+  border-top: 1px solid var(--border);
+}
+.pub-year:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+.pub-year-h {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.pub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pub-title {
+  font-weight: 600;
+  line-height: 1.4;
+}
+.pub-venue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+.pub-venue .award {
+  margin-bottom: 0;
+}
+.pub-type {
+  color: var(--text-muted);
+  background: var(--soft);
+}
+.pub-type-journal {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
 /* Experience and education rows */
 .rows {
   display: flex;
@@ -922,7 +973,8 @@
   .row,
   .posts li,
   .skills,
-  .research-list li {
+  .research-list li,
+  .pub-year {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;
   }

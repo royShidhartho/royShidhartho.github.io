@@ -1,0 +1,45 @@
+---
+import Materials from "./Materials.astro";
+import { siteConfig } from "../config";
+import { groupByYear } from "../lib/publications";
+import { boldAuthor } from "../lib/research";
+
+const groups = groupByYear(siteConfig.publications);
+---
+
+{
+  groups.length > 0 && (
+    <section id="publications" class="home-section">
+      <h2 class="section-h">Publications</h2>
+      {groups.map((group) => (
+        <div class="pub-year">
+          <h3 class="pub-year-h">{group.year}</h3>
+          <ol class="pub-list">
+            {group.items.map((pub) => (
+              <li>
+                <div class="pub-title">{pub.title}</div>
+                <div class="entry-cite">
+                  <Fragment set:html={boldAuthor(pub.authors, siteConfig.authorName)} />
+                </div>
+                <div class="pub-venue">
+                  <span>
+                    <i>{pub.venue}</i>
+                    {pub.details && `, ${pub.details}`}
+                  </span>
+                  <span class={`tag pub-type pub-type-${pub.type.toLowerCase()}`}>{pub.type}</span>
+                  {pub.award && <span class="award">★ {pub.award}</span>}
+                </div>
+                <Materials item={pub} emptyNote={null} />
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+      {siteConfig.social.scholar && (
+        <a class="all-posts" href={siteConfig.social.scholar} target="_blank" rel="noopener noreferrer">
+          Full list on Google Scholar <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </section>
+  )
+}
