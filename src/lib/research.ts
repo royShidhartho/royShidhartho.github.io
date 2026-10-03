@@ -1,6 +1,7 @@
 import { escapeHtml } from "./inline.ts";
 
-export type MaterialKey = "pdf" | "doi" | "poster" | "slides" | "code" | "data";
+/** `preprint` is a free copy (e.g. arXiv) of a paper whose published version is paywalled. */
+export type MaterialKey = "pdf" | "preprint" | "doi" | "poster" | "slides" | "code" | "data";
 
 export type ResearchVideo = { youtube: string } | { src: string; poster?: string };
 
@@ -25,10 +26,11 @@ export type MaterialLink = { key: MaterialKey; label: string; href: string };
 
 export type VideoEmbed = { kind: "youtube" | "file"; src: string; poster?: string };
 
-export const MATERIAL_ORDER: readonly MaterialKey[] = ["pdf", "doi", "poster", "slides", "code", "data"];
+export const MATERIAL_ORDER: readonly MaterialKey[] = ["pdf", "preprint", "doi", "poster", "slides", "code", "data"];
 
 export const MATERIAL_LABELS: Record<MaterialKey, string> = {
   pdf: "PDF",
+  preprint: "Preprint",
   doi: "Paper",
   poster: "Poster",
   slides: "Slides",
