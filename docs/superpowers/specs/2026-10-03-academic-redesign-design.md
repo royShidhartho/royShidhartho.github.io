@@ -25,7 +25,8 @@ Reference mockups (throwaway, not part of the build): `public/_mockup.html` (ove
 | Accent | CMU red: `#a6192e` light, `#ef7d8c` dark |
 | Fonts | Hanken Grotesk (body/UI) + Fraunces italic (accents), per `CLAUDE.md` |
 | Featured research | 3 cards in **one row** (layout A), then the full list of 5 projects |
-| Full list | The 5 research projects, each with its main paper citation; not all 21 papers |
+| Full list | The 5 research projects, each with its main paper citation |
+| Publications | Added 2026-10-03 (see addendum): full list of 22 papers in its own section below Research |
 | Video | Click-to-load in a full-width overlay (native `<dialog>`); no autoplay |
 | Portrait | `public/images/blog/potrait_card.jpeg` (already used by the JSON-LD) |
 
@@ -184,3 +185,21 @@ type ResearchItem = {
 
 - Real material links/files and BibTeX for each project; teaser figure for the optode project.
 - Videos for the three featured projects (later).
+
+## Addendum (2026-10-03): Publications section
+
+Requested after the first build. A `Publications` section sits between Research and Experience.
+
+- **Data:** `siteConfig.publications: Publication[]` (`src/lib/publications.ts`): `title`, `authors`,
+  `venue`, optional `details`, `year`, `type` (Journal | Conference | Abstract | Preprint), optional
+  `award`, `materials`, `bibtex`. 22 entries: the 21 unique Google Scholar papers plus the OHBM 2025
+  abstract. DOIs checked against Crossref; open-access status against Unpaywall.
+- **Layout:** grouped by year (newest first, config order within a year) in the same date-column
+  grid as Experience; each entry shows title, authors (author name bolded), venue + details, a type
+  tag, an award badge, and material buttons. Ends with "Full list on Google Scholar ↗".
+- **PDFs:** links only, nothing re-hosted. `pdf` only for legal free copies (open-access publisher,
+  PubMed Central, arXiv, organizer-hosted abstract). New material key `preprint` (label "Preprint")
+  marks an arXiv copy of a paywalled paper; order is PDF · Preprint · Paper · Poster · Slides · Code ·
+  Data · Video · BibTeX. Entries with nothing to link render no materials row.
+- **Corrections found while collecting data:** optode SPIE paper's published author order is
+  A. Duong, S. Roy, …; research cards now link the JBO PMC PDF, the J. Pain DOI, and the SPIE DOI.

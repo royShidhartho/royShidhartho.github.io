@@ -25,6 +25,7 @@ Ask for the following **in one batched message** (not one question at a time). O
 - **Social links** — the sidebar supports LinkedIn, GitHub, Google Scholar, and ResearchGate. Any other platform (ORCID, X/Twitter, a personal website) needs an icon block added to `src/components/Sidebar.astro`; say so if they ask for one. (Ask explicitly whether they want their **email shown** — default is hidden.)
 - **Academic or not?** — if not academic, they likely want to **remove the Research and Talks sections** (and may not need a blog).
 - **Research projects** (if academic) — title, summary, year, citation, and any materials (paper, PDF, poster, slides, code, data), video, or BibTeX; ask which up to three to feature — or a CV/Scholar link to pull from
+- **Publications** (if academic) — the full paper list (title, authors, venue, year, type) with DOI links and any legal free PDFs or arXiv preprints; a Google Scholar profile is the easiest source
 - **Talks** (if academic)
 - **Experience** and **education** history
 - **Blog** — keep it (and write/import posts) or remove it?
@@ -40,6 +41,7 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 - [ ] Skills, experience, education → src/config.ts
 - [ ] Social links → src/config.ts (sameAs in JSON-LD follows automatically; a new platform also needs an icon in src/components/Sidebar.astro)
 - [ ] Research projects, featured picks, materials, videos → siteConfig.research in src/config.ts
+- [ ] Publications (DOI, legal PDF/preprint, BibTeX) → siteConfig.publications in src/config.ts
 - [ ] Talks → src/components/Talks.astro   (or remove section)
 - [ ] Blog posts → src/posts/*.md           (or remove blog)
 - [ ] Replace CV / portrait / favicon / og-image → public/
@@ -54,15 +56,16 @@ From their answers, produce a **markdown checklist** tailored to them, with each
 
 **Content lives in three places** (the single most important thing — see `CLAUDE.md`):
 
-1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio`, `affiliations`, `skills` (labeled groups), `research`, `experience`, `education`.
+1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio`, `affiliations`, `skills` (labeled groups), `research`, `publications`, `experience`, `education`.
    - `social` supports four keys: `linkedin`, `researchgate`, `scholar`, `github`. `Sidebar.astro` hardcodes one icon block per key, so a new key renders nothing until you add a matching block there.
    - ⚠️ `social` has **no `email` key** by default (privacy). `src/lib/seo.ts` builds JSON-LD `sameAs` from `Object.values(siteConfig.social)`, so an `email` key would be published in the structured data as well as exposed to scrapers. Add one only if the user opts in, warn them of both, and add Sidebar markup if they want it shown.
-   - `bio` is an array of paragraphs; inline marks are `[label](url)`, `==highlight==`, and `**bold**`. `authorName` (e.g. "S. Roy") is bolded in research citation author lists.
-   - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the Featured strip (max 3); `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
-   - Empty `research`/`experience`/`education`/`skills` arrays auto-hide those sections (there is no nav).
+   - `bio` is an array of paragraphs; inline marks are `[label](url)`, `==highlight==`, and `**bold**`. `authorName` (e.g. "S. Roy") is bolded in research citations and publication author lists.
+   - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the Featured strip (max 3); `materials` keys are `pdf`, `preprint` (labeled Preprint: a free arXiv copy of a paywalled paper), `doi` (labeled Paper), `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
+   - `publications` items follow `Publication` in `src/lib/publications.ts`; set `type` to Journal, Conference, Abstract, or Preprint. Only add a `pdf` for a legal free copy (open-access publisher, PubMed Central, arXiv, organizer-hosted abstract); use `preprint` for an arXiv copy of a paywalled paper. Never re-host publisher PDFs.
+   - Empty `research`/`publications`/`experience`/`education`/`skills` arrays auto-hide those sections (there is no nav).
 
 2. **A hard-coded array inside a component:** `src/components/Talks.astro` → the `talks` array, rendered as a scrollable box in the sidebar.
-   - **Non-academic users:** remove `<Research />` from `src/pages/index.astro`, and/or `<Talks />` from `src/components/Sidebar.astro`.
+   - **Non-academic users:** remove `<Research />` and `<Publications />` from `src/pages/index.astro`, and/or `<Talks />` from `src/components/Sidebar.astro`.
 
 3. **`src/posts/*.md`** → blog posts. Delete the example posts and add the user's, or remove the blog. If you keep it, update `featuredSlug` in `src/pages/blog/index.astro` (it currently points at an example post).
 

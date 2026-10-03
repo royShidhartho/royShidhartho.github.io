@@ -39,17 +39,18 @@ No linting is configured.
 
 Content lives in three distinct places:
 
-1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `experience`, `education` (`note` + `awards` badges).
-   - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the one-row Featured strip (max 3); `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
+1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `publications`, `experience`, `education` (`note` + `awards` badges).
+   - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the one-row Featured strip (max 3); `materials` keys are `pdf`, `preprint` (labeled Preprint: a free arXiv copy of a paywalled paper), `doi` (labeled Paper), `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
+   - `publications` items follow `Publication` in `src/lib/publications.ts` (`title`, `authors`, `venue`, optional `details`, `year`, `type` of Journal/Conference/Abstract/Preprint, optional `award`, `materials`, `bibtex`). The Publications section groups them by year, newest first, keeping config order within a year. Only link a `pdf` when it is a legal free copy (open-access publisher, PubMed Central, arXiv, or an organizer-hosted abstract).
    - `social` keys are `linkedin`, `researchgate`, `scholar`, `github`; `Sidebar.astro` hardcodes one icon block per key, so a new key needs a matching block there. Every value also flows into JSON-LD `sameAs` via `Object.values(siteConfig.social)`. Email is intentionally not exposed anywhere (an `email` key would land in `sameAs`).
 2. **`src/components/Talks.astro`**: the `talks` array, rendered as the scrollable box in the sidebar.
 3. **`src/posts/*.md`**: blog posts (frontmatter `title`, `pubDate`, optional `description`, `author`, `image`, `tags`). They live outside `src/pages/` so Astro doesn't auto-route them as unstyled pages.
 
 ## Architecture
 
-- **Home page** (`src/pages/index.astro`): `Header` (with `home` prop), then one `.home-card` containing `Sidebar` (portrait, CV, socials, affiliations, `Talks`) and a main column of `Bio`, `Research`, `Experience`, `Education`, `Skills`, `Writing`; then `Footer`. Single page, no section nav.
-- **Conditional rendering**: Research, Experience, Education, Skills, and Writing each render nothing when their data is empty.
-- **Pure logic lives in `src/lib/`** (`inline.ts`, `research.ts`) and is unit-tested with `npm test` (`node --test`). Components render its output with `set:html` only for strings those helpers escaped.
+- **Home page** (`src/pages/index.astro`): `Header` (with `home` prop), then one `.home-card` containing `Sidebar` (portrait, CV, socials, affiliations, `Talks`) and a main column of `Bio`, `Research`, `Publications`, `Experience`, `Education`, `Skills`, `Writing`; then `Footer`. Single page, no section nav.
+- **Conditional rendering**: Research, Publications, Experience, Education, Skills, and Writing each render nothing when their data is empty.
+- **Pure logic lives in `src/lib/`** (`inline.ts`, `research.ts`, `publications.ts`) and is unit-tested with `npm test` (`node --test`). Components render its output with `set:html` only for strings those helpers escaped.
 - **Video**: `VideoDialog.astro` is a shared native `<dialog>`; any `a[data-video]` opens it, and its `href` is the no-JS fallback.
 - **CSS layers**: the base `a` rule is in `@layer base` and component classes are in `@layer components`, so component link colors win without overrides.
 - **Responsive breakpoints** (in `global.css`): 960px (the card becomes one column; the sidebar sits above the content), 640px (featured cards, date-column rows, and the featured blog post stack), and 480px (tighter gutters).

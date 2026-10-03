@@ -10,11 +10,11 @@ A clean, formal, light/dark portfolio template for **researchers and academics**
 
 ## Features
 
-- 🎓 **Academic-first layout** — a single page with a two-column card: a sidebar (portrait, CV, socials, affiliations, Talks) beside Bio, Research (a Featured strip plus the full list), Experience, Education, Skills, and Writing.
+- 🎓 **Academic-first layout** — a single page with a two-column card: a sidebar (portrait, CV, socials, affiliations, Talks) beside Bio, Research (a Featured strip plus the full list), Publications (grouped by year), Experience, Education, Skills, and Writing.
 - 🌗 **Light/dark theme** — system-aware, persisted to `localStorage`, no flash of the wrong theme.
 - 🔎 **SEO + LLM ready** — a reusable `<Seo />` component, JSON-LD structured data (`Person`, `WebSite`, `BlogPosting`, `BreadcrumbList`), canonical URLs, Open Graph + Twitter cards, auto-generated sitemap, an AI-crawler-friendly `robots.txt`, and an `llms.txt` index. See [SEO](#seo--llm-discoverability).
 - ✍️ **Markdown blog** — drop a `.md` file in `src/posts/`; featured post + card grid handled for you.
-- 🔬 **Research with materials** — each project can link a paper, PDF, poster, slides, code, and data, and can carry a teaser image, a video (YouTube or self-hosted, opened in a shared dialog), and a BibTeX copy button.
+- 🔬 **Research with materials** — each project and publication can link a paper, PDF or preprint, poster, slides, code, and data, and can carry a teaser image, a video (YouTube or self-hosted, opened in a shared dialog), and a BibTeX copy button.
 - 📭 **Privacy-conscious** — no contact form and no email address anywhere; visitors reach you through the profiles linked in the sidebar.
 - ♿ **No-JS friendly & accessible** — content renders without JavaScript, and there is no animation.
 - 🧩 **Conditional sections** — empty config arrays hide their section automatically.
@@ -65,8 +65,9 @@ The full assistant protocol lives in **[`SETUP.md`](SETUP.md)** (interview → c
 
 Content lives in **three** places — this is the most important thing to know:
 
-1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social` links, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `experience`, `education`. The sidebar shows icons for four `social` keys (`linkedin`, `researchgate`, `scholar`, `github`); another platform needs an icon block added in `src/components/Sidebar.astro`, and every `social` value is also listed in the JSON-LD `sameAs`. Emptying a section's array hides that section automatically (there is no nav).
-   - **`research`** holds your projects, typed by `ResearchItem` in `src/lib/research.ts`. Set `featured: true` on up to three to show them in the Featured strip. `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Put self-hosted files in `public/files/research/<slug>/`.
+1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social` links, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `publications`, `experience`, `education`. The sidebar shows icons for four `social` keys (`linkedin`, `researchgate`, `scholar`, `github`); another platform needs an icon block added in `src/components/Sidebar.astro`, and every `social` value is also listed in the JSON-LD `sameAs`. Emptying a section's array hides that section automatically (there is no nav).
+   - **`research`** holds your projects, typed by `ResearchItem` in `src/lib/research.ts`. Set `featured: true` on up to three to show them in the Featured strip. `materials` keys are `pdf`, `preprint` (labeled Preprint: a free arXiv copy of a paywalled paper), `doi` (labeled Paper), `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Put self-hosted files in `public/files/research/<slug>/`.
+   - **`publications`** holds your full paper list, typed by `Publication` in `src/lib/publications.ts`; the section groups it by year and links Google Scholar at the end. Only add a `pdf` link for a legal free copy.
 2. **A hard-coded array inside a component** — the **Talks** list lives in a `talks` array at the top of `src/components/Talks.astro` and renders as a scrollable box in the sidebar. Edit that file directly.
 3. **`src/posts/*.md`** — blog posts. Frontmatter: `title`, `pubDate` (ISO date, used for sorting), and optional `description`, `author`, `image`, `tags`. The featured post on `/blog` is chosen by slug in `src/pages/blog/index.astro` (`featuredSlug`), falling back to the newest post.
 
@@ -81,6 +82,7 @@ Also replace these example assets / settings:
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
 | Accent color | `--accent`, `--accent-soft`, and `--mark` in `src/styles/global.css`, in both the `:root` (light) and `[data-theme="dark"]` blocks |
 | Research projects | `siteConfig.research` in `src/config.ts` |
+| Publications | `siteConfig.publications` in `src/config.ts` |
 
 ## SEO & LLM discoverability
 
@@ -105,11 +107,12 @@ This template ships with a metadata layer designed for both search engines and A
 │   ├── robots.txt              # AI-crawler-friendly
 │   └── llms.txt                # AI index
 ├── src/
-│   ├── components/             # Astro components (Sidebar, Bio, Research, Seo, …)
+│   ├── components/             # Astro components (Sidebar, Bio, Research, Publications, Seo, …)
 │   ├── lib/
 │   │   ├── seo.ts              # JSON-LD structured-data builders
 │   │   ├── inline.ts           # inline-markup helper for bio text
 │   │   ├── research.ts         # research types, sorting, and material links
+│   │   ├── publications.ts     # publication type and year grouping
 │   │   └── *.test.ts           # unit tests (npm test)
 │   ├── pages/
 │   │   ├── index.astro         # home page (sidebar + main column)
