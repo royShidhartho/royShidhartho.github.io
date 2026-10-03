@@ -7,7 +7,7 @@ import { siteConfig } from "../config";
  * schema.org markup more reliably than prose. Each builder returns a plain
  * object that <Seo /> serializes into a <script type="application/ld+json">.
  *
- * Privacy: email is intentionally never included (see config.ts / HANDOFF.md).
+ * Privacy: email is intentionally never included (see config.ts).
  */
 
 const FALLBACK_SITE = "https://royshidhartho.github.io";
@@ -36,9 +36,9 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
     "@type": "Person",
     name: siteConfig.name,
     url: abs("/", site),
-    image: abs("/images/blog/potrait_card.jpeg", site),
+    image: abs(siteConfig.portrait, site),
     jobTitle: "PhD Student in Biomedical Engineering",
-    description: siteConfig.aboutMe,
+    description: siteConfig.description,
     affiliation: {
       "@type": "CollegeOrUniversity",
       name: "Carnegie Mellon University",

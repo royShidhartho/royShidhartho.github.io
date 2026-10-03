@@ -1,0 +1,66 @@
+---
+import { materialLinks, videoEmbed, videoHref, type ResearchItem } from "../lib/research";
+
+interface Props {
+  item: ResearchItem;
+}
+const { item } = Astro.props;
+const links = materialLinks(item.materials);
+const embed = item.video ? videoEmbed(item.video) : null;
+const hasNothing = links.length === 0 && !item.video && !item.bibtex;
+---
+
+<div class="mats">
+  {
+    links.map((link) => (
+      <a class="mat" href={link.href} target="_blank" rel="noopener noreferrer">
+        {link.label}
+      </a>
+    ))
+  }
+  {
+    item.video && embed && (
+      <a
+        class="mat"
+        href={videoHref(item.video)}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-video
+        data-video-kind={embed.kind}
+        data-video-src={embed.src}
+        data-video-poster={embed.poster}
+        data-video-title={item.title}
+      >
+        Video
+      </a>
+    )
+  }
+  {
+    item.bibtex && (
+      <button type="button" class="mat bib-btn" data-bibtex={item.bibtex}>
+        BibTeX
+      </button>
+    )
+  }
+  {hasNothing && <span class="mat mat-none">Materials when published</span>}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-bibtex]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.bibtex ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.append(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+      btn.textContent = "Copied";
+      setTimeout(() => (btn.textContent = "BibTeX"), 2000);
+    });
+  });
+</script>

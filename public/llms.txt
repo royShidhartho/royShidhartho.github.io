@@ -11,7 +11,7 @@ Shidhartho Roy works on neuroimaging and biomedical signal processing: electroen
 - [GitHub](https://github.com/royShidhartho): code and projects
 
 ## Site
-- [Home / portfolio](https://royshidhartho.github.io/): bio, research, publications, talks, experience, education
+- [Home](https://royshidhartho.github.io/): bio, research (featured projects with papers and materials), talks, experience, education, skills
 - [Blog](https://royshidhartho.github.io/blog/): research updates and technical write-ups
 - [CV (PDF)](https://royshidhartho.github.io/files/shidhartho-roy-cv.pdf): full curriculum vitae
 
@@ -29,4 +29,4 @@ Shidhartho Roy works on neuroimaging and biomedical signal processing: electroen
 - [DRNet: Segmentation and localization of optic disc and Fovea from diabetic retinopathy image](https://doi.org/10.1016/j.artmed.2020.102001): Artificial Intelligence in Medicine, 2021
 
 ## Contact
-- Via the contact form at https://royshidhartho.github.io/#contact (email intentionally not published)
+- Through the profiles above (email intentionally not published)

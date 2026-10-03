@@ -1,13 +1,12 @@
 ---
 import Header from "../components/Header.astro";
-import Hero from "../components/Hero.astro";
-import Talks from "../components/Talks.astro";
-import About from "../components/About.astro";
-import Projects from "../components/Projects.astro";
-import Publications from "../components/Publications.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Bio from "../components/Bio.astro";
+import Research from "../components/Research.astro";
 import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
-import Contact from "../components/Contact.astro";
+import Skills from "../components/Skills.astro";
+import Writing from "../components/Writing.astro";
 import Footer from "../components/Footer.astro";
 import Seo from "../components/Seo.astro";
 import { siteConfig } from "../config";
@@ -46,22 +45,25 @@ import "../styles/global.css";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <Header />
-    <main id="top">
-      <Hero />
-      <Talks />
-      <About />
-      <Projects />
-      <Publications />
-      <Experience />
-      <Education />
-      <Contact />
-    </main>
+    <Header home />
+    <div class="page">
+      <div class="home-card">
+        <Sidebar />
+        <main class="home-main" id="top">
+          <Bio />
+          <Research />
+          <Experience />
+          <Education />
+          <Skills />
+          <Writing />
+        </main>
+      </div>
+    </div>
     <Footer />
   </body>
 </html>

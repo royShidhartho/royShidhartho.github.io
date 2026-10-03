@@ -87,50 +87,36 @@ const remainingPosts = posts.filter((post) => post.slug !== featuredPost?.slug);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <Header />
 
-    <main class="pt-28">
-      <section class="section pt-8">
-        <div class="shell">
-          <div class="section-head reveal">
-            <span class="overline">Writing</span>
-            <h1 class="section-title">Blog</h1>
-            <p class="lede mt-5 max-w-2xl">
-              Research updates, ongoing work, and selected ideas worth sharing.
-            </p>
+    <main class="page">
+      <div class="blog-intro">
+        <h1 class="blog-title">Blog</h1>
+        <p class="blog-lede">Research updates, ongoing work, and selected ideas worth sharing.</p>
+      </div>
+
+      {
+        featuredPost ? (
+          <FeaturedPost post={featuredPost} />
+        ) : (
+          <p class="blog-lede">No blog posts yet. Add a post in <code>src/posts/</code>.</p>
+        )
+      }
+
+      {
+        remainingPosts.length > 0 && (
+          <div class="post-grid">
+            {remainingPosts.map((post) => (
+              <BlogCard post={post} />
+            ))}
           </div>
-
-          {
-            featuredPost ? (
-              <div class="reveal mb-14">
-                <FeaturedPost post={featuredPost} />
-              </div>
-            ) : (
-              <div class="card p-8">
-                <p class="lede">
-                  No blog posts yet. Add your first post in{" "}
-                  <code>src/pages/blog/</code>.
-                </p>
-              </div>
-            )
-          }
-
-          {
-            remainingPosts.length > 0 && (
-              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 reveal">
-                {remainingPosts.map((post) => (
-                  <BlogCard post={post} />
-                ))}
-              </div>
-            )
-          }
-        </div>
-      </section>
+        )
+      }
     </main>
 
     <Footer />

@@ -1,0 +1,19 @@
+---
+import { siteConfig } from "../config";
+---
+
+{
+  siteConfig.skills.length > 0 && (
+    <section id="skills" class="home-section">
+      <h2 class="section-h">Skills &amp; Methods</h2>
+      <dl class="skills">
+        {siteConfig.skills.map((group) => (
+          <Fragment>
+            <dt>{group.label}</dt>
+            <dd>{group.items.join(", ")}</dd>
+          </Fragment>
+        ))}
+      </dl>
+    </section>
+  )
+}

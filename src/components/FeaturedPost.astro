@@ -6,52 +6,23 @@ const formattedDate = post.data.pubDate
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     })
   : "";
 ---
 
-<article class="card card-hover group overflow-hidden">
-  <div class="grid grid-cols-1 lg:grid-cols-2">
-    <div class="order-1 lg:order-2 relative overflow-hidden">
-      <a href={`/blog/${post.slug}`} class="block h-full">
-        {
-          post.data.image ? (
-            <img
-              src={post.data.image}
-              alt={post.data.title}
-              class="h-64 lg:h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            />
-          ) : (
-            <div class="h-64 lg:h-full w-full bg-[var(--surface-2)]" />
-          )
-        }
-      </a>
-    </div>
-
-    <div class="order-2 lg:order-1 p-8 sm:p-10 flex flex-col justify-center">
-      <span class="overline mb-4">Featured</span>
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-tight">
-        <a href={`/blog/${post.slug}`} class="transition-colors group-hover:text-[var(--accent)]">
-          {post.data.title}
-        </a>
-      </h2>
-      {
-        post.data.description && (
-          <p class="mt-5 t-muted leading-relaxed">{post.data.description}</p>
-        )
-      }
-      <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm t-faint">
-        {post.data.author && <span>{post.data.author}</span>}
-        {formattedDate && <span>· {formattedDate}</span>}
-      </div>
-      <div class="mt-7">
-        <a href={`/blog/${post.slug}`} class="btn btn-primary">
-          Read post
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
+<article class="featured-post">
+  <div class="featured-post-body">
+    <span class="sub-h" style="margin-top:0">Featured</span>
+    <h2><a href={`/blog/${post.slug}/`}>{post.data.title}</a></h2>
+    {post.data.description && <p class="post-desc">{post.data.description}</p>}
+    <div class="post-meta">{[post.data.author, formattedDate].filter(Boolean).join(" · ")}</div>
   </div>
+  {
+    post.data.image && (
+      <a href={`/blog/${post.slug}/`} aria-hidden="true" tabindex="-1">
+        <img src={post.data.image} alt="" />
+      </a>
+    )
+  }
 </article>

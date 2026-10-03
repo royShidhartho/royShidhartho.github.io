@@ -1,0 +1,42 @@
+<dialog id="video-dialog" class="video-dialog" aria-label="Project video">
+  <button type="button" class="video-close" data-video-close aria-label="Close video" autofocus>✕</button>
+  <div class="video-frame" data-video-frame></div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById("video-dialog") as HTMLDialogElement | null;
+  const frame = dialog?.querySelector<HTMLElement>("[data-video-frame]");
+
+  if (dialog && frame && typeof dialog.showModal === "function") {
+    document.querySelectorAll<HTMLAnchorElement>("a[data-video]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const { videoKind, videoSrc = "", videoPoster, videoTitle } = link.dataset;
+        if (videoKind === "youtube") {
+          const iframe = document.createElement("iframe");
+          iframe.src = videoSrc;
+          iframe.title = videoTitle ?? "Video";
+          iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+          iframe.allowFullscreen = true;
+          frame.replaceChildren(iframe);
+        } else {
+          const video = document.createElement("video");
+          video.src = videoSrc;
+          video.controls = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          if (videoPoster) video.poster = videoPoster;
+          frame.replaceChildren(video);
+        }
+        dialog.showModal();
+      });
+    });
+
+    // Removing the player on close stops playback.
+    dialog.addEventListener("close", () => frame.replaceChildren());
+    dialog.querySelector("[data-video-close]")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>
