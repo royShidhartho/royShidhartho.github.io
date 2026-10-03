@@ -49,3 +49,8 @@ test("videoHref and videoEmbed handle self-hosted files", () => {
   assert.deepEqual(videoEmbed(v),
     { kind: "file", src: "/files/research/x/video.mp4", poster: "/images/x.jpg" });
 });
+
+test("materialLinks places Preprint right after PDF", () => {
+  const links = materialLinks({ doi: "x", preprint: "a", pdf: "p" });
+  assert.deepEqual(links.map((l) => l.label), ["PDF", "Preprint", "Paper"]);
+});
