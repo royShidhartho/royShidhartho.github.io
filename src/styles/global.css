@@ -14,13 +14,13 @@
   --card: #ffffff;
   --text: #1b1c1e;
   --text-muted: #5e6166;
-  --text-faint: #8a8d92;
+  --text-faint: #6b6e73;
   --border: #e4e2dc;
   --soft: #f1f0eb;
   --accent: #a6192e;
   --accent-soft: rgba(166, 25, 46, 0.08);
   --mark: #f6dfe2;
-  --poster: #a15c07;
+  --poster: #945402;
   --poster-soft: rgba(161, 92, 7, 0.1);
   --overlay: rgba(0, 0, 0, 0.72);
 
@@ -32,7 +32,7 @@
   --card: #181b1e;
   --text: #e7e6e2;
   --text-muted: #a3a6aa;
-  --text-faint: #7b7f84;
+  --text-faint: #868a8f;
   --border: #2a2e33;
   --soft: #1f2327;
   --accent: #ef7d8c;
@@ -89,7 +89,8 @@
   mark {
     background: var(--mark);
     color: inherit;
-    padding: 1px 3px;
+    padding: 1px 2px;
+    margin-inline: -1px;
     border-radius: 3px;
     font-weight: 600;
   }
@@ -449,7 +450,7 @@
   background: rgba(0, 0, 0, 0.7);
 }
 .media-badge.is-muted {
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.6);
 }
 .feat-body {
   flex: 1;
