@@ -59,7 +59,7 @@ Content lives in two places (plus the archived blog):
 
 - **`src/components/Seo.astro`** is the single source of truth for `<head>` metadata: `<title>`, description, canonical link, Open Graph, Twitter cards, and any JSON-LD. Every page passes it props rather than hand-writing meta tags — add new pages this way too.
 - **`src/lib/seo.ts`** builds schema.org JSON-LD: `personSchema`/`websiteSchema` (home) and `blogPostingSchema`/`breadcrumbSchema` (used only by the archived blog pages). `sameAs` comes from `siteConfig.social`, which deliberately has no email.
-- `site` is set in `astro.config.mjs` (`https://royshidhartho.github.io`, lowercase) — required for canonical URLs and the sitemap. `@astrojs/sitemap` auto-generates `sitemap-index.xml` at build.
+- `site` is set in `astro.config.mjs` (`https://shidhartho.com`, lowercase) — required for canonical URLs and the sitemap. `@astrojs/sitemap` auto-generates `sitemap-index.xml` at build.
 - `public/robots.txt` (explicitly AI-crawler-friendly), `public/llms.txt` (curated AI index), and `public/og-image.png` (1200×630 social card) round out discoverability.
 
 ### Blog (archived)
@@ -70,7 +70,9 @@ Content lives in two places (plus the archived blog):
 
 ## Deployment
 
-GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages on every push to `master`. Live URL: `https://royshidhartho.github.io`. There is no staging environment — pushing to `master` publishes.
+GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages on every push to `master`. Live URL: `https://shidhartho.com`. There is no staging environment — pushing to `master` publishes.
+
+The custom domain is set in the repo's **Settings → Pages → Custom domain** (not a `CNAME` file, which GitHub ignores for Actions deployments). DNS lives at Cloudflare: four `A` and four `AAAA` records for the apex pointing at GitHub Pages, a `www` CNAME to `royshidhartho.github.io`, and the `_github-pages-challenge-royshidhartho` TXT record that verifies the domain. All are **DNS only** (not proxied) so GitHub can issue the HTTPS certificate. `royshidhartho.github.io` 301-redirects to the custom domain.
 
 ## Conventions when editing
 

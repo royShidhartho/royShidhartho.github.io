@@ -4,7 +4,7 @@
 
 A clean, formal, light/dark portfolio template for **researchers and academics**, built with Astro 5 and Tailwind CSS v4. It extends the developer-focused [DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) template with a single-page academic layout (identity sidebar, research projects with materials, publications, Talks), an optional markdown blog (archived in this copy), and a robust, **SEO + LLM-friendly** metadata layer out of the box.
 
-**Live example:** [royshidhartho.github.io](https://royshidhartho.github.io)
+**Live example:** [shidhartho.com](https://shidhartho.com)
 
 > This repository doubles as one person's live site **and** a reusable template — the content you see is a working example. To make it yours, replace the content described in [Make it yours](#make-it-yours).
 
@@ -133,6 +133,7 @@ To deploy your own copy to GitHub Pages:
 1. Name your repo `<your-username>.github.io` (for a root user site) and push.
 2. Set `site:` in `astro.config.mjs` to your Pages URL (e.g. `https://<your-username>.github.io`). For a *project* site served from a sub-path, also set `base:`.
 3. In the repo's **Settings → Pages**, set the source to **GitHub Actions**.
+4. *(Optional)* For a custom domain, point its DNS at GitHub Pages (four `A`/`AAAA` records on the apex and a `www` CNAME to `<your-username>.github.io`), enter it under **Settings → Pages → Custom domain**, enable **Enforce HTTPS**, and set `site:` to the custom domain. See [GitHub's custom domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
 
 It's a static Astro build, so it also deploys cleanly to Netlify, Vercel, Cloudflare Pages, etc. — see the [Astro deployment guides](https://docs.astro.build/en/guides/deploy/).
 

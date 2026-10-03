@@ -10,7 +10,7 @@ import { siteConfig } from "../config";
  * Privacy: email is intentionally never included (see config.ts).
  */
 
-const FALLBACK_SITE = "https://royshidhartho.github.io";
+const FALLBACK_SITE = "https://shidhartho.com";
 
 /** Resolve a path to an absolute URL against the configured site origin. */
 export function abs(path: string, site: string | URL = FALLBACK_SITE): string {

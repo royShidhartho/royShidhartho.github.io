@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   // Canonical origin — required for canonical URLs, OpenGraph, and the sitemap.
   // GitHub Pages serves the user site at the lowercase host.
-  site: "https://royshidhartho.github.io",
+  site: "https://shidhartho.com",
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

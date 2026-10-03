@@ -32,7 +32,7 @@ const {
   jsonLd = [],
 } = Astro.props;
 
-const site = Astro.site ?? new URL("https://royshidhartho.github.io");
+const site = Astro.site ?? new URL("https://shidhartho.com");
 const canonical = new URL(Astro.url.pathname, site).href;
 const imageURL = new URL(image, site).href;
 
