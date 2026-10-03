@@ -29,4 +29,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://royshidhartho.github.io/sitemap-index.xml
+Sitemap: https://shidhartho.com/sitemap-index.xml

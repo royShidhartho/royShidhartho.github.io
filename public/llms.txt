@@ -1,8 +1,8 @@
 # Shidhartho Roy
 
-> PhD student in Biomedical Engineering at Carnegie Mellon University. Research on EEG, near-infrared spectroscopy (NIRS / FD-NIRS), and physiological biomarkers of pain dysregulation — including pain in sickle cell disease and extended-reality paradigms for cognitive and sensory assessment.
+> PhD student in Biomedical Engineering at Carnegie Mellon University building virtual reality (VR) systems and translational biomedical devices that bring pain research from the lab into daily life, with a focus on sickle cell disease.
 
-Shidhartho Roy works on neuroimaging and biomedical signal processing: electroencephalography (EEG), frequency-domain near-infrared spectroscopy (FD-NIRS), machine learning for biomedical signals, and equitable optical sensing (e.g., the effect of melanin and Afro-textured hair on NIRS). He is based at Carnegie Mellon University (CMU) and previously researched medical image computing at Khulna University of Engineering and Technology.
+Shidhartho Roy builds virtual reality paradigms and wearable, self-administrable pain-testing devices, and studies the brain and body signals behind them: electroencephalography (EEG), autonomic measures, and frequency-domain near-infrared spectroscopy (FD-NIRS), including equitable optical sensing (the effect of melanin and Afro-textured hair on NIRS). Based at Carnegie Mellon University (CMU); previously researched medical image computing at Khulna University of Engineering and Technology.
 
 ## Profiles
 - [Google Scholar](https://scholar.google.com/citations?user=ExMye5IAAAAJ&hl=en): publications and citations
@@ -11,17 +11,20 @@ Shidhartho Roy works on neuroimaging and biomedical signal processing: electroen
 - [GitHub](https://github.com/royShidhartho): code and projects
 
 ## Site
-- [Home](https://royshidhartho.github.io/): bio, research (featured projects with papers and materials), full publication list with DOI and open-access PDF links, talks, experience, education, skills
-- [CV (PDF)](https://royshidhartho.github.io/files/shidhartho-roy-cv.pdf): full curriculum vitae
+- [Home](https://shidhartho.com/): bio, research (featured projects with papers and materials), full publication list with DOI and open-access PDF links, talks, experience, education, skills
+- [CV (PDF)](https://shidhartho.com/files/shidhartho-roy-cv.pdf): full curriculum vitae
 
 ## Research areas
+- Virtual and extended reality (VR/XR) paradigms for pain testing and neurophysiology
+- Translational devices: a self-administrable, XR-augmented thermal pain-testing platform for home use, with wearable EEG and autonomic sensing
 - EEG-based biomarkers of pain dysregulation in sickle cell disease
-- Extended reality (XR) paradigms for neurophysiology and pain research
 - Frequency-domain near-infrared spectroscopy (FD-NIRS): cognitive load, oxygenation
 - Equitable optical sensing: melanin- and hair-related bias in NIRS, optode design
 - Medical image segmentation and machine learning
 
 ## Selected publications
+- [Altered Detection-Pain Transition Profiles and Cortical Signatures of Sensitization in Sickle Cell Disease](https://doi.org/10.1016/j.jpain.2025.106022): The Journal of Pain, 2026
+- [Novel optode sensor development for functional near infrared spectroscopy systems and its use in dark, coarse, and curly hair](https://doi.org/10.1117/12.3079336): Clinical and Translational Neurophotonics (SPIE), 2026
 - [Exploring the impact and influence of melanin on frequency-domain near-infrared spectroscopy measurements](https://doi.org/10.1117/1.JBO.29.S3.S33310): Journal of Biomedical Optics, 2024
 - [EEG based stress analysis using rhythm specific spectral feature for video game play](https://doi.org/10.1016/j.compbiomed.2022.105849): Computers in Biology and Medicine, 2022
 - [Metrics and enhancement strategies for grid resilience and reliability during natural disasters](https://doi.org/10.1016/j.apenergy.2021.116709): Applied Energy, 2021

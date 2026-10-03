@@ -357,10 +357,13 @@ export const siteConfig = {
   title: "PhD Student in Biomedical Engineering, Carnegie Mellon University",
   subtitle: "PhD Student, Biomedical Engineering · Carnegie Mellon University",
   description:
-    "Academic website of Shidhartho Roy, PhD student at Carnegie Mellon University working on EEG, near-infrared spectroscopy, pain biomarkers, and extended reality.",
+    "PhD student at Carnegie Mellon building virtual reality systems and translational biomedical devices that bring pain research from the lab into daily life.",
   // Bolded wherever it appears in a research citation's author list.
   authorName: "S. Roy",
   portrait: "/images/blog/potrait_card.jpeg",
+  // Square 280 px and 560 px copies of the portrait for the sidebar <img srcset>;
+  // the full-size `portrait` is kept for JSON-LD.
+  portraitSizes: ["/images/portrait-280.jpg", "/images/portrait-560.jpg"],
   cv: "/files/shidhartho-roy-cv.pdf",
   social: {
     // Email intentionally omitted so the address is not exposed to scrapers.

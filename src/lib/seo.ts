@@ -1,4 +1,5 @@
 import { siteConfig } from "../config";
+import { scholarlyArticle } from "./schema";
 
 /**
  * JSON-LD structured-data builders.
@@ -10,7 +11,7 @@ import { siteConfig } from "../config";
  * Privacy: email is intentionally never included (see config.ts).
  */
 
-const FALLBACK_SITE = "https://royshidhartho.github.io";
+const FALLBACK_SITE = "https://shidhartho.com";
 
 /** Resolve a path to an absolute URL against the configured site origin. */
 export function abs(path: string, site: string | URL = FALLBACK_SITE): string {
@@ -29,21 +30,37 @@ export type PostMeta = {
 
 export type Crumb = { name: string; path: string };
 
+/** Stable identifiers that tie the home page's entities together. */
+export const personId = (site: string | URL = FALLBACK_SITE) => abs("/#person", site);
+export const websiteId = (site: string | URL = FALLBACK_SITE) => abs("/#website", site);
+
 /** schema.org/Person — the homepage's primary entity. */
 export function personSchema(site: string | URL = FALLBACK_SITE) {
+  const [givenName, ...rest] = siteConfig.name.split(" ");
   return {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": personId(site),
     name: siteConfig.name,
+    givenName,
+    familyName: rest.join(" "),
+    alternateName: siteConfig.authorName,
     url: abs("/", site),
     image: abs(siteConfig.portrait, site),
     jobTitle: "PhD Student in Biomedical Engineering",
     description: siteConfig.description,
-    affiliation: {
-      "@type": "CollegeOrUniversity",
-      name: "Carnegie Mellon University",
-      url: "https://www.cmu.edu",
-    },
+    affiliation: [
+      {
+        "@type": "CollegeOrUniversity",
+        name: "Carnegie Mellon University",
+        url: "https://www.cmu.edu",
+      },
+      ...siteConfig.affiliations.map((a) => ({
+        "@type": "ResearchOrganization",
+        name: a.name,
+        url: a.url,
+      })),
+    ],
     alumniOf: [
       { "@type": "CollegeOrUniversity", name: "Carnegie Mellon University" },
       {
@@ -52,6 +69,10 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
       },
     ],
     knowsAbout: [
+      "Virtual reality",
+      "Human-computer interaction",
+      "Translational biomedical devices",
+      "Wearable physiological sensing",
       "Electroencephalography (EEG)",
       "Near-infrared spectroscopy (NIRS)",
       "Frequency-domain near-infrared spectroscopy",
@@ -59,7 +80,6 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
       "Neuroimaging",
       "Biomedical signal processing",
       "Machine learning",
-      "Extended reality",
       "Sickle cell disease",
     ],
     // LinkedIn / ResearchGate / Google Scholar / GitHub (no email).
@@ -72,11 +92,47 @@ export function websiteSchema(site: string | URL = FALLBACK_SITE) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": websiteId(site),
     name: `${siteConfig.name} — Research Portfolio`,
     url: abs("/", site),
     description: siteConfig.description,
     inLanguage: "en",
-    author: { "@type": "Person", name: siteConfig.name },
+    author: { "@id": personId(site) },
+    publisher: { "@id": personId(site) },
+  };
+}
+
+/** schema.org/ProfilePage — Google's documented type for a page about one person. */
+export function profilePageSchema(site: string | URL = FALLBACK_SITE, modified: Date = new Date()) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": abs("/", site),
+    url: abs("/", site),
+    name: `${siteConfig.name} — ${siteConfig.title}`,
+    isPartOf: { "@id": websiteId(site) },
+    mainEntity: { "@id": personId(site) },
+    dateModified: modified.toISOString().slice(0, 10),
+    inLanguage: "en",
+  };
+}
+
+/**
+ * Everything on the home page as one linked @graph: the site, the profile
+ * page, the person, and each publication with the person as an author.
+ */
+export function homeGraph(site: string | URL = FALLBACK_SITE, modified: Date = new Date()) {
+  const strip = ({ "@context": _ctx, ...rest }: Record<string, unknown>) => rest;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      strip(websiteSchema(site)),
+      strip(profilePageSchema(site, modified)),
+      strip(personSchema(site)),
+      ...siteConfig.publications.map((pub) =>
+        scholarlyArticle(pub, siteConfig.authorName, personId(site)),
+      ),
+    ],
   };
 }
 

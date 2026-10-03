@@ -4,7 +4,7 @@
 
 A clean, formal, light/dark portfolio template for **researchers and academics**, built with Astro 5 and Tailwind CSS v4. It extends the developer-focused [DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) template with a single-page academic layout (identity sidebar, research projects with materials, publications, Talks), an optional markdown blog (archived in this copy), and a robust, **SEO + LLM-friendly** metadata layer out of the box.
 
-**Live example:** [royshidhartho.github.io](https://royshidhartho.github.io)
+**Live example:** [shidhartho.com](https://shidhartho.com)
 
 > This repository doubles as one person's live site **and** a reusable template — the content you see is a working example. To make it yours, replace the content described in [Make it yours](#make-it-yours).
 
@@ -12,7 +12,7 @@ A clean, formal, light/dark portfolio template for **researchers and academics**
 
 - 🎓 **Academic-first layout** — a single page with a two-column card: a sidebar (portrait, CV, socials, affiliations, Talks) beside Bio, Research (a Featured strip plus the full list), Publications (grouped by year), Experience, Education, and Skills.
 - 🌗 **Light/dark theme** — system-aware, persisted to `localStorage`, no flash of the wrong theme.
-- 🔎 **SEO + LLM ready** — a reusable `<Seo />` component, JSON-LD structured data (`Person`, `WebSite`, `BlogPosting`, `BreadcrumbList`), canonical URLs, Open Graph + Twitter cards, auto-generated sitemap, an AI-crawler-friendly `robots.txt`, and an `llms.txt` index. See [SEO](#seo--llm-discoverability).
+- 🔎 **SEO + LLM ready** — a reusable `<Seo />` component, JSON-LD structured data (`ProfilePage`, `Person`, `WebSite`, `ScholarlyArticle` per publication; `BlogPosting` and `BreadcrumbList` for the archived blog), canonical URLs, Open Graph + Twitter cards, auto-generated sitemap, an AI-crawler-friendly `robots.txt`, and an `llms.txt` index. See [SEO](#seo--llm-discoverability).
 - ✍️ **Markdown blog (archived)** — a blog with a featured post and card grid is kept in `_archive/blog/`; follow its README to restore it.
 - 🔬 **Research with materials** — each project and publication can link a paper, PDF or preprint, poster, slides, code, and data, and can carry a teaser image, a video (YouTube or self-hosted, opened in a shared dialog), and a BibTeX copy button.
 - 📭 **Privacy-conscious** — no contact form and no email address anywhere; visitors reach you through the profiles linked in the sidebar.
@@ -77,8 +77,8 @@ Also replace these example assets / settings:
 |------|-------|
 | Site origin (for canonical URLs + sitemap) | `site:` in `astro.config.mjs` |
 | CV PDF | `public/files/`, then set `siteConfig.cv` |
-| Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (also used by the JSON-LD in `src/lib/seo.ts`) |
-| Favicon | `public/favicon.svg` |
+| Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (used by the JSON-LD in `src/lib/seo.ts`); also save square 280 px and 560 px copies and list them in `siteConfig.portraitSizes` for the sidebar |
+| Favicon | `public/favicon.ico`, `favicon-48.png`, `favicon-192.png`, `apple-touch-icon.png` |
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
 | Accent color | `--accent`, `--accent-soft`, and `--mark` in `src/styles/global.css`, in both the `:root` (light) and `[data-theme="dark"]` blocks |
 | Research projects | `siteConfig.research` in `src/config.ts` |
@@ -89,7 +89,7 @@ Also replace these example assets / settings:
 This template ships with a metadata layer designed for both search engines and AI answer engines:
 
 - **`src/components/Seo.astro`** — a single component that emits `<title>`, description, canonical link, full Open Graph + Twitter Card tags, and any JSON-LD passed to it. Every page feeds it props, so there's one source of truth.
-- **`src/lib/seo.ts`** — builders for [schema.org](https://schema.org) JSON-LD: `Person` + `WebSite` (home), `BlogPosting` + `BreadcrumbList` (used by the archived blog pages).
+- **`src/lib/seo.ts`** — builders for [schema.org](https://schema.org) JSON-LD: one linked graph on the home page (`WebSite`, `ProfilePage`, `Person`, and a `ScholarlyArticle` per publication, tied to the person by `@id` and to each paper by DOI), `BlogPosting` + `BreadcrumbList` (used by the archived blog pages).
 - **`@astrojs/sitemap`** — generates `sitemap-index.xml` automatically from your routes (requires `site` to be set in `astro.config.mjs`).
 - **`public/robots.txt`** — open to all crawlers, and explicitly welcomes AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …). Remove those lines if you'd rather *block* AI crawlers.
 - **`public/llms.txt`** — a curated markdown summary of who you are and your key links, an emerging convention for AI tools. Edit it to match your content.
@@ -103,7 +103,7 @@ This template ships with a metadata layer designed for both search engines and A
 ├── public/
 │   ├── files/                  # CV PDF; research/<slug>/ for self-hosted materials
 │   ├── images/blog/            # portrait, research teasers, post images
-│   ├── favicon.svg
+│   ├── favicon.ico, favicon-*.png, apple-touch-icon.png   # site icons
 │   ├── og-image.png            # social share card (1200×630)
 │   ├── robots.txt              # AI-crawler-friendly
 │   └── llms.txt                # AI index
@@ -111,6 +111,7 @@ This template ships with a metadata layer designed for both search engines and A
 │   ├── components/             # Astro components (Sidebar, Bio, Research, Publications, Seo, …)
 │   ├── lib/
 │   │   ├── seo.ts              # JSON-LD structured-data builders
+│   │   ├── schema.ts           # pure publication → ScholarlyArticle builders
 │   │   ├── inline.ts           # inline-markup helper for bio text
 │   │   ├── research.ts         # research types, sorting, and material links
 │   │   ├── publications.ts     # publication type and year grouping
@@ -133,6 +134,7 @@ To deploy your own copy to GitHub Pages:
 1. Name your repo `<your-username>.github.io` (for a root user site) and push.
 2. Set `site:` in `astro.config.mjs` to your Pages URL (e.g. `https://<your-username>.github.io`). For a *project* site served from a sub-path, also set `base:`.
 3. In the repo's **Settings → Pages**, set the source to **GitHub Actions**.
+4. *(Optional)* For a custom domain, point its DNS at GitHub Pages (four `A`/`AAAA` records on the apex and a `www` CNAME to `<your-username>.github.io`), enter it under **Settings → Pages → Custom domain**, enable **Enforce HTTPS**, and set `site:` to the custom domain. See [GitHub's custom domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
 
 It's a static Astro build, so it also deploys cleanly to Netlify, Vercel, Cloudflare Pages, etc. — see the [Astro deployment guides](https://docs.astro.build/en/guides/deploy/).
 

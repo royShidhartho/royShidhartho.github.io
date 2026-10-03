@@ -20,19 +20,23 @@ interface Props {
   tags?: string[];
   /** schema.org objects to inject as <script type="application/ld+json">. */
   jsonLd?: Record<string, unknown>[];
+  /** Keep the page out of search results (e.g. the 404 page); also drops the canonical link. */
+  noindex?: boolean;
 }
 
 const {
   title,
   description,
-  image = "/og-image.png",
+  // Bump ?v= whenever og-image.png changes: iMessage, LinkedIn, and Slack cache cards by URL.
+  image = "/og-image.png?v=2",
   type = "website",
   publishedTime,
   tags = [],
   jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
-const site = Astro.site ?? new URL("https://royshidhartho.github.io");
+const site = Astro.site ?? new URL("https://shidhartho.com");
 const canonical = new URL(Astro.url.pathname, site).href;
 const imageURL = new URL(image, site).href;
 
@@ -57,7 +61,7 @@ const serialize = (obj: unknown) => JSON.stringify(obj).replace(/</g, "\\u003c")
 <meta name="description" content={description} />
 <meta name="author" content={siteConfig.name} />
 <meta name="keywords" content={keywords} />
-<link rel="canonical" href={canonical} />
+{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
 
 {/* Open Graph */}
 <meta property="og:title" content={title} />
@@ -67,7 +71,8 @@ const serialize = (obj: unknown) => JSON.stringify(obj).replace(/</g, "\\u003c")
 <meta property="og:image" content={imageURL} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:site_name" content={siteConfig.name} />
+{/* The domain, not the name: iMessage strips a title prefix that matches og:site_name. */}
+<meta property="og:site_name" content={site.hostname} />
 <meta property="og:locale" content="en_US" />
 {type === "article" && publishedTime && (
   <meta property="article:published_time" content={publishedTime} />

@@ -39,7 +39,7 @@ No linting is configured.
 
 Content lives in two places (plus the archived blog):
 
-1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social`, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `publications`, `experience`, `education` (`note` + `awards` badges).
+1. **`src/config.ts`** (`siteConfig`): `name`, `title`, `subtitle`, `description`, `authorName`, `portrait` (full size, used by JSON-LD), `portraitSizes` (square 280 px and 560 px copies for the sidebar `srcset`), `cv`, `social`, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `publications`, `experience`, `education` (`note` + `awards` badges).
    - `research` items follow `ResearchItem` in `src/lib/research.ts`: `featured: true` puts an item in the one-row Featured strip (max 3); `materials` keys are `pdf`, `preprint` (labeled Preprint: a free arXiv copy of a paywalled paper), `doi` (labeled Paper), `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Self-hosted files go in `public/files/research/<slug>/`.
    - `publications` items follow `Publication` in `src/lib/publications.ts` (`title`, `authors`, `venue`, optional `details`, `year`, `type` of Journal/Conference/Abstract/Preprint, optional `award`, `materials`, `bibtex`). The Publications section groups them by year, newest first, keeping config order within a year. Only link a `pdf` when it is a legal free copy (open-access publisher, PubMed Central, arXiv, or an organizer-hosted abstract).
    - `social` keys are `linkedin`, `researchgate`, `scholar`, `github`; `Sidebar.astro` hardcodes one icon block per key, so a new key needs a matching block there. Every value also flows into JSON-LD `sameAs` via `Object.values(siteConfig.social)`. Email is intentionally not exposed anywhere (an `email` key would land in `sameAs`).
@@ -49,6 +49,7 @@ Content lives in two places (plus the archived blog):
 ## Architecture
 
 - **Home page** (`src/pages/index.astro`): `Header` (with `home` prop), then one `.home-card` containing `Sidebar` (portrait, CV, socials, affiliations, `Talks`) and a main column of `Bio`, `Research`, `Publications`, `Experience`, `Education`, `Skills`; then `Footer`. Single page, no section nav.
+- **404 page** (`src/pages/404.astro`): same header, card, and footer with links home; `<Seo noindex />` emits `robots: noindex` instead of a canonical link. GitHub Pages serves it for any unknown path, including old `/blog/…` links.
 - **Conditional rendering**: Research, Publications, Experience, Education, and Skills each render nothing when their data is empty.
 - **Pure logic lives in `src/lib/`** (`inline.ts`, `research.ts`, `publications.ts`) and is unit-tested with `npm test` (`node --test`). Components render its output with `set:html` only for strings those helpers escaped.
 - **Video**: `VideoDialog.astro` is a shared native `<dialog>`; any `a[data-video]` opens it, and its `href` is the no-JS fallback.
@@ -58,8 +59,8 @@ Content lives in two places (plus the archived blog):
 ### SEO / metadata
 
 - **`src/components/Seo.astro`** is the single source of truth for `<head>` metadata: `<title>`, description, canonical link, Open Graph, Twitter cards, and any JSON-LD. Every page passes it props rather than hand-writing meta tags — add new pages this way too.
-- **`src/lib/seo.ts`** builds schema.org JSON-LD: `personSchema`/`websiteSchema` (home) and `blogPostingSchema`/`breadcrumbSchema` (used only by the archived blog pages). `sameAs` comes from `siteConfig.social`, which deliberately has no email.
-- `site` is set in `astro.config.mjs` (`https://royshidhartho.github.io`, lowercase) — required for canonical URLs and the sitemap. `@astrojs/sitemap` auto-generates `sitemap-index.xml` at build.
+- **`src/lib/seo.ts`** builds schema.org JSON-LD. The home page emits one `@graph` from `homeGraph()`: `WebSite`, `ProfilePage`, the `Person` (stable `@id` `https://shidhartho.com/#person`, with the lab affiliations from `siteConfig.affiliations`), and one `ScholarlyArticle` per publication whose author list references that `@id` and whose identifier is the DOI. The publication builders are pure and tested in `src/lib/schema.ts`. `blogPostingSchema`/`breadcrumbSchema` are `blogPostingSchema`/`breadcrumbSchema` (used only by the archived blog pages). `sameAs` comes from `siteConfig.social`, which deliberately has no email.
+- `site` is set in `astro.config.mjs` (`https://shidhartho.com`, lowercase) — required for canonical URLs and the sitemap. `@astrojs/sitemap` auto-generates `sitemap-index.xml` at build.
 - `public/robots.txt` (explicitly AI-crawler-friendly), `public/llms.txt` (curated AI index), and `public/og-image.png` (1200×630 social card) round out discoverability.
 
 ### Blog (archived)
@@ -70,7 +71,9 @@ Content lives in two places (plus the archived blog):
 
 ## Deployment
 
-GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages on every push to `master`. Live URL: `https://royshidhartho.github.io`. There is no staging environment — pushing to `master` publishes.
+GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages on every push to `master`. Live URL: `https://shidhartho.com`. There is no staging environment — pushing to `master` publishes.
+
+The custom domain is set in the repo's **Settings → Pages → Custom domain** (not a `CNAME` file, which GitHub ignores for Actions deployments). DNS lives at Cloudflare: four `A` and four `AAAA` records for the apex pointing at GitHub Pages, a `www` CNAME to `royshidhartho.github.io`, and the `_github-pages-challenge-royshidhartho` TXT record that verifies the domain. All are **DNS only** (not proxied) so GitHub can issue the HTTPS certificate. `royshidhartho.github.io` 301-redirects to the custom domain.
 
 ## Conventions when editing
 
