@@ -1,0 +1,8 @@
+---
+import { siteConfig } from "../config";
+import { renderInline } from "../lib/inline";
+---
+
+<div class="bio" id="about">
+  {siteConfig.bio.map((paragraph) => <p set:html={renderInline(paragraph)} />)}
+</div>

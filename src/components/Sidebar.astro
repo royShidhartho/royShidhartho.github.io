@@ -1,0 +1,76 @@
+---
+import { siteConfig } from "../config";
+import Talks from "./Talks.astro";
+
+const { social } = siteConfig;
+---
+
+<aside class="sidebar">
+  <div class="sidebar-id">
+    <img
+      class="portrait"
+      src={siteConfig.portrait}
+      alt={`Portrait of ${siteConfig.name}`}
+      width="520"
+      height="520"
+    />
+    <a class="cv-link" href={siteConfig.cv} target="_blank" rel="noopener">Curriculum Vitae (PDF)</a>
+    <div class="socials">
+      {
+        social.scholar && (
+          <a href={social.scholar} target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" title="Google Scholar">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 3L1 9l11 6l9-4.91V17h2V9L12 3zm0 13L5.74 12.73V16.5c0 2.49 2.97 4.5 6.26 4.5s6.26-2.01 6.26-4.5v-3.77L12 16z" />
+            </svg>
+          </a>
+        )
+      }
+      {
+        social.researchgate && (
+          <a href={social.researchgate} target="_blank" rel="noopener noreferrer" aria-label="ResearchGate" title="ResearchGate">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor" />
+              <text x="12" y="16.2" text-anchor="middle" font-size="10" font-weight="700" font-family="Georgia, serif" style="fill: var(--card)">RG</text>
+            </svg>
+          </a>
+        )
+      }
+      {
+        social.linkedin && (
+          <a href={social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 0 0 -4 0" />
+              <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" />
+            </svg>
+          </a>
+        )
+      }
+      {
+        social.github && (
+          <a href={social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+            </svg>
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    siteConfig.affiliations.length > 0 && (
+      <div class="affil">
+        <span class="affil-h">Affiliations</span>
+        <ul>
+          {siteConfig.affiliations.map((a) => (
+            <li>
+              <a href={a.url} target="_blank" rel="noopener noreferrer">{a.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  <Talks />
+</aside>

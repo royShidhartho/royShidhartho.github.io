@@ -36,9 +36,9 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
     "@type": "Person",
     name: siteConfig.name,
     url: abs("/", site),
-    image: abs("/images/blog/potrait_card.jpeg", site),
+    image: abs(siteConfig.portrait, site),
     jobTitle: "PhD Student in Biomedical Engineering",
-    description: siteConfig.aboutMe,
+    description: siteConfig.description,
     affiliation: {
       "@type": "CollegeOrUniversity",
       name: "Carnegie Mellon University",
