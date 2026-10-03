@@ -14,7 +14,7 @@ const formattedDate = post.data.pubDate
 <article class="post-card">
   {
     post.data.image && (
-      <a href={`/blog/${post.slug}/`}>
+      <a href={`/blog/${post.slug}/`} aria-hidden="true" tabindex="-1">
         <img src={post.data.image} alt="" loading="lazy" />
       </a>
     )
