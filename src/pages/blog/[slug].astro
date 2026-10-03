@@ -52,6 +52,7 @@ const formattedDate = frontmatter.pubDate
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     })
   : "";
 ---
@@ -93,56 +94,33 @@ const formattedDate = frontmatter.pubDate
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <Header />
 
-    <main class="pt-28">
-      <article class="section pt-8">
-        <div class="shell shell-narrow">
-          <a
-            href="/blog"
-            class="ul-link inline-flex items-center gap-1.5 text-sm font-medium t-muted"
-          >
-            <span aria-hidden="true">←</span> Back to blog
-          </a>
+    <main class="page">
+      <article class="article">
+        <a href="/blog/" class="back-link"><span aria-hidden="true">←</span> Back to blog</a>
 
-          <header class="mt-8">
-            {
-              frontmatter.tags && frontmatter.tags.length > 0 && (
-                <div class="mb-5 flex flex-wrap gap-2">
-                  {frontmatter.tags.map((tag) => (
-                    <span class="chip">{tag}</span>
-                  ))}
-                </div>
-              )
-            }
-            <h1 class="font-bold tracking-tight leading-[1.08] text-[clamp(2rem,5vw,3.4rem)]">
-              {frontmatter.title}
-            </h1>
-
-            <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm t-faint">
-              {frontmatter.author && <span>{frontmatter.author}</span>}
-              {formattedDate && <span>· {formattedDate}</span>}
+        {
+          frontmatter.tags && frontmatter.tags.length > 0 && (
+            <div class="chips" style="margin-top:18px">
+              {frontmatter.tags.map((tag) => (
+                <span class="chip">{tag}</span>
+              ))}
             </div>
+          )
+        }
+        <h1 class="article-title">{frontmatter.title}</h1>
+        <div class="article-meta">{[frontmatter.author, formattedDate].filter(Boolean).join(" · ")}</div>
 
-            {
-              frontmatter.image && (
-                <img
-                  src={frontmatter.image}
-                  alt={frontmatter.title}
-                  class="card mt-10 w-full rounded-2xl object-cover"
-                />
-              )
-            }
-          </header>
+        {frontmatter.image && <img class="article-hero" src={frontmatter.image} alt="" />}
 
-          <div class="prose mt-12">
-            <Content />
-          </div>
+        <div class="prose">
+          <Content />
         </div>
       </article>
     </main>
