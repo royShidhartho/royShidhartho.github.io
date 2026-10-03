@@ -15,7 +15,10 @@ const research: ResearchItem[] = [
     },
     award: "JBO 2024 Top Paper",
     featured: true,
-    materials: { doi: "https://doi.org/10.1117/1.JBO.29.S3.S33310" },
+    materials: {
+      pdf: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11423252/pdf/JBO-029-S33310.pdf",
+      doi: "https://doi.org/10.1117/1.JBO.29.S3.S33310",
+    },
   },
   {
     slug: "eeg-pain-scd",
@@ -30,6 +33,7 @@ const research: ResearchItem[] = [
     },
     featured: true,
     image: "/images/blog/cca-placeholder.jpg",
+    materials: { doi: "https://doi.org/10.1016/j.jpain.2025.106022" },
   },
   {
     slug: "optode-curly-hair",
@@ -39,14 +43,14 @@ const research: ResearchItem[] = [
     year: 2026,
     citation: {
       authors:
-        "S. Roy, A. Duong, E. Meinert-Spyker, J. Cao, J. Kwasa, J. M. Kainerstorfer, P. Grover, S. Wood",
+        "A. Duong, S. Roy, E. Meinert-Spyker, J. Cao, J. Kwasa, J. M. Kainerstorfer, P. Grover, S. Wood",
       venue: "SPIE Photonics West",
       year: 2026,
     },
     featured: true,
     image: "/images/blog/optode-placeholder.jpg",
     materials: {
-      doi: "https://spie.org/photonics-west/presentation/Novel-optode-sensor-development-for-functional-near-infrared-spectroscopy-systems/13834-19",
+      doi: "https://doi.org/10.1117/12.3079336",
     },
   },
   {
