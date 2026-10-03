@@ -1,0 +1,49 @@
+---
+import Materials from "./Materials.astro";
+import { videoEmbed, videoHref, type ResearchItem } from "../lib/research";
+
+interface Props {
+  item: ResearchItem;
+}
+const { item } = Astro.props;
+const embed = item.video ? videoEmbed(item.video) : null;
+---
+
+<article class="feat-card">
+  {
+    item.video && embed ? (
+      <a
+        class="media"
+        href={videoHref(item.video)}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Play video: ${item.title}`}
+        data-video
+        data-video-kind={embed.kind}
+        data-video-src={embed.src}
+        data-video-poster={embed.poster}
+        data-video-title={item.title}
+      >
+        {item.image ? <img src={item.image} alt="" loading="lazy" /> : <span class="media-ph">Teaser figure</span>}
+        <span class="play" aria-hidden="true">▶</span>
+        <span class="media-badge">Video</span>
+      </a>
+    ) : (
+      <div class="media">
+        {item.image ? (
+          <img src={item.image} alt={`Teaser figure for ${item.title}`} loading="lazy" />
+        ) : (
+          <span class="media-ph">Teaser figure</span>
+        )}
+        <span class="media-badge is-muted">Video coming soon</span>
+      </div>
+    )
+  }
+  <div class="feat-body">
+    {item.award && <span class="award">★ {item.award}</span>}
+    <h4 class="feat-title">{item.title}</h4>
+    <p class="feat-summary">{item.summary}</p>
+    {item.citation && <p class="feat-cite">{item.citation.venue}, {item.citation.year}</p>}
+    <Materials item={item} />
+  </div>
+</article>
