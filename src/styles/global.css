@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@source not "../../docs";
+@source not "../posts";
+@source not "../../CLAUDE.md";
 
 /* ============================================================
    Design tokens
