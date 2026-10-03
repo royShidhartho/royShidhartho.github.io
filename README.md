@@ -2,7 +2,7 @@
 
 # Academic Portfolio — Astro + Tailwind
 
-A clean, modern, light/dark portfolio template for **researchers and academics**, built with Astro 5 and Tailwind CSS v4. It extends the developer-focused [DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) template with academic sections (Publications, Talks), a markdown blog, and a robust, **SEO + LLM-friendly** metadata layer out of the box.
+A clean, formal, light/dark portfolio template for **researchers and academics**, built with Astro 5 and Tailwind CSS v4. It extends the developer-focused [DevPortfolio](https://github.com/RyanFitzgerald/devportfolio) template with a single-page academic layout (identity sidebar, research projects with materials, Talks), a markdown blog, and a robust, **SEO + LLM-friendly** metadata layer out of the box.
 
 **Live example:** [royshidhartho.github.io](https://royshidhartho.github.io)
 
@@ -10,20 +10,21 @@ A clean, modern, light/dark portfolio template for **researchers and academics**
 
 ## Features
 
-- 🎓 **Academic-first sections** — Hero, Talks, About, Projects, Publications (with domain filters + expandable abstracts), Experience, Education, Contact.
+- 🎓 **Academic-first layout** — a single page with a two-column card: a sidebar (portrait, CV, socials, affiliations, Talks) beside Bio, Research (a Featured strip plus the full list), Experience, Education, Skills, and Writing.
 - 🌗 **Light/dark theme** — system-aware, persisted to `localStorage`, no flash of the wrong theme.
 - 🔎 **SEO + LLM ready** — a reusable `<Seo />` component, JSON-LD structured data (`Person`, `WebSite`, `BlogPosting`, `BreadcrumbList`), canonical URLs, Open Graph + Twitter cards, auto-generated sitemap, an AI-crawler-friendly `robots.txt`, and an `llms.txt` index. See [SEO](#seo--llm-discoverability).
 - ✍️ **Markdown blog** — drop a `.md` file in `src/posts/`; featured post + card grid handled for you.
-- 📭 **Privacy-conscious contact** — a [Formspree](https://formspree.io) form with a honeypot, so no email address is exposed to scrapers.
-- ♿ **No-JS friendly & accessible** — content renders without JavaScript; animations respect `prefers-reduced-motion`.
-- 🧩 **Conditional sections** — empty config arrays hide their section (and nav link) automatically.
+- 🔬 **Research with materials** — each project can link a paper, PDF, poster, slides, code, and data, and can carry a teaser image, a video (YouTube or self-hosted, opened in a shared dialog), and a BibTeX copy button.
+- 📭 **Privacy-conscious** — no contact form and no email address anywhere; visitors reach you through the profiles linked in the sidebar.
+- ♿ **No-JS friendly & accessible** — content renders without JavaScript, and there is no animation.
+- 🧩 **Conditional sections** — empty config arrays hide their section automatically.
 
 ## Tech stack
 
 - **[Astro 5](https://astro.build/)** — static site generator; every component is `.astro`.
 - **[Tailwind CSS v4](https://tailwindcss.com/)** — via the `@tailwindcss/vite` plugin (configured in `astro.config.mjs`; there is **no** `tailwind.config.js`). All tokens/classes live in `src/styles/global.css`.
 - **TypeScript** — for config and frontmatter types.
-- **Fonts** — [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk) for everything, [Fraunces](https://fonts.google.com/specimen/Fraunces) italic as a sparing editorial accent (loaded from Google Fonts).
+- **Fonts** — [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk) for everything, [Fraunces](https://fonts.google.com/specimen/Fraunces) italic as a sparing accent (loaded from Google Fonts).
 - **Icons** — inline SVG written directly in components (no icon library).
 
 ## Quick start
@@ -42,9 +43,10 @@ Other commands:
 ```bash
 npm run build      # production build to ./dist
 npm run preview    # preview the production build
+npm test           # unit tests for the src/lib helpers (node --test)
 ```
 
-There is no linter or test framework configured.
+There is no linter configured.
 
 ## Make it yours
 
@@ -63,8 +65,9 @@ The full assistant protocol lives in **[`SETUP.md`](SETUP.md)** (interview → c
 
 Content lives in **three** places — this is the most important thing to know:
 
-1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `description`, `social` links, `aboutMe`, `skills`, `projects`, `experience`, `education`. Removing/emptying a section array hides that section and its nav link automatically. (Note: `config.ts` also contains `publications` and `accentColor`, but both are currently unused — see the rows below.)
-2. **Hard-coded arrays inside components** — the **Talks** list lives in a `talks` array at the top of `src/components/Talks.astro`, and the **Publications** list lives in a `publications` array (plus a `domains` filter config) in `src/components/Publications.astro`. Edit those files directly.
+1. **`src/config.ts`** (`siteConfig`) — the home-page content: `name`, `title`, `subtitle`, `description`, `authorName`, `portrait`, `cv`, `social` links, `bio` (paragraphs; inline `[label](url)`, `==highlight==`, `**bold**`), `affiliations`, `skills` (labeled groups), `research`, `experience`, `education`. Emptying a section's array hides that section automatically (there is no nav).
+   - **`research`** holds your projects, typed by `ResearchItem` in `src/lib/research.ts`. Set `featured: true` on up to three to show them in the Featured strip. `materials` keys are `pdf`, `doi`, `poster`, `slides`, `code`, `data`; `video` is `{ youtube: "<id>" }` or `{ src, poster? }`; `bibtex` adds a copy button. Put self-hosted files in `public/files/research/<slug>/`.
+2. **A hard-coded array inside a component** — the **Talks** list lives in a `talks` array at the top of `src/components/Talks.astro` and renders as a scrollable box in the sidebar. Edit that file directly.
 3. **`src/posts/*.md`** — blog posts. Frontmatter: `title`, `pubDate` (ISO date, used for sorting), and optional `description`, `author`, `image`, `tags`. The featured post on `/blog` is chosen by slug in `src/pages/blog/index.astro` (`featuredSlug`), falling back to the newest post.
 
 Also replace these example assets / settings:
@@ -72,13 +75,12 @@ Also replace these example assets / settings:
 | What | Where |
 |------|-------|
 | Site origin (for canonical URLs + sitemap) | `site:` in `astro.config.mjs` |
-| CV PDF | `public/files/` (and the “Download CV” link) |
-| Portrait image | `public/images/blog/potrait_card.jpeg` (referenced in `Hero.astro` + `src/lib/seo.ts`) |
+| CV PDF | `public/files/`, then set `siteConfig.cv` |
+| Portrait image | `public/images/blog/`, then set `siteConfig.portrait` (also used by the JSON-LD in `src/lib/seo.ts`) |
 | Favicon | `public/favicon.svg` |
 | Social share image | `public/og-image.png` — a 1200×630 PNG (see [SEO](#seo--llm-discoverability)) |
-| Contact form endpoint | the Formspree URL in `src/components/Contact.astro` |
-| Accent color | `--accent` (and `--accent-2`, plus the dark-theme values) in `src/styles/global.css` — **not** `config.ts`'s unused `accentColor` |
-| Publications | the `publications` array in `src/components/Publications.astro` — **not** `config.ts`'s unused `publications` |
+| Accent color | `--accent` in `src/styles/global.css` (light, and under `[data-theme="dark"]`) |
+| Research projects | `siteConfig.research` in `src/config.ts` |
 
 ## SEO & LLM discoverability
 
@@ -96,18 +98,21 @@ This template ships with a metadata layer designed for both search engines and A
 
 ```
 ├── public/
-│   ├── files/                  # CV PDF
+│   ├── files/                  # CV PDF; research/<slug>/ for self-hosted materials
 │   ├── images/blog/            # portrait + post images
 │   ├── favicon.svg
 │   ├── og-image.png            # social share card (1200×630)
 │   ├── robots.txt              # AI-crawler-friendly
 │   └── llms.txt                # AI index
 ├── src/
-│   ├── components/             # Astro components (Hero, Publications, Seo, …)
+│   ├── components/             # Astro components (Sidebar, Bio, Research, Seo, …)
 │   ├── lib/
-│   │   └── seo.ts              # JSON-LD structured-data builders
+│   │   ├── seo.ts              # JSON-LD structured-data builders
+│   │   ├── inline.ts           # inline-markup helper for bio text
+│   │   ├── research.ts         # research types, sorting, and material links
+│   │   └── *.test.ts           # unit tests (npm test)
 │   ├── pages/
-│   │   ├── index.astro         # home page (composes all sections)
+│   │   ├── index.astro         # home page (sidebar + main column)
 │   │   └── blog/
 │   │       ├── index.astro     # blog listing
 │   │       └── [slug].astro    # blog post page
@@ -133,7 +138,7 @@ It's a static Astro build, so it also deploys cleanly to Netlify, Vercel, Cloudf
 
 ## Credits
 
-Forked from and built on top of **[DevPortfolio](https://github.com/RyanFitzgerald/devportfolio)** by [Ryan Fitzgerald](https://github.com/RyanFitzgerald), with academic sections, a light/dark redesign, and the SEO/LLM layer added.
+Forked from and built on top of **[DevPortfolio](https://github.com/RyanFitzgerald/devportfolio)** by [Ryan Fitzgerald](https://github.com/RyanFitzgerald), with an academic single-page layout, a light/dark redesign, and the SEO/LLM layer added.
 
 ## License
 
