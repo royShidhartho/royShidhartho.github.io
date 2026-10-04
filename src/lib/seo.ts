@@ -44,7 +44,7 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
     name: siteConfig.name,
     givenName,
     familyName: rest.join(" "),
-    alternateName: siteConfig.authorName,
+    alternateName: [siteConfig.authorName, "Sid Roy"],
     url: abs("/", site),
     image: abs(siteConfig.portrait, site),
     jobTitle: "PhD Student in Biomedical Engineering",
