@@ -27,3 +27,20 @@ export function groupByYear(pubs: readonly Publication[]): YearGroup[] {
     .sort(([a], [b]) => b - a)
     .map(([year, items]) => ({ year, items }));
 }
+
+export type CategoryGroup = { label: string; years: YearGroup[] };
+
+/** Section order and membership; meeting abstracts sit with conference papers. */
+const CATEGORIES: { label: string; types: Publication["type"][] }[] = [
+  { label: "Journal Articles", types: ["Journal"] },
+  { label: "Conference Papers & Abstracts", types: ["Conference", "Abstract"] },
+  { label: "Preprints", types: ["Preprint"] },
+];
+
+/** Journal, conference, and preprint groups, each split by year; empty groups are dropped. */
+export function groupByCategory(pubs: readonly Publication[]): CategoryGroup[] {
+  return CATEGORIES.map(({ label, types }) => ({
+    label,
+    years: groupByYear(pubs.filter((pub) => types.includes(pub.type))),
+  })).filter((group) => group.years.length > 0);
+}
