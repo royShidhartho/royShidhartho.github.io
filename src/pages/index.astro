@@ -14,7 +14,7 @@ import { homeGraph } from "../lib/seo";
 import "../styles/global.css";
 ---
 
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -22,8 +22,7 @@ import "../styles/global.css";
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f5f1" />
     <meta name="generator" content={Astro.generator} />
 
     <Seo
@@ -37,11 +36,8 @@ import "../styles/global.css";
       (function () {
         document.documentElement.classList.add("js");
         try {
-          var t = localStorage.getItem("theme");
-          if (!t)
-            t = window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
+          // Light by default; dark only when the visitor has chosen it.
+          var t = localStorage.getItem("theme") === "dark" ? "dark" : "light";
           document.documentElement.setAttribute("data-theme", t);
         } catch (e) {}
       })();

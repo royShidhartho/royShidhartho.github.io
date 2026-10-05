@@ -30,7 +30,7 @@ No linting is configured.
 
 ## Theming (light/dark)
 
-- `data-theme="light|dark"` on `<html>`, persisted to `localStorage.theme`, system-aware. A no-flash inline `<script is:inline>` in the `<head>` of all three page entry points sets the theme before paint and adds a `.js` class to `<html>`.
+- `data-theme="light|dark"` on `<html>`, persisted to `localStorage.theme`. Light by default regardless of the OS setting; dark only after the visitor picks it with the toggle. A no-flash inline `<script is:inline>` in the `<head>` of all three page entry points sets the theme before paint and adds a `.js` class to `<html>`.
 - All colors are **CSS variables** (`--bg`, `--text`, `--text-muted`, `--border`, `--accent`, …) defined in `global.css` and flipped under `[data-theme="dark"]`. Components must use these variables, not hard-coded colors.
 - The accent is CMU red, set by `--accent` in `global.css` (light `#a6192e`, dark `#ef7d8c`). `--accent-soft` and `--mark` are derived from it (except dark `--mark`, which is a neutral white tint), so change them together. In dark mode, bio links use the text color with an accent underline instead of red text.
 - The theme toggle is the only script in `Header.astro`. There is no reveal-on-scroll, active-section tracking, or animation anywhere; keep `global.css` free of `transition`, `animation`, and hover `transform`.

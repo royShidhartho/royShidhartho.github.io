@@ -11,7 +11,7 @@ A clean, formal, light/dark portfolio template for **researchers and academics**
 ## Features
 
 - 🎓 **Academic-first layout** — a single page with a two-column card: a sidebar (portrait, CV, socials, affiliations, Talks) beside Bio, Research (a Featured strip plus the full list), Publications (grouped by year), Experience, Education, and Skills.
-- 🌗 **Light/dark theme** — system-aware, persisted to `localStorage`, no flash of the wrong theme.
+- 🌗 **Light/dark theme** — opens in light mode, toggle choice persisted to `localStorage`, no flash of the wrong theme.
 - 🔎 **SEO + LLM ready** — a reusable `<Seo />` component, JSON-LD structured data (`ProfilePage`, `Person`, `WebSite`, `ScholarlyArticle` per publication; `BlogPosting` and `BreadcrumbList` for the archived blog), canonical URLs, Open Graph + Twitter cards, auto-generated sitemap, an AI-crawler-friendly `robots.txt`, and an `llms.txt` index. See [SEO](#seo--llm-discoverability).
 - ✍️ **Markdown blog (archived)** — a blog with a featured post and card grid is kept in `_archive/blog/`; follow its README to restore it.
 - 🔬 **Research with materials** — each project and publication can link a paper, PDF or preprint, poster, slides, code, and data, and can carry a teaser image, a video (YouTube or self-hosted, opened in a shared dialog), and a BibTeX copy button.
