@@ -77,7 +77,7 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
       "Near-infrared spectroscopy (NIRS)",
       "Frequency-domain near-infrared spectroscopy",
       "Pain biomarkers",
-      "Neuroimaging",
+      "Thermal pain testing",
       "Biomedical signal processing",
       "Machine learning",
       "Sickle cell disease",
