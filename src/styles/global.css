@@ -595,9 +595,6 @@
 }
 
 /* Publications */
-.section-h + .pub-group > .sub-h {
-  margin-top: 0;
-}
 .pub-year {
   display: grid;
   grid-template-columns: 90px minmax(0, 1fr);
