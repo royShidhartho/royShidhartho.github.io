@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # session handoff scaffolding — never ship in the public template
 HANDOFF.md
+AGENTS.md
