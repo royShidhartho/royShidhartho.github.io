@@ -40,7 +40,7 @@
   --soft: #1f2327;
   --accent: #ef7d8c;
   --accent-soft: rgba(239, 125, 140, 0.12);
-  --mark: rgba(239, 125, 140, 0.2);
+  --mark: rgba(255, 255, 255, 0.07);
   --poster: #e2a356;
   --poster-soft: rgba(226, 163, 86, 0.13);
   --overlay: rgba(0, 0, 0, 0.8);
@@ -359,6 +359,19 @@
 .bio p {
   margin: 0 0 14px;
   max-width: 70ch;
+}
+/* Dark mode: red link text on near-black vibrates, so prose links keep the
+   body color and carry the accent as an underline instead. */
+[data-theme="dark"] .bio a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(239, 125, 140, 0.7);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+[data-theme="dark"] .bio a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 .home-section {
   margin-top: 34px;
