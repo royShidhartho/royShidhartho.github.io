@@ -1,43 +1,38 @@
 ---
 import Materials from "./Materials.astro";
 import { siteConfig } from "../config";
-import { groupByCategory } from "../lib/publications";
+import { groupByYear, pubCategory } from "../lib/publications";
 import { boldAuthor } from "../lib/research";
 
-const groups = groupByCategory(siteConfig.publications);
+const years = groupByYear(siteConfig.publications);
 ---
 
 {
-  groups.length > 0 && (
+  years.length > 0 && (
     <section id="publications" class="home-section">
       <h2 class="section-h">Publications</h2>
-      {groups.map((group) => (
-        <div class="pub-group">
-          <h3 class="sub-h">{group.label}</h3>
-          {group.years.map((yearGroup) => (
-            <div class="pub-year">
-              <h4 class="pub-year-h">{yearGroup.year}</h4>
-              <ol class="pub-list">
-                {yearGroup.items.map((pub) => (
-                  <li>
-                    <div class="pub-title">{pub.title}</div>
-                    <div class="entry-cite">
-                      <Fragment set:html={boldAuthor(pub.authors, siteConfig.authorName)} />
-                    </div>
-                    <div class="pub-venue">
-                      <span>
-                        <i>{pub.venue}</i>
-                        {pub.details && `, ${pub.details}`}
-                      </span>
-                      <span class={`tag pub-type pub-type-${pub.type.toLowerCase()}`}>{pub.type}</span>
-                      {pub.award && <span class="award">★ {pub.award}</span>}
-                    </div>
-                    <Materials item={pub} emptyNote={null} />
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ))}
+      {years.map((yearGroup) => (
+        <div class="pub-year">
+          <h3 class="pub-year-h">{yearGroup.year}</h3>
+          <ol class="pub-list">
+            {yearGroup.items.map((pub) => (
+              <li>
+                <div class="pub-title">{pub.title}</div>
+                <div class="entry-cite">
+                  <Fragment set:html={boldAuthor(pub.authors, siteConfig.authorName)} />
+                </div>
+                <div class="pub-venue">
+                  <span>
+                    <i>{pub.venue}</i>
+                    {pub.details && `, ${pub.details}`}
+                  </span>
+                  <span class={`tag pub-type pub-type-${pubCategory(pub.type).toLowerCase()}`}>{pubCategory(pub.type)}</span>
+                  {pub.award && <span class="award">★ {pub.award}</span>}
+                </div>
+                <Materials item={pub} emptyNote={null} />
+              </li>
+            ))}
+          </ol>
         </div>
       ))}
       {siteConfig.social.scholar && (

@@ -1,50 +1,23 @@
 ---
 import FeaturedCard from "./FeaturedCard.astro";
-import Materials from "./Materials.astro";
 import VideoDialog from "./VideoDialog.astro";
 import { siteConfig } from "../config";
-import { boldAuthor, featuredResearch, sortResearch } from "../lib/research";
+import { featuredResearch } from "../lib/research";
 
 const featured = featuredResearch(siteConfig.research);
-const all = sortResearch(siteConfig.research);
 ---
 
 {
-  all.length > 0 && (
+  featured.length > 0 && (
     <section id="research" class="home-section">
       <h2 class="section-h">Research</h2>
 
-      {featured.length > 0 && (
-        <>
-          <h3 class="sub-h">Featured</h3>
-          <div class="feat-row" style={`--feat-cols:${featured.length}`}>
-            {featured.map((item) => (
-              <FeaturedCard item={item} />
-            ))}
-          </div>
-          <h3 class="sub-h">All research</h3>
-        </>
-      )}
-
-      <ol class="research-list">
-        {all.map((item) => (
-          <li>
-            <div class="when">{item.year}</div>
-            <div>
-              <div class="entry-title">{item.title}</div>
-              {item.citation ? (
-                <div class="entry-cite">
-                  <Fragment set:html={boldAuthor(item.citation.authors, siteConfig.authorName)} />.{" "}
-                  <i>{item.citation.venue}</i>, {item.citation.year}.
-                </div>
-              ) : (
-                <div class="entry-cite">{item.summary}</div>
-              )}
-              <Materials item={item} />
-            </div>
-          </li>
+      <h3 class="sub-h">Featured</h3>
+      <div class="feat-row" style={`--feat-cols:${featured.length}`}>
+        {featured.map((item) => (
+          <FeaturedCard item={item} />
         ))}
-      </ol>
+      </div>
 
       <VideoDialog />
     </section>
