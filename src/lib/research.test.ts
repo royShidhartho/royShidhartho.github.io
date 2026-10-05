@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  boldAuthor, featuredResearch, materialLinks, sortResearch, videoEmbed, videoHref,
+  boldAuthor, featuredResearch, materialLinks, videoEmbed, videoHref,
   type ResearchItem,
 } from "./research.ts";
 
@@ -16,12 +16,6 @@ test("materialLinks returns links in fixed order and skips missing keys", () => 
 
 test("materialLinks returns [] when materials are absent", () => {
   assert.deepEqual(materialLinks(undefined), []);
-});
-
-test("sortResearch puts in-progress first, then newest year, keeping ties in input order", () => {
-  const input = [item("a", 2024), item("b", 2026), item("c", "In progress"), item("d", 2026)];
-  assert.deepEqual(sortResearch(input).map((i) => i.slug), ["c", "b", "d", "a"]);
-  assert.deepEqual(input.map((i) => i.slug), ["a", "b", "c", "d"], "input is not mutated");
 });
 
 test("featuredResearch keeps config order and caps at the limit", () => {

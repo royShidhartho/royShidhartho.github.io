@@ -566,26 +566,7 @@
   display: inline-flex;
 }
 
-/* Full research list */
-.research-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.research-list li {
-  display: grid;
-  grid-template-columns: 90px minmax(0, 1fr);
-  gap: 14px;
-  padding-block: 12px;
-  border-top: 1px solid var(--border);
-}
-.research-list li:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-.entry-title {
-  font-weight: 600;
-}
+/* Citation lines (featured cards, publications) */
 .entry-cite {
   font-size: 13.5px;
   color: var(--text-muted);
@@ -1005,7 +986,6 @@
   .row,
   .posts li,
   .skills,
-  .research-list li,
   .pub-year {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;

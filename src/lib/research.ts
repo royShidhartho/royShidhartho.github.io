@@ -46,17 +46,6 @@ export function materialLinks(materials?: Partial<Record<MaterialKey, string>>):
   });
 }
 
-const yearRank = (year: ResearchItem["year"]) => (year === "In progress" ? Infinity : year);
-
-/** In-progress work first, then newest year first; equal years keep config order. */
-export function sortResearch(items: readonly ResearchItem[]): ResearchItem[] {
-  return [...items].sort((a, b) => {
-    const ra = yearRank(a.year);
-    const rb = yearRank(b.year);
-    return ra === rb ? 0 : rb - ra;
-  });
-}
-
 export function featuredResearch(items: readonly ResearchItem[], limit = 3): ResearchItem[] {
   return items.filter((i) => i.featured).slice(0, limit);
 }

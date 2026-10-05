@@ -54,29 +54,6 @@ const research: ResearchItem[] = [
       doi: "https://doi.org/10.1117/12.3079336",
     },
   },
-  {
-    slug: "xr-pain-paradigm",
-    title: "Extended Reality Pain Paradigm for Neurophysiology",
-    summary:
-      "An XR-based EEG protocol with immersive, haptically synchronized pain stimulation for studying chronic pain under realistic conditions.",
-    year: "In progress",
-  },
-  {
-    slug: "cognitive-load-scd",
-    title: "Cognitive Load Biomarkers in Sickle Cell Disease",
-    summary:
-      "Cognitive load-induced hemodynamic changes in adults with SCD, measured with FD-NIRS during the Digit Symbol Substitution Task.",
-    year: 2024,
-    citation: {
-      authors:
-        "S. Roy, N. Mossazghi, E. Bulger, J. Lin, C. Saber, B. Shinn-Cunningham, J. M. Kainerstorfer, J. Z. Xu, S. Wood",
-      venue: "SfNIRS",
-      year: 2024,
-    },
-    materials: {
-      pdf: "https://fnirs.org/wp-content/uploads/2024/fNIRS2024BiennialMeeting/blitz/Su-088-768-Roy-Shidhartho.pdf",
-    },
-  },
 ];
 
 // Full publication list, from Google Scholar plus the OHBM 2025 abstract. DOIs and
