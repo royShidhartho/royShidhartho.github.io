@@ -11,7 +11,7 @@ Shidhartho Roy builds virtual reality paradigms and wearable, self-administrable
 - [GitHub](https://github.com/royShidhartho): code and projects
 
 ## Site
-- [Home](https://shidhartho.com/): bio, research (featured projects with papers and materials), full publication list with DOI and open-access PDF links, talks, experience, education, skills
+- [Home](https://shidhartho.com/): bio, full publication list with DOI and open-access PDF links, talks, experience, education, skills
 - [CV (PDF)](https://shidhartho.com/files/shidhartho-roy-cv.pdf): full curriculum vitae
 
 ## Research areas

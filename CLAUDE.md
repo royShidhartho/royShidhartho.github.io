@@ -48,7 +48,7 @@ Content lives in two places (plus the archived blog):
 
 ## Architecture
 
-- **Home page** (`src/pages/index.astro`): `Header` (with `home` prop), then one `.home-card` containing `Sidebar` (portrait, CV, socials, affiliations, `Talks`) and a main column of `Bio`, `Research`, `Publications`, `Experience`, `Education`, `Skills`; then `Footer`. Single page, no section nav.
+- **Home page** (`src/pages/index.astro`): `Header` (with `home` prop), then one `.home-card` containing `Sidebar` (portrait, CV, socials, affiliations, `Talks`) and a main column of `Bio`, `Publications`, `Experience`, `Education`, `Skills`; then `Footer`. Single page, no section nav. `Research` (the featured cards) is currently hidden: it is commented out in `index.astro` until the projects are ready, and its data and component are kept.
 - **404 page** (`src/pages/404.astro`): same header, card, and footer with links home; `<Seo noindex />` emits `robots: noindex` instead of a canonical link. GitHub Pages serves it for any unknown path, including old `/blog/…` links.
 - **Conditional rendering**: Research, Publications, Experience, Education, and Skills each render nothing when their data is empty.
 - **Pure logic lives in `src/lib/`** (`inline.ts`, `research.ts`, `publications.ts`) and is unit-tested with `npm test` (`node --test`). Components render its output with `set:html` only for strings those helpers escaped.

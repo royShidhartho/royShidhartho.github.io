@@ -2,7 +2,6 @@
 import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import Bio from "../components/Bio.astro";
-import Research from "../components/Research.astro";
 import Publications from "../components/Publications.astro";
 import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
@@ -57,7 +56,7 @@ import "../styles/global.css";
         <Sidebar />
         <main class="home-main" id="top">
           <Bio />
-          <Research />
+          {/* Research (featured cards) is hidden until the projects are ready; restore with <Research /> */}
           <Publications />
           <Experience />
           <Education />
