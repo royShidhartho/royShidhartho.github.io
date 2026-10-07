@@ -77,7 +77,7 @@ export function personSchema(site: string | URL = FALLBACK_SITE) {
       "Near-infrared spectroscopy (NIRS)",
       "Frequency-domain near-infrared spectroscopy",
       "Pain biomarkers",
-      "Neuroimaging",
+      "Thermal pain testing",
       "Biomedical signal processing",
       "Machine learning",
       "Sickle cell disease",
@@ -112,7 +112,8 @@ export function profilePageSchema(site: string | URL = FALLBACK_SITE, modified: 
     name: `${siteConfig.name} — ${siteConfig.title}`,
     isPartOf: { "@id": websiteId(site) },
     mainEntity: { "@id": personId(site) },
-    dateModified: modified.toISOString().slice(0, 10),
+    // Google requires a full ISO 8601 datetime with a time zone, not a bare date.
+    dateModified: modified.toISOString().replace(/\.\d{3}Z$/, "Z"),
     inLanguage: "en",
   };
 }
